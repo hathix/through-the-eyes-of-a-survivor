@@ -6,5 +6,5 @@ Cleaned datasets:
 
 - `comparative-rates-over-time.csv`: Rates of various violent crimes, per 1000 people, 1993-2012 (NCVS 2012)
 - `percent-victims-over-time.csv`: Breakdown of types of violent crime incidents (percentages), 1993-2012 (NCVS 2012)
-- `report-to-police-percents.csv`: Percent of each type of crime reported to police, various years (NCVS 2012, 2013)
+- `report-to-police-percents.csv`: Percent of each type of crime reported to police, various years (NCVS 2011, 2012, 2013)
 - `violent-crime-over-time.csv`: Count of number of each type of crime, 2001-2013 (NCVS 2006-2013)
