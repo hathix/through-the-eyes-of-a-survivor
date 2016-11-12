@@ -1,4 +1,4 @@
-
+/*
 body {
   font-family: 'Lato', sans-serif;
   background-color: #D0C6B2;
@@ -16,11 +16,13 @@ h2 {
   margin-bottom: 30px;
   color: #906666;
 }
+*/
 
 /*************/
 /*    FORM   */
 /*************/
 
+/*
 .form-inline {
   margin-bottom: 30px;
 }
@@ -53,7 +55,7 @@ h2 {
 .form-inline button .glyphicon {
   margin-right: 5px;
 }
-
+*/
 
 /***************/
 /*  BAR CHART  */
