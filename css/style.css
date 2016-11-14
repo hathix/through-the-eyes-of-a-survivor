@@ -89,3 +89,9 @@ h2 {
 .x-axis path {
   display: none;
 }
+
+path { 
+  stroke: steelblue;
+  stroke-width: 3;
+  fill: none;
+}
