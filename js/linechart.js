@@ -1,13 +1,26 @@
-// SVG drawing area
-var margin = {
-  top: 40,
-  right: 10,
-  bottom: 60,
-  left: 60
+LineChart = function() {
+  // SVG drawing area
+  this.margin = {
+    top: 40,
+    right: 10,
+    bottom: 60,
+    left: 60
+  };
+
+  this.width = 960 - this.margin.left - this.margin.right;
+  this.height = 500 - this.margin.top - this.margin.bottom;
+
+  this.initVis();
+}
+
+LineChart.prototype.initVis = function() {
+
 };
 
-var width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
+
+
+
+
 
 var svg = d3.select("#police-reports")
   .append("svg")

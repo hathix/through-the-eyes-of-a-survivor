@@ -109,7 +109,30 @@
 
 
       <section class="section">
-        <h2>Sexual assault won't go away</h2>
+
+
+        <h1>Crime Rates Across the United States</h1>
+        <!-- <h2>A ranking of selected leading coffee house chains worldwide</h2> -->
+
+        <!-- Select box to choose the ranking type -->
+        <form class="form-inline">
+          <div class="form-group">
+            <!--<label for="rankingType">Group by</label> -->
+
+            <select class="form-control" id="ranking-type">
+  				  <option value="violent_crime">Violent Crime</option>
+  				  <option value="sexual assault">Rape/Sexual Assault</option>
+  				  <option value="robbery">Robbery</option>
+  				</select>
+
+            <!-- Activity IV -->
+            <!--<button type="button" class="btn btn-link" id="change-sorting"><i class="glyphicon glyphicon-sort"></i> Sort</button>-->
+          </div>
+        </form>
+
+        <div id="chart-area"></div>
+
+        <!-- <h2>Sexual assault won't go away</h2>
         <div class="row">
           <div class="col-sm-6">
             <div id="rate-viz-holder">
@@ -119,7 +142,7 @@
           <div class="col-sm-6">
             Other violent crimes have gotten less common over the years, but sexual assault rates have flatlined. We're not doing enough to stop it.
           </div>
-        </div>
+        </div> -->
       </section>
 
       <!-- <h1>Across Campus</h1> -->
@@ -155,6 +178,7 @@
   <!-- Your implementation -->
   <script src="js/main.js"></script>
   <script src="js/linechart.js"></script>
+  <!-- <script src="js/crimerate.js"></script> -->
 
 </body>
 

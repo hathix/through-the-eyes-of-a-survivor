@@ -76,7 +76,7 @@ h2 {
 /***************/
 
 .bar {
-  fill: #8E7060;
+  fill: orange;
 }
 
 .axis {
@@ -104,7 +104,7 @@ h2 {
   display: none;
 }
 
-path { 
+path {
   stroke: steelblue;
   stroke-width: 3;
   fill: none;
