@@ -1,151 +1,114 @@
-// initialize libraries
 
 // SVG drawing area
-var margin = {
-  top: 40,
-  right: 10,
-  bottom: 60,
-  left: 60
-};
+
+var margin = {top: 40, right: 10, bottom: 60, left: 60};
+
+console.log($(window).width())
 
 var width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
 
-noUiSlider.create($('#count-slider')
-  .get(0), {
-    start: [2001, 2001],
-    step: 1,
-    connect: true,
-    range: {
-      min: [2001],
-      max: [2013]
-    },
-    pips: { // Show a scale with the slider
-      mode: 'steps',
-      stepped: true,
-      density: 100
-    }
-  });
-
-$(function() {
-  $('#fullpage')
-    .fullpage({
-      //   scrollingSpeed: 500,
-      //   scrollBar: true,
-      navigation: true,
-      anchors: ['section-intro'],
-      menu: '#main-menu'
-    });
-});
-
-
-var svg = d3.select("#police-reports")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// Global variable for our data
-var policeData;
-var maxValue;
+var svg = d3.select("#chart-area").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+	.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Scales
-var x;
-var y;
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+var y = d3.scale.linear()
+    .range([height, 0]);
 
-// Initializing the axes
-var xAxis = d3.svg.axis();
-var yAxis = d3.svg.axis();
-
+// Initialize data
 loadData();
+
+// Coffee chain data
+var data;
 
 // Load CSV file
 function loadData() {
-  d3.csv("data/cleaned/new-report-to-police-percents.csv", function(error, csv) {
-
-    // Store csv data in global variable
-    policeData = csv;
-
-    // Converting the data's fields to ints and dates
-    for (var i = 0; i < policeData.length; i++) {
-      for (var property in policeData[i]) {
-        if (policeData[i].hasOwnProperty(property)) {
-
-          if (property == "Date")
-            policeData[i][property] = new Date(policeData[i][property]);
-          else
-            policeData[i][property] = parseFloat(policeData[i][property]);
-        }
-      }
-    }
-
-    console.log(policeData);
-
-    // Making the scales
-    x = d3.time.scale()
-      .domain([new Date('2002'), new Date('2014')])
-      .range([0, width]);
-
-    y = d3.scale.linear()
-      .domain([0, 85.6])
-      .range([height, 0]);
-
+	d3.csv("data/cleaned/violent-crime-over-time-new_CSV.csv", function(error, csv) {
+		csv.forEach(function(d){
+			d.revenue = +d.revenue;
+			d.stores = +d.stores;
+			d.Year = +d.Year;
+			//console.log(d.Year);
+			d.Violent_crime = +d.Violent_crime;
+			//console.log(d.Violent_crime);
+			d.Rape_sexual_assault = +d.Rape_sexual_assault
+			//console.log(d.Rape_sexual_assault)
+			d.Robbery = +d.Robbery;
+		});
+		// Store csv data in global variable
+		data = csv;
     // Draw the visualization for the first time
-    updateVisualization();
-  });
+		updateVisualization();
+	});
 }
 
 // Render visualization
 function updateVisualization() {
-  var axes = svg.selectAll("g")
-    .data(policeData);
-  axes.enter()
-    .append("g");
+	var choice = d3.select("#ranking-type").property("value");
+	var base = svg.data(data);
+	x.domain(data.map(function(d) {return d.Year;}));
 
-  xAxis.scale(x)
-    .orient("bottom");
-  yAxis.scale(y)
-    .orient("left");
+	if (choice == "violent_crime") {
+		data.sort(function(a, b) { return b.Violent_crime- a.Violent_crime; });
+		y.domain([0,Math.max.apply(Math,data.map(function(d) {return d.Violent_crime;}))]);
+		var xaxis = d3.svg.axis().scale(x);
+		var yaxis = d3.svg.axis().scale(y);
+		xaxis.orient("bottom");
+		yaxis.orient("left");
+		d3.select("svg").selectAll("rect").data(data).enter().append("rect")
+			.attr("class", "bar")
+			.attr("x", function(d) { return x(d.Year)+margin.left; })
+			.attr("y", function(d) { return y(d.Violent_crime)+margin.top; })
+			.attr("width", x.rangeBand())
+			.attr("height", function(d) { return height - y(d.Violent_crime); });
+		console.log("hi");
+	} else if (choice == "sexual assault") {
+		data.sort(function(a, b) { return b.Rape_sexual_assault - a.Rape_sexual_assault; });
+		y.domain([0,Math.max.apply(Math,data.map(function(d) {return d.Rape_sexual_assault;}))]);
+		var xaxis = d3.svg.axis().scale(x);
+		var yaxis = d3.svg.axis().scale(y);
+		xaxis.orient("bottom");
+		yaxis.orient("left");
+		d3.select("svg").selectAll("rect").data(data).enter().append("rect")
+			.attr("class", "bar")
+			.attr("x", function(d) { return x(d.Year)+margin.left; })
+			.attr("y", function(d) { return y(d.Rape_sexual_assault)+margin.top; })
+			.attr("width", x.rangeBand())
+			.attr("height", function(d) { return height - y(d.Rape_sexual_assault); });
+		console.log("hello");
+	} else if (choice == "robbery") {
+		data.sort(function(a, b) { return b.Robbery - a.Robbery; });
+		y.domain([0,Math.max.apply(Math,data.map(function(d) {return d.Robbery;}))]);
+		var xaxis = d3.svg.axis().scale(x);
+		var yaxis = d3.svg.axis().scale(y);
+		xaxis.orient("bottom");
+		yaxis.orient("left");
+		d3.select("svg").selectAll("rect").data(data).enter().append("rect")
+			.attr("class", "bar")
+			.attr("x", function(d) { return x(d.Year)+margin.left; })
+			.attr("y", function(d) { return y(d.Robbery)+margin.top; })
+			.attr("width", x.rangeBand())
+			.attr("height", function(d) { return height - y(d.Robbery); });
+		console.log("hey");
+	}
 
-  // Updating the axes
-  svg.append("g")
-    .attr("class", "axis x-axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-  svg.append("g")
-    .attr("class", "axis y-axis")
-    .call(yAxis);
-
-  for (var property in policeData[0]) {
-    if (property == "Date") {
-      continue;
-    }
-
-    line = d3.svg.line()
-      .x(function(d) {
-        return x(d.Date);
-      })
-      .y(function(d) {
-        return y(d[property]);
-      });
-
-    svg.append("path") // Add the valueline path.
-      .attr("class", property)
-      .attr("d", line(policeData))
-      .on("mouseover", function(d) {
-        d3.select(this)
-          .style("stroke", "red");
-        var text = d3.select(this)
-          .attr("class");
-        console.log(text);
-        $("#text")
-          .html(text);
-      })
-      .on("mouseout", function(d) {
-        d3.select(this)
-          .style("stroke", "steelblue");
-      });
-  }
+	svg.append("g")
+		.attr("class","yaxis")
+		.call(yaxis)
+		.append("text")
+		.attr("dy", ".71em")
+		.style("text-anchor", "end");
+	svg.append("g")
+		.attr("class","xaxis")
+		.call(xaxis)
+		.attr("transform", "translate(0,"+(height)+")")
+		.selectAll("text")
+		.style("text-anchor", "center")
+		.attr("transform", "translate(0,20)");
+	d3.select("svg").selectAll("rect").data(data).exit().remove();
 }

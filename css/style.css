@@ -1,25 +1,11 @@
-/*#header-jumbotron {
-        background-image: url("../images/sexual-assault-awareness.jpg");
-        background-size: cover;
-        background-position: 0 0;
-}*/
 
-#fullpage {
-    padding-top: 80px;
-}
-
-.navbar {
-    z-index: 10000;
-}
-
-/*
 body {
   font-family: 'Lato', sans-serif;
-  background-color: #D0C6B2;
+  background-color: #3F2860;
 }
 
 h1 {
-  color: #865F3C;
+  color: White;
   margin-top: 40px;
   font-weight: 300;
 }
@@ -30,19 +16,17 @@ h2 {
   margin-bottom: 30px;
   color: #906666;
 }
-*/
 
 /*************/
 /*    FORM   */
 /*************/
 
-/*
 .form-inline {
   margin-bottom: 30px;
 }
 
 .form-control {
-  background: #E2DDD1;
+  background: White;
   border: 1px solid #D49999;
   width: 250px;
 }
@@ -69,14 +53,14 @@ h2 {
 .form-inline button .glyphicon {
   margin-right: 5px;
 }
-*/
+
 
 /***************/
 /*  BAR CHART  */
 /***************/
 
 .bar {
-  fill: #8E7060;
+  fill: orange;
 }
 
 .axis {
@@ -104,8 +88,3 @@ h2 {
   display: none;
 }
 
-path { 
-  stroke: steelblue;
-  stroke-width: 3;
-  fill: none;
-}
