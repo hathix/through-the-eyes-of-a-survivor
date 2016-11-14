@@ -115,12 +115,17 @@ CrimeRate.prototype.updateVis = function() {
   });
 
   // enter
-  vis.svg
-    .selectAll("rect")
-    .data(vis.data)
+  var bars = vis.svg.selectAll("rect")
+    .data(vis.data);
+
+  // enter
+  bars
     .enter()
     .append("rect")
-    .attr("class", "bar")
+    .attr("class", "bar");
+
+  // update
+  bars
     .attr("x", function(d) {
       return vis.x(d.Year);
     })
@@ -133,10 +138,7 @@ CrimeRate.prototype.updateVis = function() {
     });
 
   // exit
-  vis.svg
-    .selectAll("rect")
-    .data(vis.data)
-    .exit()
+  bars.exit()
     .remove();
 
 };
