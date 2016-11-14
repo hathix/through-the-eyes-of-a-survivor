@@ -1,156 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Visualizing Sexual Assault</title>
+    <form>
+      <select id="years" onClick="change()">
+        <option>1992</option>
+        <option>1993</option>
+      </select>
+    </form>
 
-  <link rel="stylesheet" href="css/bootstrap.lumen.min.css">
-  <link rel="stylesheet" href="css/slider/nouislider.min.css">
-  <link rel="stylesheet" href="css/slider/nouislider.pips.css">
-  <link rel="stylesheet" href="css/slider/nouislider.tooltips.css">
-  <link rel="stylesheet" href="css/jquery.fullPage.css" />
+    <div id="dotVis"></div>
+    <div id="textArea"></div>
 
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700' rel='stylesheet' type='text/css'> -->
-</head>
-
-<body>
-
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        <a class="navbar-brand" href="#">Sexual Assault</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav" id="main-menu">
-              <li data-menuanchor="section-intro">
-                  <a href="#section-intro">Intro</a>
-              </li>
-          </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
-
-  <div class="container">
-    <div id="fullpage">
-
-      <section class="section" id="section-intro">
-        <div class="jumbotron" id="header-jumbotron">
-          <h1>Visualizing Sexual Assault</h1>
-          <h2>Neel Mehta, Enrique Casas, Peter Youn, Javier Cuan-Martinez</h2>
-        </div>
-
-        <blockquote class="lead">
-          Sexual assault is a general term for any type of <strong>sexual activity that occurs without consent</strong>. This could include behavior like unwanted touching or kissing, sexual contact with someone who is under the influence of drugs or
-          alcohol and unable to give an informed "yes" or "no", or rape or attempted rape.
-          <footer><a href="http://pact5.org/what-is-sexual-assault/">PACT5</a></footer>
-        </blockquote>
-      </section>
-
-      <!-- <h1>Around the Country</h1> -->
-
-
-      <section class="section">
-        <h2>3,379,870 people have been sexually assaulted since 2001</h2>
-
-        <div class="row">
-          <div class="col-sm-6">
-            <div id="count-viz-holder">
-              HOLDER
-            </div>
-
-            <div id="count-slider"></div>
-            <br><br><br><br>
-
-            <button class="btn btn-primary">
-              Play
-          </button>
-
-          </div>
-          <div class="col-sm-6">
-            Sexual assault won't go away. Every year, more and more people become victims of this horrendous crime.
-          </div>
-        </div>
-      </section>
-
-
-      <section class="section">
-        <h2>Yet sexual assault is one of the least-reported crimes</h2>
-        <div class="row">
-          <div class="col-sm-6">
-            Sexual assault is one of the least-reported crimes in the country. Even assault and battery, burglary, and serious domestic violence are reported to police more.
-          </div>
-          <div class="col-sm-6">
-            <div id="report-viz-holder">
-              HOLDER
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <section class="section">
-        <h2>Sexual assault won't go away</h2>
-        <div class="row">
-          <div class="col-sm-6">
-            <div id="rate-viz-holder">
-              HOLDER
-            </div>
-          </div>
-          <div class="col-sm-6">
-            Other violent crimes have gotten less common over the years, but sexual assault rates have flatlined. We're not doing enough to stop it.
-          </div>
-        </div>
-      </section>
-
-      <!-- <h1>Across Campus</h1> -->
-
-      <section class="section">
-        <h2>1 in 5 women will be sexually assaulted in college</h2>
-      </section>
-
-      <!-- <hr> -->
-
-      <section class="section">
-        <h2>Prevention</h2>
-      </section>
-
-      <section class="section">
-        <h2>Resources</h2>
-
-        <ul>
-          <li>RAINN hotline: XXX-XXX-XXXX</li>
-        </ul>
-      </section>
-
-    </div>
-  </div>
-
-  <!-- Load JS libraries: jQuery, bootstrap, D3 -->
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/d3.min.js"></script>
-  <script src="js/nouislider.min.js"></script>
-  <script src="js/jquery.fullPage.min.js"></script>
-
-  <!-- Your implementation -->
-  <script src="js/main.js"></script>
-
-</body>
-
+    <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+    <script type="text/javascript" src="js/circle.js"></script>
+  </body>
 </html>
