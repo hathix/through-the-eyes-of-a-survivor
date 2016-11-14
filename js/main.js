@@ -25,5 +25,5 @@ $(function() {
       menu: '#main-menu'
     });
 });
-
-new CrimeRate();
+var lineChart = new LineChart("police-reports");
+var crimeRate = new CrimeRate();
