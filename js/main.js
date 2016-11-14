@@ -25,3 +25,5 @@ $(function() {
       menu: '#main-menu'
     });
 });
+
+new CrimeRate();

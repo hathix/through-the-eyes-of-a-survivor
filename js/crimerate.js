@@ -1,39 +1,53 @@
-// SVG drawing area
+CrimeRate = function() {
+  var margin = {
+    top: 40,
+    right: 10,
+    bottom: 60,
+    left: 80
+  };
+  this.margin = margin;
 
-var margin = {
-  top: 40,
-  right: 10,
-  bottom: 60,
-  left: 60
+  this.width = 960 - margin.left - margin.right;
+  this.height = 400 - margin.top - margin.bottom;
+
+  // listen to changes
+  var vis = this;
+  $('#ranking-type')
+    .on("change", function() {
+      vis.updateVis();
+    });
+
+  this.initVis();
 };
 
-console.log($(window)
-  .width())
+CrimeRate.prototype.initVis = function() {
+  var vis = this;
+  vis.svg = d3.select("#chart-area")
+    .append("svg")
+    .attr("width", vis.width + vis.margin.left + vis.margin.right)
+    .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +
+      ")");
 
-var width = 960 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
+  // Scales
+  vis.x = d3.scale.ordinal()
+    .rangeRoundBands([0, vis.width], .1);
+  vis.y = d3.scale.linear()
+    .range([vis.height, 0]);
 
-var svg = d3.select("#chart-area")
-  .append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  // axes
+  vis.xaxis = d3.svg.axis()
+    .scale(vis.x);
+  vis.yaxis = d3.svg.axis()
+    .scale(vis.y);
 
-// Scales
-var x = d3.scale.ordinal()
-  .rangeRoundBands([0, width], .1);
-var y = d3.scale.linear()
-  .range([height, 0]);
+  vis.wrangleData();
+};
 
-// Initialize data
-loadData();
+CrimeRate.prototype.wrangleData = function() {
+  var vis = this;
 
-// Coffee chain data
-var data;
-
-// Load CSV file
-function loadData() {
   d3.csv("data/cleaned/violent-crime-over-time-new_CSV.csv", function(error,
     csv) {
     csv.forEach(function(d) {
@@ -48,129 +62,81 @@ function loadData() {
       d.Robbery = +d.Robbery;
     });
     // Store csv data in global variable
-    data = csv;
+    vis.data = csv;
     // Draw the visualization for the first time
-    updateVisualization();
+    vis.updateVis();
   });
-}
+};
 
-// Render visualization
-function updateVisualization() {
+CrimeRate.prototype.updateVis = function() {
+  var vis = this;
+
+  // get data
   var choice = d3.select("#ranking-type")
     .property("value");
-  var base = svg.data(data);
-  x.domain(data.map(function(d) {
+  var base = vis.svg.data(vis.data);
+
+  // update domains and axes
+  vis.x.domain(vis.data.map(function(d) {
     return d.Year;
   }));
 
-  if (choice == "violent_crime") {
-    data.sort(function(a, b) {
-      return b.Violent_crime - a.Violent_crime;
-    });
-    y.domain([0, Math.max.apply(Math, data.map(function(d) {
-      return d.Violent_crime;
-    }))]);
-    var xaxis = d3.svg.axis()
-      .scale(x);
-    var yaxis = d3.svg.axis()
-      .scale(y);
-    xaxis.orient("bottom");
-    yaxis.orient("left");
-    d3.select("svg")
-      .selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) {
-        return x(d.Year) + margin.left;
-      })
-      .attr("y", function(d) {
-        return y(d.Violent_crime) + margin.top;
-      })
-      .attr("width", x.rangeBand())
-      .attr("height", function(d) {
-        return height - y(d.Violent_crime);
-      });
-    console.log("hi");
-  } else if (choice == "sexual assault") {
-    data.sort(function(a, b) {
-      return b.Rape_sexual_assault - a.Rape_sexual_assault;
-    });
-    y.domain([0, Math.max.apply(Math, data.map(function(d) {
-      return d.Rape_sexual_assault;
-    }))]);
-    var xaxis = d3.svg.axis()
-      .scale(x);
-    var yaxis = d3.svg.axis()
-      .scale(y);
-    xaxis.orient("bottom");
-    yaxis.orient("left");
-    d3.select("svg")
-      .selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) {
-        return x(d.Year) + margin.left;
-      })
-      .attr("y", function(d) {
-        return y(d.Rape_sexual_assault) + margin.top;
-      })
-      .attr("width", x.rangeBand())
-      .attr("height", function(d) {
-        return height - y(d.Rape_sexual_assault);
-      });
-    console.log("hello");
-  } else if (choice == "robbery") {
-    data.sort(function(a, b) {
-      return b.Robbery - a.Robbery;
-    });
-    y.domain([0, Math.max.apply(Math, data.map(function(d) {
-      return d.Robbery;
-    }))]);
-    var xaxis = d3.svg.axis()
-      .scale(x);
-    var yaxis = d3.svg.axis()
-      .scale(y);
-    xaxis.orient("bottom");
-    yaxis.orient("left");
-    d3.select("svg")
-      .selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) {
-        return x(d.Year) + margin.left;
-      })
-      .attr("y", function(d) {
-        return y(d.Robbery) + margin.top;
-      })
-      .attr("width", x.rangeBand())
-      .attr("height", function(d) {
-        return height - y(d.Robbery);
-      });
-    console.log("hey");
-  }
+  vis.y.domain([
+    0,
+    d3.max(vis.data.map(function(d) {
+      return d[choice];
+    }))
+  ]);
 
-  svg.append("g")
-    .attr("class", "yaxis")
-    .call(yaxis)
-    .append("text")
-    .attr("dy", ".71em")
-    .style("text-anchor", "end");
-  svg.append("g")
+  vis.xaxis.orient("bottom");
+  vis.yaxis.orient("left");
+
+  // update x axis
+  vis.svg.append("g")
     .attr("class", "xaxis")
-    .call(xaxis)
-    .attr("transform", "translate(0," + (height) + ")")
+    .call(vis.xaxis)
+    .attr("transform", "translate(0," + (vis.height) + ")")
     .selectAll("text")
     .style("text-anchor", "center")
     .attr("transform", "translate(0,20)");
-  d3.select("svg")
+
+  // update y axis
+  vis.svg.append("g")
+    .attr("class", "yaxis")
+    .call(vis.yaxis)
+    .append("text")
+    .attr("dy", ".71em")
+    .style("text-anchor", "end");
+
+  // draw bars
+  var displayData = vis.data;
+  displayData.sort(function(a, b) {
+    return b[choice] - a[choice];
+  });
+
+  // enter
+  vis.svg
     .selectAll("rect")
-    .data(data)
+    .data(vis.data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", function(d) {
+      return vis.x(d.Year);
+    })
+    .attr("y", function(d) {
+      return vis.y(d[choice]);
+    })
+    .attr("width", vis.x.rangeBand())
+    .attr("height", function(d) {
+      return vis.height - vis.y(d[choice]);
+    });
+
+  // exit
+  vis.svg
+    .selectAll("rect")
+    .data(vis.data)
     .exit()
     .remove();
-}
+
+};
