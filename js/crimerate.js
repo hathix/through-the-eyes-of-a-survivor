@@ -38,9 +38,28 @@ CrimeRate.prototype.initVis = function() {
 
   // axes
   vis.xaxis = d3.svg.axis()
-    .scale(vis.x);
+    .scale(vis.x)
+    .orient("bottom");
   vis.yaxis = d3.svg.axis()
-    .scale(vis.y);
+    .scale(vis.y)
+    .orient("left");
+
+  // draw x axis
+  vis.svg.append("g")
+    .attr("class", "xaxis")
+    .call(vis.xaxis)
+    .attr("transform", "translate(0," + (vis.height) + ")")
+    .selectAll("text")
+    .style("text-anchor", "center")
+    .attr("transform", "translate(0,20)");
+
+  // draw y axis
+  vis.svg.append("g")
+    .attr("class", "yaxis")
+    .call(vis.yaxis)
+    .append("text")
+    .attr("dy", ".71em")
+    .style("text-anchor", "end");
 
   vis.wrangleData();
 };
@@ -76,7 +95,7 @@ CrimeRate.prototype.updateVis = function() {
     .property("value");
   var base = vis.svg.data(vis.data);
 
-  // update domains and axes
+  // update domains
   vis.x.domain(vis.data.map(function(d) {
     return d.Year;
   }));
@@ -88,25 +107,13 @@ CrimeRate.prototype.updateVis = function() {
     }))
   ]);
 
-  vis.xaxis.orient("bottom");
-  vis.yaxis.orient("left");
+  // axes
+  vis.svg.select(".xaxis")
+    .call(vis.xaxis);
+  vis.svg.select(".yaxis")
+    .call(vis.yaxis);
 
-  // update x axis
-  vis.svg.append("g")
-    .attr("class", "xaxis")
-    .call(vis.xaxis)
-    .attr("transform", "translate(0," + (vis.height) + ")")
-    .selectAll("text")
-    .style("text-anchor", "center")
-    .attr("transform", "translate(0,20)");
 
-  // update y axis
-  vis.svg.append("g")
-    .attr("class", "yaxis")
-    .call(vis.yaxis)
-    .append("text")
-    .attr("dy", ".71em")
-    .style("text-anchor", "end");
 
   // draw bars
   var displayData = vis.data;
