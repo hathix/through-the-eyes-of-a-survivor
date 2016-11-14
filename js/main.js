@@ -1,6 +1,6 @@
 noUiSlider.create($('#count-slider')
   .get(0), {
-    start: [2001],
+    start: [2001, 2001],
     step: 1,
     connect: true,
     range: {
