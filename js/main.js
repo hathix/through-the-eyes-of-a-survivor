@@ -25,3 +25,4 @@ $(function() {
       menu: '#main-menu'
     });
 });
+var lineChart = new LineChart("police-reports");
