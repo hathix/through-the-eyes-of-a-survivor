@@ -1,3 +1,5 @@
+// initialize libraries
+
 noUiSlider.create($('#count-slider')
   .get(0), {
     start: [2001, 2001],
@@ -14,6 +16,9 @@ noUiSlider.create($('#count-slider')
     }
   });
 
+  $(function() {
+      $('#fullpage').fullpage();
+  });
 
 
 //
