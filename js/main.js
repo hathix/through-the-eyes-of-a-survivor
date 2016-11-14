@@ -26,3 +26,4 @@ $(function() {
     });
 });
 var lineChart = new LineChart("police-reports");
+var crimeRate = new CrimeRate();
