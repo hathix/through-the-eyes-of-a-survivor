@@ -33,7 +33,7 @@ $(function() {
       //   scrollingSpeed: 500,
       //   scrollBar: true,
       navigation: true,
-      anchors: ['section-intro'],
+      anchors: ['anchor-section-intro'],
       menu: '#main-menu'
     });
 });
