@@ -16,9 +16,14 @@ noUiSlider.create($('#count-slider')
     }
   });
 
-  $(function() {
-      $('#fullpage').fullpage();
-  });
+$(function() {
+  $('#fullpage')
+    .fullpage({
+    //   scrollingSpeed: 500,
+    //   scrollBar: true,
+      navigation: true
+    });
+});
 
 
 //
