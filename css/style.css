@@ -4,6 +4,13 @@
         background-position: 0 0;
 }*/
 
+#fullpage {
+    padding-top: 80px;
+}
+
+.navbar {
+    z-index: 10000;
+}
 
 /*
 body {
