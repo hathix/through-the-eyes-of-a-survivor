@@ -1,3 +1,14 @@
+// SVG drawing area
+var margin = {
+  top: 40,
+  right: 10,
+  bottom: 60,
+  left: 60
+};
+
+var width = 960 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
+
 var svg = d3.select("#police-reports")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
@@ -5,7 +16,7 @@ var svg = d3.select("#police-reports")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  // Global variable for our data
+// Global variable for our data
 var policeData;
 var maxValue;
 
