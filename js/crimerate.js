@@ -116,10 +116,10 @@ CrimeRate.prototype.updateVis = function() {
 
 
   // draw bars
-  var displayData = vis.data;
-  displayData.sort(function(a, b) {
-    return b[choice] - a[choice];
-  });
+  // var displayData = vis.data;
+  // displayData.sort(function(a, b) {
+  //   return b[choice] - a[choice];
+  // });
 
   // enter
   var bars = vis.svg.selectAll("rect")
