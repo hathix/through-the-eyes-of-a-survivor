@@ -106,19 +106,19 @@ LineChart.prototype.updateVisualization = function(){
       });
 
     vis.svg.append("path") // Add the valueline path.
-      .attr("class", property)
+      .attr("class", "line " + property)
       .attr("d", line(vis.policeData))
       .on("mouseover", function(d) {
-        d3.select(this)
-          .style("stroke", "red");
+        // d3.select(this)
+        //   .style("stroke", "red");
         var text = d3.select(this)
           .attr("class");
         $("#text")
           .html(text);
       })
       .on("mouseout", function(d) {
-        d3.select(this)
-          .style("stroke", "steelblue");
+        // d3.select(this)
+        //   .style("stroke", "steelblue");
       });
   }
 

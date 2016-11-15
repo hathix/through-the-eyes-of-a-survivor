@@ -12,6 +12,8 @@
     z-index: 10000;
 }
 
+
+
 /*
 body {
   font-family: 'Lato', sans-serif;
@@ -104,8 +106,16 @@ h2 {
   display: none;
 }
 
-path {
-  stroke: steelblue;
+path.line {
+  stroke: gray;
   stroke-width: 3;
   fill: none;
+}
+
+path.line.Sexual_assault {
+    stroke: red;
+}
+
+path.line:hover {
+    stroke: blue;
 }
