@@ -6,7 +6,7 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   this.height = 500 - this.margin.top - this.margin.bottom;
   this.affected = _affected;
   this.sampleSize = _sampleSize;
-
+ 
   this.initVis();
 }
 
@@ -32,32 +32,121 @@ Survivors.prototype.loadData = function() {
 	// This will be an array of booleans
 	vis.people = [];
 
-	var curr;
-
+	var row = [];
 	// Loading people array
 	for (var i = 0; i < vis.sampleSize; i++){
 		if (i >= vis.affected)
-			vis.people.push(false);
+			row.push(false);
 		else
-			vis.people.push(true);
-	}
+			row.push(true);
 
+		if (row.length == 10){
+			vis.people.push(row);
+			row = [];
+		}
+	}
+	
 	vis.updateVisualization();
 }
 
 Survivors.prototype.updateVisualization = function(){
 	var vis = this;
 
-	vis.circles = vis.svg.selectAll("circle")
-		.data(vis.people)
-		.enter()
-		.append("circle")
-		.attr("r", 10)
-		.attr("cx", function(d, i){
-			return (i * 10);
-		})
-		.attr("cy", function(d, i){
-			return (i * 10);
-		});
+	for(var row = 0; row < vis.people.length; row++){
+		var circles = vis.svg.selectAll("circle" + row)
+			.data(vis.people[row])
+			
+		circles.enter().append("circle")
+			.attr("class", "circ");
+
+		circles
+			.attr("r", 10)
+			.attr("cx", function(d, index){
+				return (index * 30);
+			})
+			.attr("cy", function(d, index){
+				return (row * 30);
+			})
+			.attr("fill", "white")
+			.attr("stroke", "black");
+
+		circles.exit().remove();
+	}
 }
+
+Survivors.prototype.activateColors = function(){
+	var vis = this;
+
+	// Makes the vis.people array into just an array of bools instead of an array of arrays
+	var newArr = [];
+	for(var i = 0; i < vis.people.length;i++){
+		newArr = newArr.concat(vis.people[i]);
+	}
+
+	// Randomizing the array
+	vis.people = shuffle(newArr);
+
+	// Making vis.people into an array of arrays again
+	var finalarr = [];
+	var temparr = [];
+	for (var i = 0; i < vis.people.length; i++){
+		temparr.push(vis.people[i]);
+
+		if (temparr.length == 10){
+			finalarr.push(temparr);
+			temparr = [];
+		}
+	}
+
+	// Updating vis.people
+	vis.people = finalarr.slice();
+
+	for(var row = 0; row < vis.people.length; row++){
+		var newCircles = vis.svg.selectAll("circ")
+			.data(vis.people[row]);
+
+		newCircles.enter().append("circle")
+			.attr("class", "circ");
+
+		newCircles
+			.transition()
+			.duration(2000)
+			.attr("r", 10)
+			.attr("cx", function(d, index){
+				return (index * 30);
+			})
+			.attr("cy", function(d, index){
+				return (row * 30);
+			})
+			.attr("stroke", "black")
+			.attr("fill", function(d, index){
+				if (d)
+					return "red";
+				else
+					return "white";
+			})
+	}
+	
+}
+
+function shuffle(array) {
+	
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 
