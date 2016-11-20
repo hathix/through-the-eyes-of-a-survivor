@@ -60,4 +60,3 @@ Survivors.prototype.updateVisualization = function(){
 			return (i * 10);
 		});
 }
-
