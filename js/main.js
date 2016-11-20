@@ -9,6 +9,8 @@ d3.json("data/stories.json", function(error, data) {
       setter: function(elem, val) {
         // replace "\n" with line breaks
         val = val.replace(/\n/, "<br><br>");
+        // have a cursor at the end of the string
+        val = val.replace(/\|/, "") + "|";
         elem.innerHTML = val;
       }
     });
@@ -71,8 +73,11 @@ var survivors = new Survivors("affected", 20, 100);
 
 // each element of this array is a story
 var typewrite = function(story) {
-  story.lines.forEach(function(line) {
-    story.typewriter.type(line + "\n")
+  var numLines = story.lines.length;
+  story.lines.forEach(function(line, index) {
+    // append a "\n" at the end of all lines but the last
+    var toType = line + (index < numLines - 1 ? "\n" : "");
+    story.typewriter.type(toType)
       .pause(1500);
   });
 }
