@@ -119,3 +119,13 @@ path.line.Sexual_assault {
 path.line:hover {
     stroke: blue;
 }
+
+path.line.Rape {
+    stroke: red;
+}
+
+#text {
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+}

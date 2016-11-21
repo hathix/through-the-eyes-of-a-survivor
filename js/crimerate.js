@@ -1,151 +1,144 @@
-CrimeRate = function() {
-  var margin = {
-    top: 40,
-    right: 10,
-    bottom: 60,
-    left: 80
-  };
-  this.margin = margin;
-
-  this.width = 960 - margin.left - margin.right;
-  this.height = 400 - margin.top - margin.bottom;
-
-  // listen to changes
-  var vis = this;
-  $('#ranking-type')
-    .on("change", function() {
-      vis.updateVis();
-    });
+CrimeRate = function(_parentElement) {
+  // SVG drawing area
+  this.parentElement = _parentElement;
+  this.margin = {top: 40, right: 10, bottom: 60, left: 60};
+  this.width = 960 - this.margin.left - this.margin.right;
+  this.height = 500 - this.margin.top - this.margin.bottom;
+  this.policeData;
 
   this.initVis();
-};
+}
 
 CrimeRate.prototype.initVis = function() {
   var vis = this;
-  vis.svg = d3.select("#chart-area")
-    .append("svg")
-    .attr("width", vis.width + vis.margin.left + vis.margin.right)
-    .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top +
-      ")");
+
+  vis.width = $("#" + vis.parentElement).width() - vis.margin.left - vis.margin.right,
+      vis.height = 500 - vis.margin.top - vis.margin.bottom;
+
+  vis.svg = d3.select("#" + vis.parentElement)
+      .append("svg")
+      .attr("width", vis.width + vis.margin.left + vis.margin.right)
+      .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
   // Scales
-  vis.x = d3.scale.ordinal()
-    .rangeRoundBands([0, vis.width], .1);
-  vis.y = d3.scale.linear()
-    .range([vis.height, 0]);
+  vis.x;
+  vis.y;
 
-  // axes
-  vis.xaxis = d3.svg.axis()
-    .scale(vis.x)
-    .orient("bottom");
-  vis.yaxis = d3.svg.axis()
-    .scale(vis.y)
-    .orient("left");
+  vis.xAxis = d3.svg.axis();
+  vis.yAxis = d3.svg.axis();
 
-  // draw x axis
-  vis.svg.append("g")
-    .attr("class", "xaxis")
-    .call(vis.xaxis)
-    .attr("transform", "translate(0," + (vis.height) + ")")
-    .selectAll("text")
-    .style("text-anchor", "center")
-    .attr("transform", "translate(0,20)");
-
-  // draw y axis
-  vis.svg.append("g")
-    .attr("class", "yaxis")
-    .call(vis.yaxis)
-    .append("text")
-    .attr("dy", ".71em")
-    .style("text-anchor", "end");
-
-  vis.wrangleData();
+  this.loadData();
 };
 
-CrimeRate.prototype.wrangleData = function() {
+CrimeRate.prototype.loadData = function() {
   var vis = this;
 
-  d3.csv("data/cleaned/violent-crime-over-time-new_CSV.csv", function(error,
-    csv) {
-    csv.forEach(function(d) {
-      d.revenue = +d.revenue;
-      d.stores = +d.stores;
-      d.Year = +d.Year;
-      //console.log(d.Year);
-      d.Violent_crime = +d.Violent_crime;
-      //console.log(d.Violent_crime);
-      d.Rape_sexual_assault = +d.Rape_sexual_assault
-        //console.log(d.Rape_sexual_assault)
-      d.Robbery = +d.Robbery;
-    });
+  d3.csv("data/cleaned/violent-crime-test.csv", function(error, csv) {
+
     // Store csv data in global variable
-    vis.data = csv;
-    // Draw the visualization for the first time
-    vis.updateVis();
-  });
-};
+    vis.policeData = csv;
 
-CrimeRate.prototype.updateVis = function() {
+    // Converting the data's fields to ints and dates
+    for (var i = 0; i < vis.policeData.length; i++) {
+      for (var property in vis.policeData[i]) {
+        if (vis.policeData[i].hasOwnProperty(property)) {
+
+          if (property == "Year")
+            vis.policeData[i][property] = new Date(vis.policeData[i][property]);
+          else
+            vis.policeData[i][property] = parseFloat(vis.policeData[i][property]);
+        }
+      }
+    }
+
+    // Making the scales
+    //console.log(new Date('2002'));
+    vis.x = d3.time.scale()
+        .domain([new Date('2001'), new Date('2013')])
+        .range([0, vis.width]);
+
+    vis.y = d3.scale.linear()
+        .domain([0, 7679050])
+        .range([vis.height, 0]);
+
+    vis.updateVisualization();
+
+  })
+
+}
+
+CrimeRate.prototype.updateVisualization = function(){
   var vis = this;
 
-  // get data
-  var choice = d3.select("#ranking-type")
-    .property("value");
-  var base = vis.svg.data(vis.data);
+  vis.axes = vis.svg.selectAll("g")
+      .data(vis.policeData);
 
-  // update domains
-  vis.x.domain(vis.data.map(function(d) {
-    return d.Year;
-  }));
+  vis.axes.enter()
+      .append("g");
 
-  vis.y.domain([
-    0,
-    d3.max(vis.data.map(function(d) {
-      return d[choice];
-    }))
-  ]);
+  vis.xAxis.scale(vis.x)
+      .orient("bottom");
+  vis.yAxis.scale(vis.y)
+      .orient("left");
 
-  // axes
-  vis.svg.select(".xaxis")
-    .call(vis.xaxis);
-  vis.svg.select(".yaxis")
-    .call(vis.yaxis);
+  // Updating the axes
+  vis.svg.append("g")
+      .attr("class", "axis x-axis")
+      .attr("transform", "translate(0," + vis.height + ")")
+      .call(vis.xAxis);
 
+  vis.svg.append("g")
+      .attr("class", "axis y-axis")
+      .call(vis.yAxis);
 
+  //console.log(vis.policeData[6]);
+  for (var property in vis.policeData[0]) {
+    //console.log(property);
+    //console.log(vis.policeData[0][property]);
+    if (property == "Year") {
+      continue;
+    }
 
-  // draw bars
-  // var displayData = vis.data;
-  // displayData.sort(function(a, b) {
-  //   return b[choice] - a[choice];
-  // });
+    var line = d3.svg.line()
+        .x(function(d) {
+          //console.log(d.Year);
+          //console.log(vis.x(d.Year));
+          return vis.x(d.Year);
+        })
+        .y(function(d) {
+          //console.log(d[property]);
+          //console.log(vis.y(d[property]));
+          return vis.y(d[property]);
+        });
 
-  // enter
-  var bars = vis.svg.selectAll("rect")
-    .data(vis.data);
+    function ShortString(string) {
+      if (string.length > 4) {
+        return (string.substring(5, string.length) + " Rates");
+      }
+      else {
+        return string;
+      }
+    }
 
-  // enter
-  bars
-    .enter()
-    .append("rect")
-    .attr("class", "bar");
+    //console.log(ShortString("line sexual_assault"));
 
-  // update
-  bars
-    .attr("x", function(d) {
-      return vis.x(d.Year);
-    })
-    .attr("y", function(d) {
-      return vis.y(d[choice]);
-    })
-    .attr("width", vis.x.rangeBand())
-    .attr("height", function(d) {
-      return vis.height - vis.y(d[choice]);
-    });
+    vis.svg.append("path") // Add the valueline path.
+        .attr("class", "line " + property)
+        .attr("d", line(vis.policeData))
+        .on("mouseover", function(d) {
+          // d3.select(this)
+          //   .style("stroke", "red");
+          var text = d3.select(this)
+              .attr("class");
+          $("#text")
+              .html(ShortString(text));
+        })
+        .on("mouseout", function(d) {
+          // d3.select(this)
+          //   .style("stroke", "steelblue");
+        });
+  }
 
-  // exit
-  bars.exit()
-    .remove();
-
-};
+}
