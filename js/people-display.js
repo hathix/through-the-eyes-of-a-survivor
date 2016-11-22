@@ -7,8 +7,7 @@ PeopleDisplay = function(_parentElement, _numerator, _denominator) {
   this.numerator = _numerator;
   this.denominator = _denominator;
 
-
-  this.nodeSize = 80;
+  this.nodeSize = 60;
   this.nodePadding = 10;
 
   this.width = 500;
@@ -44,6 +43,8 @@ PeopleDisplay.prototype.initVis = function() {
   // make grid layout
   vis.grid = d3.layout.grid()
     .bands()
+    // .size([vis.width, vis.height])
+    // .padding([0.1, 0.1]);
     .nodeSize([vis.nodeSize, vis.nodeSize])
     .padding([vis.nodePadding, vis.nodePadding]);
 
@@ -71,7 +72,7 @@ PeopleDisplay.prototype.render = function() {
     .attr("class", "rect")
 
   // update
-  // offset rectangle within woman to avoid rect going beyond edges of woman imag
+  // offset rectangle within woman to avoid rect going beyond edges of woman image
   var rectInnerPadding = vis.nodeSize / 10;
   rect
     .attr("width", vis.grid.nodeSize()[0] - rectInnerPadding)
