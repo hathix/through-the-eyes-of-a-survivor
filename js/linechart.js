@@ -13,14 +13,14 @@ LineChart.prototype.initVis = function() {
   var vis = this;
 
   vis.width = $("#" + vis.parentElement).width() - vis.margin.left - vis.margin.right,
-  vis.height = 500 - vis.margin.top - vis.margin.bottom;
+      vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
   vis.svg = d3.select("#" + vis.parentElement)
-    .append("svg")
-    .attr("width", vis.width + vis.margin.left + vis.margin.right)
-    .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+      .append("svg")
+      .attr("width", vis.width + vis.margin.left + vis.margin.right)
+      .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
   // Scales
   vis.x;
@@ -55,12 +55,12 @@ LineChart.prototype.loadData = function() {
 
     // Making the scales
     vis.x = d3.time.scale()
-      .domain([new Date('2002'), new Date('2014')])
-      .range([0, vis.width]);
+        .domain([new Date('2002'), new Date('2014')])
+        .range([0, vis.width]);
 
     vis.y = d3.scale.linear()
-      .domain([0, 85.6])
-      .range([vis.height, 0]);
+        .domain([0, 85.6])
+        .range([vis.height, 0]);
 
     vis.updateVisualization();
 
@@ -72,54 +72,61 @@ LineChart.prototype.updateVisualization = function(){
   var vis = this;
 
   vis.axes = vis.svg.selectAll("g")
-    .data(vis.policeData);
+      .data(vis.policeData);
 
   vis.axes.enter()
-    .append("g");
+      .append("g");
 
   vis.xAxis.scale(vis.x)
-    .orient("bottom");
+      .orient("bottom");
   vis.yAxis.scale(vis.y)
-    .orient("left");
+      .orient("left");
 
   // Updating the axes
   vis.svg.append("g")
-    .attr("class", "axis x-axis")
-    .attr("transform", "translate(0," + vis.height + ")")
-    .call(vis.xAxis);
+      .attr("class", "axis x-axis")
+      .attr("transform", "translate(0," + vis.height + ")")
+      .call(vis.xAxis);
 
   vis.svg.append("g")
-    .attr("class", "axis y-axis")
-    .call(vis.yAxis);
+      .attr("class", "axis y-axis")
+      .call(vis.yAxis);
 
+  //console.log(vis.policeData[6]);
   for (var property in vis.policeData[0]) {
+    //console.log(property);
+    //console.log(vis.policeData[0][property]);
     if (property == "Date") {
       continue;
     }
 
     var line = d3.svg.line()
-      .x(function(d) {
-        return vis.x(d.Date);
-      })
-      .y(function(d) {
-        return vis.y(d[property]);
-      });
+        .x(function(d) {
+          //console.log(d.Date);
+          //console.log(vis.x(d.Date));
+          return vis.x(d.Date);
+        })
+        .y(function(d) {
+          //console.log(d[property]);
+          //console.log(vis.y(d[property]));
+          return vis.y(d[property]);
+        });
 
     vis.svg.append("path") // Add the valueline path.
-      .attr("class", "line " + property)
-      .attr("d", line(vis.policeData))
-      .on("mouseover", function(d) {
-        // d3.select(this)
-        //   .style("stroke", "red");
-        var text = d3.select(this)
-          .attr("class");
-        $("#text")
-          .html(text);
-      })
-      .on("mouseout", function(d) {
-        // d3.select(this)
-        //   .style("stroke", "steelblue");
-      });
+        .attr("class", "line " + property)
+        .attr("d", line(vis.policeData))
+        .on("mouseover", function(d) {
+          // d3.select(this)
+          //   .style("stroke", "red");
+          var text = d3.select(this)
+              .attr("class");
+          $("#text")
+              .html(text);
+        })
+        .on("mouseout", function(d) {
+          // d3.select(this)
+          //   .style("stroke", "steelblue");
+        });
   }
 
 }

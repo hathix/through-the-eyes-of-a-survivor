@@ -65,8 +65,9 @@ $(function() {
       }
     });
 });
+
+var crimeRate = new CrimeRate("chart-area");
 var lineChart = new LineChart("police-reports");
-var crimeRate = new CrimeRate();
 var survivors = new Survivors("affected", 20, 100);
 
 
