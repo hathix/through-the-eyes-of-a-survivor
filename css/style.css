@@ -101,10 +101,10 @@ h2 {
 .x-axis {
   font-size: 12px;
 }
-
+/*
 .x-axis path {
   display: none;
-}
+}*/
 
 path.line {
   stroke: gray;
