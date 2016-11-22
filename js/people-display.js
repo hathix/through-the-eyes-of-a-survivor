@@ -10,6 +10,9 @@ PeopleDisplay = function(_parentElement, _numerator, _denominator) {
   this.width = 400;
   this.height = 200;
 
+  this.nodeSize = 80;
+  this.nodePadding = 10;
+
   // this.render();
   this.initVis();
 };
@@ -40,8 +43,8 @@ PeopleDisplay.prototype.initVis = function() {
   // make grid layout
   vis.grid = d3.layout.grid()
     .bands()
-    .nodeSize([50,50])
-    .padding([10, 10]);
+    .nodeSize([vis.nodeSize, vis.nodeSize])
+    .padding([vis.nodePadding, vis.nodePadding]);
 };
 
 PeopleDisplay.prototype.render = function() {
@@ -53,34 +56,59 @@ PeopleDisplay.prototype.render = function() {
 
   // enter
   rect.enter()
-    .append("image")
+    .append("rect")
     .attr("class", "rect")
-    .style("opacity", 1e-6);
 
   // update
+  var rectInnerPadding = 10;
   rect
-    .attr("width", vis.grid.nodeSize()[0])
-    .attr("height", vis.grid.nodeSize()[1])
+    .attr("width", vis.grid.nodeSize()[0] - rectInnerPadding)
+    .attr("height", vis.grid.nodeSize()[1] - rectInnerPadding)
     .attr("transform", function(d) {
-      return "translate(" + (d.x) + "," + d.y + ")";
+      return "translate(" + (d.x + (rectInnerPadding / 2)) + "," + (d.y + (
+        rectInnerPadding / 2)) + ")";
     })
-    .attr("xlink:href", "images/woman-gray.png")
-    .style("opacity", 1);
+    .attr("fill", "gray");
 
   // transition the fill
   rect.transition()
     .delay(function(d, i) {
       // fill in one at a time
       // wait time in milliseconds
-      return i * 500;
+      return i * 750;
     })
-    .attr("xlink:href", function(d) {
+    .attr("fill", function(d) {
       var color = d.active ? "red" : "gray";
-      return "images/woman-" + color + ".png";
+      return color;
     });
 
   // exit
   rect.exit()
+    .transition()
+    .style("opacity", 1e-6)
+    .remove();
+
+
+  // draw woman image
+  var image = vis.svg.selectAll(".image")
+    .data(vis.grid(vis.people));
+
+  // enter
+  image.enter()
+    .append("image")
+    .attr("class", "image")
+
+  // update
+  image
+    .attr("width", vis.grid.nodeSize()[0])
+    .attr("height", vis.grid.nodeSize()[1])
+    .attr("transform", function(d) {
+      return "translate(" + (d.x) + "," + d.y + ")";
+    })
+    .attr("xlink:href", "images/woman-outline.png");
+
+  // exit
+  image.exit()
     .transition()
     .style("opacity", 1e-6)
     .remove();
