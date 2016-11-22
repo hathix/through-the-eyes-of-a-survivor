@@ -49,14 +49,22 @@ PeopleDisplay.prototype.initVis = function() {
     .padding([vis.nodePadding, vis.nodePadding]);
 
 
-    // set fixed number of cols if we have a special denominator
-    if (vis.denominator % 5 == 0) {
-        vis.grid.cols(5);
-    }
+  // set fixed number of cols if we have a special denominator
+  if (vis.denominator % 5 == 0) {
+    vis.grid.cols(5);
+  }
 };
 
 PeopleDisplay.prototype.render = function() {
   var vis = this;
+
+
+  // only render once ever
+  if (vis.rendered) {
+    return false;
+  } else {
+    vis.rendered = true;
+  }
 
   // draw rects with solid color that fades
   // draw a cut-out woman image on top of the rect so that it looks like
