@@ -50,7 +50,11 @@ PeopleDisplay.prototype.initVis = function() {
 PeopleDisplay.prototype.render = function() {
   var vis = this;
 
-  // draw people
+  // draw rects with solid color that fades
+  // draw a cut-out woman image on top of the rect so that it looks like
+  // we have a woman whose color is fading
+
+  // draw rects in the background
   var rect = vis.svg.selectAll(".rect")
     .data(vis.grid(vis.people));
 
@@ -60,7 +64,8 @@ PeopleDisplay.prototype.render = function() {
     .attr("class", "rect")
 
   // update
-  var rectInnerPadding = 10;
+  // offset rectangle within woman to avoid rect going beyond edges of woman imag
+  var rectInnerPadding = vis.nodeSize / 10;
   rect
     .attr("width", vis.grid.nodeSize()[0] - rectInnerPadding)
     .attr("height", vis.grid.nodeSize()[1] - rectInnerPadding)
@@ -85,11 +90,11 @@ PeopleDisplay.prototype.render = function() {
   // exit
   rect.exit()
     .transition()
-    .style("opacity", 1e-6)
     .remove();
 
 
-  // draw woman image
+
+  // DRAW WOMAN IMAGE
   var image = vis.svg.selectAll(".image")
     .data(vis.grid(vis.people));
 
@@ -110,7 +115,6 @@ PeopleDisplay.prototype.render = function() {
   // exit
   image.exit()
     .transition()
-    .style("opacity", 1e-6)
     .remove();
 
 }
