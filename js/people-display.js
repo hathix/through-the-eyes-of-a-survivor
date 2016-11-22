@@ -7,8 +7,8 @@ PeopleDisplay = function(_parentElement, _numerator, _denominator) {
   this.numerator = _numerator;
   this.denominator = _denominator;
 
-  this.width = 600;
-  this.height = 300;
+  this.width = 400;
+  this.height = 200;
 
   // this.render();
   this.initVis();
@@ -40,8 +40,8 @@ PeopleDisplay.prototype.initVis = function() {
   // make grid layout
   vis.grid = d3.layout.grid()
     .bands()
-    .size([vis.width, vis.height])
-    .padding([0.1, 0.1]);
+    .nodeSize([50,50])
+    .padding([10, 10]);
 };
 
 PeopleDisplay.prototype.render = function() {
@@ -53,9 +53,8 @@ PeopleDisplay.prototype.render = function() {
 
   // enter
   rect.enter()
-    .append("rect")
+    .append("image")
     .attr("class", "rect")
-    .attr("fill", "gray")
     .style("opacity", 1e-6);
 
   // update
@@ -65,7 +64,7 @@ PeopleDisplay.prototype.render = function() {
     .attr("transform", function(d) {
       return "translate(" + (d.x) + "," + d.y + ")";
     })
-    .attr("fill", "gray")
+    .attr("xlink:href", "images/woman-gray.png")
     .style("opacity", 1);
 
   // transition the fill
@@ -75,8 +74,9 @@ PeopleDisplay.prototype.render = function() {
       // wait time in milliseconds
       return i * 500;
     })
-    .attr("fill", function(d) {
-      return d.active ? "red" : "gray";
+    .attr("xlink:href", function(d) {
+      var color = d.active ? "red" : "gray";
+      return "images/woman-" + color + ".png";
     });
 
   // exit
