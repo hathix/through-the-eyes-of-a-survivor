@@ -73,7 +73,7 @@ var crimeRate = new CrimeRate("chart-area");
 var lineChart = new LineChart("police-reports");
 var survivors = new Survivors("affected", 20, 100);
 
-var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 4, 5);
+var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
 
 
 

@@ -7,11 +7,12 @@ PeopleDisplay = function(_parentElement, _numerator, _denominator) {
   this.numerator = _numerator;
   this.denominator = _denominator;
 
-  this.width = 400;
-  this.height = 200;
 
   this.nodeSize = 80;
   this.nodePadding = 10;
+
+  this.width = 500;
+  this.height = 300;
 
   // this.render();
   this.initVis();
@@ -45,6 +46,12 @@ PeopleDisplay.prototype.initVis = function() {
     .bands()
     .nodeSize([vis.nodeSize, vis.nodeSize])
     .padding([vis.nodePadding, vis.nodePadding]);
+
+
+    // set fixed number of cols if we have a special denominator
+    if (vis.denominator % 5 == 0) {
+        vis.grid.cols(5);
+    }
 };
 
 PeopleDisplay.prototype.render = function() {
@@ -80,7 +87,7 @@ PeopleDisplay.prototype.render = function() {
     .delay(function(d, i) {
       // fill in one at a time
       // wait time in milliseconds
-      return i * 750;
+      return i * 500;
     })
     .attr("fill", function(d) {
       var color = d.active ? "red" : "gray";
