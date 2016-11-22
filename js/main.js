@@ -51,6 +51,9 @@ $(function() {
         if (index === 3) {
           typewrite(stories[1]);
         }
+        if (index === 5) {
+            peopleDisplay.render();
+        }
       },
 
       onLeave: function(index, nextIndex) {
@@ -69,6 +72,8 @@ $(function() {
 var crimeRate = new CrimeRate("chart-area");
 var lineChart = new LineChart("police-reports");
 var survivors = new Survivors("affected", 20, 100);
+
+var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 4, 5);
 
 
 
