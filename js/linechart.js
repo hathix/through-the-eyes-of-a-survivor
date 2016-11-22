@@ -26,6 +26,9 @@ LineChart.prototype.initVis = function() {
   vis.x;
   vis.y;
 
+  // temp var
+  vis.boo;
+
   vis.xAxis = d3.svg.axis();
   vis.yAxis = d3.svg.axis();
 
@@ -57,10 +60,33 @@ LineChart.prototype.loadData = function() {
     vis.x = d3.time.scale()
         .domain([new Date('2002'), new Date('2014')])
         .range([0, vis.width]);
-
     vis.y = d3.scale.linear()
         .domain([0, 85.6])
         .range([vis.height, 0]);
+
+    // assign temp var to formatted var for first init
+    vis.boo = vis.policeData;
+
+    // axes
+    vis.axes = vis.svg.selectAll("g")
+        .data(vis.boo);
+    vis.axes.enter()
+        .append("g");
+
+    // x and y axis
+    vis.xAxis.scale(vis.x)
+        .orient("bottom");
+    vis.yAxis.scale(vis.y)
+        .orient("left");
+
+    // appending the axes
+    vis.svg.append("g")
+        .attr("class", "axis x-axis")
+        .attr("transform", "translate(0," + vis.height + ")")
+        .call(vis.xAxis);
+    vis.svg.append("g")
+        .attr("class", "axis y-axis")
+        .call(vis.yAxis);
 
     vis.updateVisualization();
 
@@ -70,63 +96,44 @@ LineChart.prototype.loadData = function() {
 
 LineChart.prototype.updateVisualization = function(){
   var vis = this;
+  d3.selectAll("path#barline").remove();
 
-  vis.axes = vis.svg.selectAll("g")
-      .data(vis.policeData);
-
-  vis.axes.enter()
-      .append("g");
-
-  vis.xAxis.scale(vis.x)
-      .orient("bottom");
-  vis.yAxis.scale(vis.y)
-      .orient("left");
-
-  // Updating the axes
-  vis.svg.append("g")
-      .attr("class", "axis x-axis")
-      .attr("transform", "translate(0," + vis.height + ")")
-      .call(vis.xAxis);
-
-  vis.svg.append("g")
-      .attr("class", "axis y-axis")
-      .call(vis.yAxis);
-
-  //console.log(vis.policeData[6]);
-  for (var property in vis.policeData[0]) {
-    //console.log(property);
-    //console.log(vis.policeData[0][property]);
+  for (var property in vis.boo[0]) {
     if (property == "Date") {
       continue;
     }
 
     var line = d3.svg.line()
         .x(function(d) {
-          //console.log(d.Date);
-          //console.log(vis.x(d.Date));
           return vis.x(d.Date);
         })
         .y(function(d) {
-          //console.log(d[property]);
-          //console.log(vis.y(d[property]));
           return vis.y(d[property]);
         });
 
+
     vis.svg.append("path") // Add the valueline path.
-        .attr("class", "line " + property)
-        .attr("d", line(vis.policeData))
-        .on("mouseover", function(d) {
-          // d3.select(this)
-          //   .style("stroke", "red");
-          var text = d3.select(this)
-              .attr("class");
-          $("#text")
-              .html(text);
-        })
-        .on("mouseout", function(d) {
-          // d3.select(this)
-          //   .style("stroke", "steelblue");
-        });
+        .attr("id", "barline")
+        .attr("class", "line")
+        .attr("d", line(vis.boo));
+  }
+}
+
+LineChart.prototype.onSelectionChange = function(category) {
+  var vis = this;
+  this.categoryData = [];
+
+  vis.formatCategory = category.split(" ").join("_");;
+
+  for (i = 0; i < vis.policeData.length; i++) {
+    vis.categoryData.push({"Date":
+        vis.policeData[i]["Date"],
+      "Category":
+          vis.policeData[i][vis.formatCategory]}
+    );
   }
 
+  vis.boo = vis.categoryData;
+
+  vis.updateVisualization();
 }
