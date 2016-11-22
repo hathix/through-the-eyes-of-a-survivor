@@ -6,6 +6,8 @@ CrimeRate = function(_parentElement) {
   this.height = 500 - this.margin.top - this.margin.bottom;
   this.policeData;
 
+
+
   this.initVis();
 }
 
