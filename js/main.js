@@ -21,7 +21,9 @@ var peopleDisplays = [
   new PeopleDisplay("disturbing-fact-1",
     9, 10),
   new PeopleDisplay("disturbing-fact-2",
-    19, 20)
+    19, 20),
+    new PeopleDisplay("disturbing-fact-3",
+      4, 5)
 ];
 
 $(function() {
@@ -55,6 +57,9 @@ $(function() {
           // so the second slide is actually index 1
           if (slideIndex === 1) {
             peopleDisplays[1].render();
+          }
+          if (slideIndex === 2) {
+            peopleDisplays[2].render();
           }
         }
       },
