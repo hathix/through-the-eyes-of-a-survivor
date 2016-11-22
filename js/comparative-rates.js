@@ -57,6 +57,13 @@ ComparativeRates.prototype.initVis = function() {
   vis.yGroup = vis.svg.append('g')
     .attr('class', 'axis y-axis');
 
+
+  // draw a text field for the series name
+  vis.seriesLabel = vis.svg.append('text')
+    .attr('x', vis.width)
+    .attr('y', vis.height / 5)
+    .attr('text-anchor', 'end');
+
   vis.wrangleData();
 };
 
@@ -137,7 +144,10 @@ ComparativeRates.prototype.drawLine = function(metric) {
 
   // prepare path to draw line in
   var lineGroup = vis.svg.append('path')
-    .attr('class', 'line ' + metric);
+    .attr('class', 'line ' + metric)
+    .on('mouseover', function() {
+      vis.seriesLabel.text(metric);
+    });
 
   // do the drawing
   lineGroup.attr('d', line(vis.displayData));
