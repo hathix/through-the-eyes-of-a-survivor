@@ -122,7 +122,12 @@ BarChart.prototype.updateVisualization = function(){
     bars
         .enter()
         .append("rect")
-        .attr("class", "bar");
+        .attr("class", function(d) {
+            // css class-friendly name of category
+            // "Sexual assault" => "sexual-assault"
+            var slug = d[0].replace(/ /, "-").toLowerCase();
+            return "bar rate-bar " + slug;
+        });
 
     // update
     bars
@@ -145,5 +150,3 @@ BarChart.prototype.updateVisualization = function(){
         .remove();
 
 }
-
-
