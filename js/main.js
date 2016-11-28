@@ -1,4 +1,5 @@
 var stories;
+var MyEventHandler = {};
 d3.json("data/stories.json", function(error, data) {
   stories = data;
 
@@ -22,8 +23,8 @@ var peopleDisplays = [
     9, 10),
   new PeopleDisplay("disturbing-fact-2",
     19, 20),
-    new PeopleDisplay("disturbing-fact-3",
-      4, 5)
+  new PeopleDisplay("disturbing-fact-3",
+    4, 5)
 ];
 
 $(function() {
@@ -77,9 +78,17 @@ $(function() {
     });
 });
 
+var barChart = new BarChart("police-reports-bars", MyEventHandler);
 var crimeRate = new CrimeRate("chart-area");
 var lineChart = new LineChart("police-reports");
+$(MyEventHandler).bind("selectionChanged", function(event, category) {
+  lineChart.onSelectionChange(category);
+});
 var survivors = new Survivors("affected", 20, 100);
+
+d3.csv("data/cleaned/comparative-rates-over-time.csv", function(csv) {
+  new ComparativeRates("comparative-rates", csv);
+});
 
 // var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
 

@@ -78,7 +78,11 @@ h2 {
 /***************/
 
 .bar {
-  fill: orange;
+  fill: #CCC;
+}
+
+.bar.sexual-assault {
+    fill: firebrick;
 }
 
 .axis {
@@ -101,23 +105,23 @@ h2 {
 .x-axis {
   font-size: 12px;
 }
-
+/*
 .x-axis path {
   display: none;
-}
+}*/
 
 path.line {
-  stroke: gray;
+  stroke: #CCC;
   stroke-width: 3;
   fill: none;
 }
 
-path.line.Sexual_assault {
-    stroke: red;
+path.line.Sexual_assault, path.line.rape_sexual_assault {
+    stroke: firebrick;
 }
 
 path.line:hover {
-    stroke: blue;
+    stroke: steelblue;
 }
 
 path.line.Rape {
