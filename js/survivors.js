@@ -10,7 +10,7 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   this.women_width = 27;
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
- 
+
   this.initVis();
 }
 
@@ -87,7 +87,7 @@ Survivors.prototype.updateVisualization = function(){
 	      return "translate(" + (d.x + (rectInnerPadding / 2)) + "," + (d.y + (
 	        rectInnerPadding / 2)) + ")";
 	    })
-	    .attr("fill", "gray")
+	    .attr("fill", "#bbb")
 	    .on("click", function(){console.log("hi")});;
 
 	// transition the fill
@@ -98,7 +98,7 @@ Survivors.prototype.updateVisualization = function(){
 	      return i * delay;
 	    })
 	    .attr("fill", function(d) {
-	      var color = d.active ? "red" : "gray";
+	      var color = d.active ? "red" : "#bbb";
 	      vis.colors.push(color);
 	      return color;
 	    });
@@ -138,7 +138,7 @@ Survivors.prototype.updateVisualization = function(){
 }
 
 function shuffle(array) {
-	
+
   var currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
