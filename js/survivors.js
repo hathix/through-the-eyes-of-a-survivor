@@ -57,6 +57,9 @@ Survivors.prototype.loadData = function() {
 Survivors.prototype.updateVisualization = function(){
 	var vis = this;
 
+	// This is to keep track of which rectangle each woman sketch corresponds to
+	vis.colors = [];
+
 	// ensures we only render once
 	if (vis.rendered) {
 		return false;
@@ -65,7 +68,7 @@ Survivors.prototype.updateVisualization = function(){
 	}
 
 	// Delay time for the animation in milliseconds
-	var delay = 50;
+	var delay = 100;
 
 	// draw rects in the background
 	var rect = vis.svg.selectAll(".rect")
@@ -84,7 +87,8 @@ Survivors.prototype.updateVisualization = function(){
 	      return "translate(" + (d.x + (rectInnerPadding / 2)) + "," + (d.y + (
 	        rectInnerPadding / 2)) + ")";
 	    })
-	    .attr("fill", "gray");
+	    .attr("fill", "gray")
+	    .on("click", function(){console.log("hi")});;
 
 	// transition the fill
 	rect.transition()
@@ -95,8 +99,11 @@ Survivors.prototype.updateVisualization = function(){
 	    })
 	    .attr("fill", function(d) {
 	      var color = d.active ? "red" : "gray";
+	      vis.colors.push(color);
 	      return color;
 	    });
+
+	//console.log(vis.colors);
 
 	// exit
 	rect.exit().transition().remove();
@@ -117,7 +124,12 @@ Survivors.prototype.updateVisualization = function(){
 	    .attr("transform", function(d) {
 	      return "translate(" + (d.x) + "," + d.y + ")";
 	    })
-	    .attr("xlink:href", "images/woman-outline.png");
+	    .attr("xlink:href", "images/woman-outline.png")
+	    .on("click", function(d, i){
+	    	if (vis.colors[i] == "red"){
+	    		console.log("red");
+	    	}
+	    });
 
 	// exit
 	image.exit()
