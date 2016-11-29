@@ -2,11 +2,15 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   // SVG drawing area
   this.parentElement = _parentElement;
   this.margin = {top: 40, right: 10, bottom: 60, left: 60};
-  this.width = 960 - this.margin.left - this.margin.right;
-  this.height = 500 - this.margin.top - this.margin.bottom;
   this.affected = _affected;
   this.sampleSize = _sampleSize;
- 
+  this.nodeSize = 30;
+  this.nodePadding = 10;
+  this.women_height = 32;
+  this.women_width = 27;
+  this.width = 960 - this.margin.left - this.margin.right;
+  this.height = 500 - this.margin.top - this.margin.bottom;
+
   this.initVis();
 }
 
@@ -17,11 +21,11 @@ Survivors.prototype.initVis = function() {
 	vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
 	vis.svg = d3.select("#" + vis.parentElement)
-    .append("svg")
-    .attr("width", vis.width + vis.margin.left + vis.margin.right)
-    .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+	    .append("svg")
+	    .attr("width", vis.width + vis.margin.left + vis.margin.right)
+	    .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+	    .append("g")
+	    .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
     vis.loadData();
 }
@@ -32,105 +36,97 @@ Survivors.prototype.loadData = function() {
 	// This will be an array of booleans
 	vis.people = [];
 
-	var row = [];
 	// Loading people array
 	for (var i = 0; i < vis.sampleSize; i++){
-		if (i >= vis.affected)
-			row.push(false);
-		else
-			row.push(true);
-
-		if (row.length == 10){
-			vis.people.push(row);
-			row = [];
-		}
+		var person = {
+	      active: i < vis.affected
+	    };
+	    vis.people.push(person);
 	}
-	
-	vis.updateVisualization();
+
+	// Shuffle the array so we get some variety
+	shuffle(vis.people);
+
+	// make grid layout
+	vis.grid = d3.layout.grid()
+		.bands()
+		.nodeSize([vis.nodeSize, vis.nodeSize])
+		.padding([vis.nodePadding, vis.nodePadding]);
 }
 
 Survivors.prototype.updateVisualization = function(){
 	var vis = this;
 
-	for(var row = 0; row < vis.people.length; row++){
-		var circles = vis.svg.selectAll("circle" + row)
-			.data(vis.people[row])
-			
-		circles.enter().append("circle")
-			.attr("class", "circ");
-
-		circles
-			.attr("r", 10)
-			.attr("cx", function(d, index){
-				return (index * 30);
-			})
-			.attr("cy", function(d, index){
-				return (row * 30);
-			})
-			.attr("fill", "white")
-			.attr("stroke", "black");
-
-		circles.exit().remove();
-	}
-}
-
-Survivors.prototype.activateColors = function(){
-	var vis = this;
-
-	// Makes the vis.people array into just an array of bools instead of an array of arrays
-	var newArr = [];
-	for(var i = 0; i < vis.people.length;i++){
-		newArr = newArr.concat(vis.people[i]);
+	// ensures we only render once
+	if (vis.rendered) {
+		return false;
+	} else {
+		vis.rendered = true;
 	}
 
-	// Randomizing the array
-	vis.people = shuffle(newArr);
+	// Delay time for the animation in milliseconds
+	var delay = 50;
 
-	// Making vis.people into an array of arrays again
-	var finalarr = [];
-	var temparr = [];
-	for (var i = 0; i < vis.people.length; i++){
-		temparr.push(vis.people[i]);
+	// draw rects in the background
+	var rect = vis.svg.selectAll(".rect")
+		.data(vis.grid(vis.people));
 
-		if (temparr.length == 10){
-			finalarr.push(temparr);
-			temparr = [];
-		}
-	}
+	// enter
+	rect.enter()
+		.append("rect")
+		.attr("class", "rect");
 
-	// Updating vis.people
-	vis.people = finalarr.slice();
+	var rectInnerPadding = vis.nodeSize / 10;
+	rect
+	    .attr("width", vis.grid.nodeSize()[0] - rectInnerPadding)
+	    .attr("height", vis.grid.nodeSize()[1] - rectInnerPadding)
+	    .attr("transform", function(d) {
+	      return "translate(" + (d.x + (rectInnerPadding / 2)) + "," + (d.y + (
+	        rectInnerPadding / 2)) + ")";
+	    })
+	    .attr("fill", "#bbb");
 
-	for(var row = 0; row < vis.people.length; row++){
-		var newCircles = vis.svg.selectAll("circ")
-			.data(vis.people[row]);
+	// transition the fill
+	rect.transition()
+	    .delay(function(d, i) {
+	      // fill in one at a time
+	      // wait time in milliseconds
+	      return i * delay;
+	    })
+	    .attr("fill", function(d) {
+	      var color = d.active ? "red" : "#bbb";
+	      return color;
+	    });
 
-		newCircles.enter().append("circle")
-			.attr("class", "circ");
+	// exit
+	rect.exit().transition().remove();
 
-		newCircles
-			.transition()
-			.duration(2000)
-			.attr("r", 10)
-			.attr("cx", function(d, index){
-				return (index * 30);
-			})
-			.attr("cy", function(d, index){
-				return (row * 30);
-			})
-			.attr("stroke", "black")
-			.attr("fill", function(d, index){
-				if (d)
-					return "red";
-				else
-					return "white";
-			})
-	}
-	
+	// DRAW WOMAN IMAGE
+	var image = vis.svg.selectAll(".image")
+    	.data(vis.grid(vis.people));
+
+	// enter
+	image.enter()
+	    .append("image")
+	    .attr("class", "image")
+
+	// update
+	image
+	    .attr("width", vis.grid.nodeSize()[0])
+	    .attr("height", vis.grid.nodeSize()[1])
+	    .attr("transform", function(d) {
+	      return "translate(" + (d.x) + "," + d.y + ")";
+	    })
+	    .attr("xlink:href", "images/woman-outline.png");
+
+	// exit
+	image.exit()
+	    .transition()
+	    .remove();
 }
 
 function shuffle(array) {
-	
+
   var currentIndex = array.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...

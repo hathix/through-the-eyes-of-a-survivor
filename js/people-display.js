@@ -58,7 +58,6 @@ PeopleDisplay.prototype.initVis = function() {
 PeopleDisplay.prototype.render = function() {
   var vis = this;
 
-
   // only render once ever
   if (vis.rendered) {
     return false;
@@ -89,7 +88,7 @@ PeopleDisplay.prototype.render = function() {
       return "translate(" + (d.x + (rectInnerPadding / 2)) + "," + (d.y + (
         rectInnerPadding / 2)) + ")";
     })
-    .attr("fill", "gray");
+    .attr("fill", "#bbb");
 
   // transition the fill
   rect.transition()
@@ -99,7 +98,7 @@ PeopleDisplay.prototype.render = function() {
       return i * 500;
     })
     .attr("fill", function(d) {
-      var color = d.active ? "red" : "gray";
+      var color = d.active ? "red" : "#bbb";
       return color;
     });
 
@@ -107,8 +106,6 @@ PeopleDisplay.prototype.render = function() {
   rect.exit()
     .transition()
     .remove();
-
-
 
   // DRAW WOMAN IMAGE
   var image = vis.svg.selectAll(".image")

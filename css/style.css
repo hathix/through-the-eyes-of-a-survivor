@@ -133,3 +133,19 @@ path.line.Rape {
     font-weight: bold;
     color: blue;
 }
+
+
+
+
+.fp-controlArrow.fp-prev {
+    border-color: transparent #777 transparent transparent !important;
+}
+
+.fp-controlArrow.fp-next {
+    border-color: transparent transparent transparent #777 !important;
+}
+
+.row.padded {
+    padding-left: 50px;
+    padding-right: 50px;
+}
