@@ -83,7 +83,6 @@ $(function() {
 });
 
 var barChart = new BarChart("police-reports-bars", MyEventHandler);
-var crimeRate = new CrimeRate("chart-area");
 var lineChart = new LineChart("police-reports");
 $(MyEventHandler).bind("selectionChanged", function(event, category) {
   lineChart.onSelectionChange(category);
