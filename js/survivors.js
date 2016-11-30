@@ -36,22 +36,27 @@ Survivors.prototype.loadData = function() {
 	// This will be an array of booleans
 	vis.people = [];
 
-	// Loading people array
-	for (var i = 0; i < vis.sampleSize; i++){
-		var person = {
-	      active: i < vis.affected
-	    };
-	    vis.people.push(person);
-	}
+	d3.csv("/data/cleaned/quick-stories.csv", function(data) {
+	
+		vis.quotes = data;
+		console.log(vis.quotes);
+		// Loading people array
+		for (var i = 0; i < vis.sampleSize; i++){
+			var person = {
+		      active: i < vis.affected
+		    };
+		    vis.people.push(person);
+		}
 
-	// Shuffle the array so we get some variety
-	shuffle(vis.people);
+		// Shuffle the array so we get some variety
+		shuffle(vis.people);
 
-	// make grid layout
-	vis.grid = d3.layout.grid()
-		.bands()
-		.nodeSize([vis.nodeSize, vis.nodeSize])
-		.padding([vis.nodePadding, vis.nodePadding]);
+		// make grid layout
+		vis.grid = d3.layout.grid()
+			.bands()
+			.nodeSize([vis.nodeSize, vis.nodeSize])
+			.padding([vis.nodePadding, vis.nodePadding]);
+	});
 }
 
 Survivors.prototype.updateVisualization = function(){
@@ -63,6 +68,9 @@ Survivors.prototype.updateVisualization = function(){
 	} else {
 		vis.rendered = true;
 	}
+
+	// Will keep track of which images are red 
+	vis.colors = [];
 
 	// Delay time for the animation in milliseconds
 	var delay = 50;
@@ -95,6 +103,7 @@ Survivors.prototype.updateVisualization = function(){
 	    })
 	    .attr("fill", function(d) {
 	      var color = d.active ? "red" : "#bbb";
+	      vis.colors.push(color);
 	      return color;
 	    });
 
@@ -117,7 +126,13 @@ Survivors.prototype.updateVisualization = function(){
 	    .attr("transform", function(d) {
 	      return "translate(" + (d.x) + "," + d.y + ")";
 	    })
-	    .attr("xlink:href", "images/woman-outline.png");
+	    .attr("xlink:href", "images/woman-outline.png")
+	    .on("mouseover", function(d,i){
+
+	    	if(vis.colors[i] == "red")
+	    		$( "div#quotes" ).html( vis.quotes[i % vis.quotes.length].Quote + "<br><br>" 
+	    			+ "-" + "<b>"+ vis.quotes[i % vis.quotes.length].Person + "</b>" );
+	    });
 
 	// exit
 	image.exit()
