@@ -45,7 +45,6 @@ $(function() {
           typewrite(stories[1]);
         }
         if(index === 4){
-          var survivors = new Survivors("affected", 20, 100);
           survivors.updateVisualization();
         }
         if (index === 5) {
@@ -87,6 +86,8 @@ var lineChart = new LineChart("police-reports");
 $(MyEventHandler).bind("selectionChanged", function(event, category) {
   lineChart.onSelectionChange(category);
 });
+
+var survivors = new Survivors("affected", 20, 100);
 
 d3.csv("data/cleaned/comparative-rates-over-time.csv", function(csv) {
   new ComparativeRates("comparative-rates", csv);
