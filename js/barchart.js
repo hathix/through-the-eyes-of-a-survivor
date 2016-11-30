@@ -1,7 +1,7 @@
 BarChart = function(_parentElement) {
     // SVG drawing area
     this.parentElement = _parentElement;
-    this.margin = {top: 40, right: 10, bottom: 60, left: 60};
+    this.margin = {top: 40, right: 10, bottom: 150, left: 60};
     this.width = 960 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.policeData;
@@ -38,13 +38,13 @@ BarChart.prototype.initVis = function() {
 
     // draw x axis
     vis.svg.append("g")
-        .attr("class", "xaxis")
+        .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + (vis.height) + ")")
         .call(vis.xaxis);
 
     // draw y axis
     vis.svg.append("g")
-        .attr("class", "yaxis")
+        .attr("class", "axis y-axis")
         .call(vis.yaxis)
         .append("text")
         .attr("dy", ".71em")
@@ -88,6 +88,10 @@ BarChart.prototype.loadData = function() {
 BarChart.prototype.updateVisualization = function(){
     var vis = this;
 
+    vis.data.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+console.log(vis.data);
     // get data
     var base = vis.svg.data(vis.data);
 
@@ -104,9 +108,12 @@ BarChart.prototype.updateVisualization = function(){
     ]);
 
     // axes
-    vis.svg.select(".xaxis")
-        .call(vis.xaxis);
-    vis.svg.select(".yaxis")
+    vis.svg.select(".axis.x-axis")
+        .call(vis.xaxis)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("transform", "translate(" + 0 + "," + (vis.margin.top / 3 - 20) + ") rotate(-30)");
+    vis.svg.select(".axis.y-axis")
         .call(vis.yaxis);
 
     // draw bars
