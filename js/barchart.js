@@ -50,6 +50,12 @@ BarChart.prototype.initVis = function() {
         .attr("dy", ".71em")
         .style("text-anchor", "end");
 
+    // add axis label
+    vis.svg.append("text")
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(-50," + (vis.height / 2)+")rotate(-90)")
+        .text("Average report rate from 2002 to 2013");
+
     this.loadData();
 };
 
@@ -91,7 +97,7 @@ BarChart.prototype.updateVisualization = function(){
     vis.data.sort(function(a, b) {
         return a[1] - b[1];
     });
-console.log(vis.data);
+
     // get data
     var base = vis.svg.data(vis.data);
 

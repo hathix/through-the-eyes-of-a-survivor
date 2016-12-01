@@ -88,6 +88,12 @@ LineChart.prototype.loadData = function() {
         .attr("class", "axis y-axis")
         .call(vis.yAxis);
 
+    // add axis label
+    vis.svg.append("text")
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(-40," + (vis.height / 2)+")rotate(-90)")
+        .text("Crime report rates per year");
+
     vis.updateVisualization();
 
   })
