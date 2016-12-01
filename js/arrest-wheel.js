@@ -93,12 +93,12 @@ ArrestWheel.prototype.initVis = function() {
     .attr("r", vis.radius)
     .attr("class", "ring");
 
-    // draw button in middle
-    vis.button = vis.svg.append("circle")
-      .attr("cx", vis.width / 2)
-      .attr("cy", vis.height / 2)
-      .attr("r", vis.radius / 10)
-      .attr("class", "wheel-button");
+  // draw button in middle
+  vis.button = vis.svg.append("circle")
+    .attr("cx", vis.width / 2)
+    .attr("cy", vis.height / 2)
+    .attr("r", vis.radius / 10)
+    .attr("class", "wheel-button");
 
   // draw pointer: upside down isosceles triangle
   var pointerWidth = 30;
