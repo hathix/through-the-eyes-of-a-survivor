@@ -156,6 +156,13 @@ BarChart.prototype.updateVisualization = function(){
         })
         .on("click", function(d) {
             $(MyEventHandler).trigger("selectionChanged", d[0]);
+        })
+        .on({"mouseover": function(d) {
+                d3.select(this).style("cursor", "pointer")
+            },
+            "mouseout": function(d) {
+                    d3.select(this).style("cursor", "default")
+            }
         });
 
     // exit
