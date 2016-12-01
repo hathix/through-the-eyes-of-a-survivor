@@ -75,11 +75,10 @@ ArrestWheel.prototype.initVis = function() {
     .data(vis.pie(vis.data))
     .enter()
     .append("g")
-    .attr("class", "slice")
     .append("path")
-    .attr("fill", function(d, i) {
+    .attr("class", function(d, i) {
       // only 1 slice is good
-      return i < vis.winningSlices ? "red" : "white";
+      return i < vis.winningSlices ? "slice win" : "slice lose";
     })
     .attr("d", vis.arc);
 
