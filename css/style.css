@@ -114,11 +114,6 @@ h2 {
   display: none;
 }*/
 
-path#barline.line {
-  stroke: orange;
-  stroke-width: 3;
-  fill: none;
-}
 path.line {
     stroke: #CCC;
     stroke-width: 3;
