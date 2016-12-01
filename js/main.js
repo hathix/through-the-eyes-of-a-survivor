@@ -38,14 +38,18 @@ $(function() {
 
       afterLoad: function(anchorLink, index) {
         // start typewriting each story once you visit it
-        if (index === 2) {
+        console.log(index);
+        if (index === 3) {
           typewrite(stories[0]);
         }
-        if (index === 3) {
-          typewrite(stories[1]);
-        }
-        if(index === 4){
-          survivors.updateVisualization();
+        // if (index === 4) {
+        //   typewrite(stories[1]);
+        // }
+        // if (index === 5) {
+        //   typewrite(stories[2]);
+        // }
+        if (index === 4) {
+            survivors.updateVisualization();
         }
         if (index === 5) {
           // load first people display
@@ -83,9 +87,10 @@ $(function() {
 
 var barChart = new BarChart("police-reports-bars", MyEventHandler);
 var lineChart = new LineChart("police-reports");
-$(MyEventHandler).bind("selectionChanged", function(event, category) {
-  lineChart.onSelectionChange(category);
-});
+$(MyEventHandler)
+  .bind("selectionChanged", function(event, category) {
+    lineChart.onSelectionChange(category);
+  });
 
 var survivors = new Survivors("affected", 20, 100);
 
@@ -97,6 +102,11 @@ d3.csv("data/cleaned/comparative-rates-over-time.csv", function(csv) {
 
 // var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
 
+
+$('#survivors-button')
+  .on('click', function() {
+    survivors.updateVisualization();
+  });
 
 
 // each element of this array is a story
