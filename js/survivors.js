@@ -140,8 +140,8 @@ Survivors.prototype.updateVisualization = function() {
     .on("mouseover", function(d, i) {
 
       if (vis.colors[i] == "red") {
-          // show quote
-          $('#survivor-quote').show();
+        // show quote
+        $('#survivor-quote').show();
         $('#quote-text')
           .html(vis.quotes[i % vis.quotes.length].Quote);
         $('#quote-source')

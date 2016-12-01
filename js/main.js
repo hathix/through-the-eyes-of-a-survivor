@@ -38,7 +38,6 @@ $(function() {
 
       afterLoad: function(anchorLink, index) {
         // start typewriting each story once you visit it
-        console.log(index);
         if (index === 3) {
           typewrite(stories[0]);
         }
