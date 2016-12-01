@@ -102,6 +102,7 @@ ArrestWheel.prototype.initVis = function() {
   ].join(" ");
   vis.svg.append("path")
     .attr("d", pathString)
+    .attr("class", "pointer")
     .attr("stroke", "black");
 
 
@@ -118,8 +119,12 @@ ArrestWheel.prototype.spin = function() {
   var startTime = Date.now();
   //  have it spin a few times
   var numRotations = 3 + Math.floor(Math.random() * 3);
-  // then
-  var endAngle = (numRotations * 360) + Math.random() * 360;
+  // then randomly generate an angle for it to stop at
+  var endRemainderAngle = Math.random() * 360;
+  var endAngle = (numRotations * 360) + endRemainderAngle;
+  // determine which slice you stopped on
+  // TODO this is a bit off, fix
+  var endSlice = Math.floor(endRemainderAngle / 360 * vis.slices);
 
   // # of degrees per millisecond
   var speed = 1 / 2;
@@ -140,6 +145,14 @@ ArrestWheel.prototype.spin = function() {
     // so, from that, determine the angle to show
     var angle = endAngle * easedTimeFraction;
 
+    // rotate the wheel
     vis.wheelGroup.attr("transform", "rotate(" + angle + ")");
+
+    // stop spinning if we've hit the end
+    if (rawTimeFraction === 1) {
+        console.log(endSlice);
+        // return `true` to stop the timer
+        return true;
+    }
   });
 };
