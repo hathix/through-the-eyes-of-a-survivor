@@ -16,6 +16,13 @@ ArrestWheel = function(_parentElement) {
 
   // TODO add padding
 
+
+
+  // TODO make these not hardcoded
+  // hide the results
+  $('#wheel-win').hide();
+  $('#wheel-lose').hide();
+
   this.prepareData();
 }
 
@@ -123,7 +130,6 @@ ArrestWheel.prototype.spin = function() {
   var endRemainderAngle = Math.random() * 360;
   var endAngle = (numRotations * 360) + endRemainderAngle;
   // determine which slice you stopped on
-  // TODO TODO TODO this is a bit off, fix
   var endSlice = Math.floor(endRemainderAngle / 360 * vis.slices);
 
   // # of degrees per millisecond
@@ -153,9 +159,27 @@ ArrestWheel.prototype.spin = function() {
 
     // stop spinning if we've hit the end
     if (rawTimeFraction === 1) {
-        console.log(endSlice);
+        vis.onSpinnerEnd(endSlice);
         // return `true` to stop the timer
         return true;
     }
   });
 };
+
+/**
+ * Called when the spinner stops on slice `landingSlice`.
+ */
+ArrestWheel.prototype.onSpinnerEnd = function(landingSlice) {
+    var vis = this;
+
+    if (landingSlice < vis.winningSlices) {
+        // win!
+        $('#wheel-win').show();
+        $('#wheel-lose').hide();
+    }
+    else {
+        // lose!
+        $('#wheel-lose').show();
+        $('#wheel-win').hide();
+    }
+}
