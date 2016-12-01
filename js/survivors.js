@@ -50,8 +50,11 @@ Survivors.prototype.loadData = function() {
     // Loading people array
     for (var i = 0; i < vis.sampleSize; i++) {
       var person = {
-        active: i < vis.affected
+        active: i < vis.affected,
       };
+      if (person.active) {
+        person.quote = vis.quotes[i % vis.quotes.length];
+      }
       vis.people.push(person);
     }
 
@@ -138,14 +141,17 @@ Survivors.prototype.updateVisualization = function() {
     })
     .attr("xlink:href", "images/woman-outline.png")
     .on("mouseover", function(d, i) {
+    //   console.log(d);
 
-      if (vis.colors[i] == "red") {
-          // show quote
-          $('#survivor-quote').show();
+      if (d.active) {
+        // show quote b/c survivor
+        var quote = d.quote;
+        $('#survivor-quote')
+          .show();
         $('#quote-text')
-          .html(vis.quotes[i % vis.quotes.length].Quote);
+          .html(quote.Quote);
         $('#quote-source')
-          .html(vis.quotes[i % vis.quotes.length].Person);
+          .html(quote.Person);
       }
     });
 
