@@ -87,20 +87,28 @@ ArrestWheel.prototype.spin = function() {
     // start a timer to spin the spinner, and have it stop at a random spot
     var startTime = Date.now();
     //  have it spin a few times
-    var numRotations = 5 + Math.floor(Math.random() * 5);
+    var numRotations = 3 + Math.floor(Math.random() * 3);
     // then
     var endAngle = (numRotations * 360) + Math.random() * 360;
 
+    // # of degrees per millisecond
+    var speed = 1 / 2;
+
+    // how many milliseconds this will spin
+    var totalSpinTime = endAngle / speed;
 
     d3.timer(function(){
-        // delta is time, in ms, since the timer started
+        // delta is the time, in ms, since the timer started
         var delta = Date.now() - startTime;
 
-        // calcualte the raw angle
-        var rawAngle = delta;
+        // the fraction of spin time that's elapsed
+        // cap it at 1
+        var rawTimeFraction = Math.min(delta / totalSpinTime, 1);
 
-        // cap it at the end angle so the spinner eventually stops
-        var angle = Math.min(rawAngle, endAngle);
+        var easedTimeFraction = d3.easeQuadOut(rawTimeFraction);
+
+        // so, from that, determine the angle to show
+        var angle = endAngle * easedTimeFraction;
 
         vis.wheelGroup.attr("transform", "rotate(" + angle + ")");
     });
