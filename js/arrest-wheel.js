@@ -20,8 +20,10 @@ ArrestWheel = function(_parentElement) {
 
   // TODO make these not hardcoded
   // hide the results
-  $('#wheel-win').hide();
-  $('#wheel-lose').hide();
+  $('#wheel-win')
+    .hide();
+  $('#wheel-lose')
+    .hide();
 
   this.prepareData();
 }
@@ -81,6 +83,22 @@ ArrestWheel.prototype.initVis = function() {
       return i < vis.winningSlices ? "slice win" : "slice lose";
     })
     .attr("d", vis.arc);
+
+
+
+  // draw circle around circumference
+  vis.ring = vis.svg.append("circle")
+    .attr("cx", vis.width / 2)
+    .attr("cy", vis.height / 2)
+    .attr("r", vis.radius)
+    .attr("class", "ring");
+
+    // draw button in middle
+    vis.button = vis.svg.append("circle")
+      .attr("cx", vis.width / 2)
+      .attr("cy", vis.height / 2)
+      .attr("r", vis.radius / 10)
+      .attr("class", "wheel-button");
 
   // draw pointer: upside down isosceles triangle
   var pointerWidth = 30;
@@ -158,9 +176,9 @@ ArrestWheel.prototype.spin = function() {
 
     // stop spinning if we've hit the end
     if (rawTimeFraction === 1) {
-        vis.onSpinnerEnd(endSlice);
-        // return `true` to stop the timer
-        return true;
+      vis.onSpinnerEnd(endSlice);
+      // return `true` to stop the timer
+      return true;
     }
   });
 };
@@ -169,16 +187,19 @@ ArrestWheel.prototype.spin = function() {
  * Called when the spinner stops on slice `landingSlice`.
  */
 ArrestWheel.prototype.onSpinnerEnd = function(landingSlice) {
-    var vis = this;
+  var vis = this;
 
-    if (landingSlice < vis.winningSlices) {
-        // win!
-        $('#wheel-win').show();
-        $('#wheel-lose').hide();
-    }
-    else {
-        // lose!
-        $('#wheel-lose').show();
-        $('#wheel-win').hide();
-    }
+  if (landingSlice < vis.winningSlices) {
+    // win!
+    $('#wheel-win')
+      .show();
+    $('#wheel-lose')
+      .hide();
+  } else {
+    // lose!
+    $('#wheel-lose')
+      .show();
+    $('#wheel-win')
+      .hide();
+  }
 }

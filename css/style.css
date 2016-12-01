@@ -153,21 +153,31 @@ path.line.Rape {
 /* ARREST WHEEL */
 
 .slice {
-  stroke: #8b6914;
-  stroke-width: 2px;
+  stroke: #DB9E36;
+  /*stroke-width: 2px;*/
 }
 
 .pointer {
-    fill: #8b6914;
-    stroke: #8b6914;
+  fill: #401911;
+  stroke: #401911;
 }
 
 .slice.win {
-  fill: #a52a2a;
+  fill: #BD4932;
 }
 
 .slice.lose {
-  fill: #ffebcd;
+  fill: #FFFAD5;
+}
+
+.ring {
+  fill: none;
+  stroke: #DB9E36;
+  stroke-width: 10px;
+}
+
+.wheel-button {
+  fill: #401911;
 }
 
 .fp-controlArrow.fp-prev {
