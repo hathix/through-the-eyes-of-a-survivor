@@ -89,6 +89,8 @@ $(MyEventHandler).bind("selectionChanged", function(event, category) {
 
 var survivors = new Survivors("affected", 20, 100);
 
+var arrestWheel = new ArrestWheel("arrest-wheel");
+
 d3.csv("data/cleaned/comparative-rates-over-time.csv", function(csv) {
   new ComparativeRates("comparative-rates", csv);
 });

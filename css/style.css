@@ -5,17 +5,16 @@
 }*/
 
 #fullpage {
-    padding-top: 80px;
+  padding-top: 80px;
 }
 
-#quotes{
+#quotes {
   font-size: 20px;
 }
 
 .navbar {
-    z-index: 10000;
+  z-index: 10000;
 }
-
 
 
 /*
@@ -38,9 +37,15 @@ h2 {
 }
 */
 
+
 /*************/
+
+
 /*    FORM   */
+
+
 /*************/
+
 
 /*
 .form-inline {
@@ -77,8 +82,13 @@ h2 {
 }
 */
 
+
 /***************/
+
+
 /*  BAR CHART  */
+
+
 /***************/
 
 .bar {
@@ -86,7 +96,7 @@ h2 {
 }
 
 .bar.sexual-assault {
-    fill: firebrick;
+  fill: firebrick;
 }
 
 .axis {
@@ -99,8 +109,7 @@ h2 {
   font-size: 11px;
 }
 
-.axis path,
-.axis line {
+.axis path, .axis line {
   fill: none;
   stroke: #333;
   shape-rendering: crispEdges;
@@ -109,47 +118,77 @@ h2 {
 .x-axis {
   font-size: 12px;
 }
+
+
 /*
 .x-axis path {
   display: none;
 }*/
 
 path.line {
-    stroke: #CCC;
-    stroke-width: 3;
-    fill: none;
+  stroke: #CCC;
+  stroke-width: 3;
+  fill: none;
 }
 
 path.line.Sexual_assault, path.line.rape_sexual_assault {
-    stroke: firebrick;
+  stroke: firebrick;
 }
 
 path.line:hover {
-    stroke: steelblue;
+  stroke: steelblue;
 }
 
 path.line.Rape {
-    stroke: red;
+  stroke: red;
 }
 
 #text {
-    font-size: 20px;
-    font-weight: bold;
-    color: blue;
+  font-size: 20px;
+  font-weight: bold;
+  color: blue;
 }
 
 
+/* ARREST WHEEL */
+/* Colors from http://codepen.io/zadvorsky/pen/xzhBw */
+.slice {
+  stroke: #DB9E36;
+  /*stroke-width: 2px;*/
+}
 
+.pointer {
+  fill: #401911;
+  stroke: #401911;
+}
+
+.slice.win {
+  fill: #BD4932;
+}
+
+.slice.lose {
+  fill: #FFFAD5;
+}
+
+.ring {
+  fill: none;
+  stroke: #DB9E36;
+  stroke-width: 10px;
+}
+
+.wheel-button {
+  fill: #401911;
+}
 
 .fp-controlArrow.fp-prev {
-    border-color: transparent #777 transparent transparent !important;
+  border-color: transparent #777 transparent transparent !important;
 }
 
 .fp-controlArrow.fp-next {
-    border-color: transparent transparent transparent #777 !important;
+  border-color: transparent transparent transparent #777 !important;
 }
 
 .row.padded {
-    padding-left: 50px;
-    padding-right: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
