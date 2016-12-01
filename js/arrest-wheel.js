@@ -123,7 +123,7 @@ ArrestWheel.prototype.spin = function() {
   var endRemainderAngle = Math.random() * 360;
   var endAngle = (numRotations * 360) + endRemainderAngle;
   // determine which slice you stopped on
-  // TODO this is a bit off, fix
+  // TODO TODO TODO this is a bit off, fix
   var endSlice = Math.floor(endRemainderAngle / 360 * vis.slices);
 
   // # of degrees per millisecond
@@ -143,7 +143,10 @@ ArrestWheel.prototype.spin = function() {
     var easedTimeFraction = d3.easeQuadOut(rawTimeFraction);
 
     // so, from that, determine the angle to show
-    var angle = endAngle * easedTimeFraction;
+    // our slices go clockwise but the default spin direction is counterclockwise—
+    // so multiply the angle by -1 so the spinner goes clockwise
+    // and as a result, our calculations of which slice you end on are correct
+    var angle = -1 * endAngle * easedTimeFraction;
 
     // rotate the wheel
     vis.wheelGroup.attr("transform", "rotate(" + angle + ")");
