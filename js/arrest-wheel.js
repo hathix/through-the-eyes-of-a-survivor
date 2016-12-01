@@ -14,6 +14,8 @@ ArrestWheel = function(_parentElement) {
   this.height = 400;
   this.radius = this.height / 2;
 
+  // TODO add padding
+
   this.prepareData();
 }
 
@@ -74,42 +76,70 @@ ArrestWheel.prototype.initVis = function() {
     })
     .attr("d", vis.arc);
 
+  // draw pointer: upside down isosceles triangle
+  var pointerWidth = 30;
+  var pointerHeight = 30;
+  // draw top left point, then top right, then bottom middle
+  var points = {
+    startX: (vis.width - pointerWidth) / 2,
+    startY: 0,
+    topRightRelX: pointerWidth,
+    topRightRelY: 0,
+    bottomRelX: -1 / 2 * pointerWidth,
+    bottomRelY: pointerHeight
+  };
+  var pathString = [
+    "M",
+    points.startX,
+    points.startY,
+    "l",
+    points.topRightRelX,
+    points.topRightRelY,
+    "l",
+    points.bottomRelX,
+    points.bottomRelY,
+    "z"
+  ].join(" ");
+  vis.svg.append("path")
+    .attr("d", pathString)
+    .attr("stroke", "black");
 
-    // click handler to spinner
-    vis.svg.on("click", function() {
-        vis.spin();
-    });
+
+  // click handler to spinner
+  vis.svg.on("click", function() {
+    vis.spin();
+  });
 };
 
 ArrestWheel.prototype.spin = function() {
-    var vis = this;
+  var vis = this;
 
-    // start a timer to spin the spinner, and have it stop at a random spot
-    var startTime = Date.now();
-    //  have it spin a few times
-    var numRotations = 3 + Math.floor(Math.random() * 3);
-    // then
-    var endAngle = (numRotations * 360) + Math.random() * 360;
+  // start a timer to spin the spinner, and have it stop at a random spot
+  var startTime = Date.now();
+  //  have it spin a few times
+  var numRotations = 3 + Math.floor(Math.random() * 3);
+  // then
+  var endAngle = (numRotations * 360) + Math.random() * 360;
 
-    // # of degrees per millisecond
-    var speed = 1 / 2;
+  // # of degrees per millisecond
+  var speed = 1 / 2;
 
-    // how many milliseconds this will spin
-    var totalSpinTime = endAngle / speed;
+  // how many milliseconds this will spin
+  var totalSpinTime = endAngle / speed;
 
-    d3.timer(function(){
-        // delta is the time, in ms, since the timer started
-        var delta = Date.now() - startTime;
+  d3.timer(function() {
+    // delta is the time, in ms, since the timer started
+    var delta = Date.now() - startTime;
 
-        // the fraction of spin time that's elapsed
-        // cap it at 1
-        var rawTimeFraction = Math.min(delta / totalSpinTime, 1);
+    // the fraction of spin time that's elapsed
+    // cap it at 1
+    var rawTimeFraction = Math.min(delta / totalSpinTime, 1);
 
-        var easedTimeFraction = d3.easeQuadOut(rawTimeFraction);
+    var easedTimeFraction = d3.easeQuadOut(rawTimeFraction);
 
-        // so, from that, determine the angle to show
-        var angle = endAngle * easedTimeFraction;
+    // so, from that, determine the angle to show
+    var angle = endAngle * easedTimeFraction;
 
-        vis.wheelGroup.attr("transform", "rotate(" + angle + ")");
-    });
+    vis.wheelGroup.attr("transform", "rotate(" + angle + ")");
+  });
 };
