@@ -6,7 +6,10 @@
 ArrestWheel = function(_parentElement) {
   this.parentElement = _parentElement;
 
+  // total slices, and "winning" slices
   this.slices = 16;
+  this.winningSlices = 1;
+
   this.width = 400;
   this.height = 400;
   this.radius = this.height / 2;
@@ -66,7 +69,12 @@ ArrestWheel.prototype.initVis = function() {
     .attr("class", "slice")
     .append("path")
     .attr("fill", function(d, i) {
-      return i % 2 == 0 ? "red" : "white";
+        // only 1 slice is good
+      return i < vis.winningSlices ? "red" : "white";
     })
     .attr("d", vis.arc);
+};
+
+ArrestWheel.prototype.spin = function() {
+
 };
