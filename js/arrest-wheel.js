@@ -58,7 +58,7 @@ ArrestWheel.prototype.initVis = function() {
 
   // arc generator function
   vis.arc = d3.svg.arc()
-  .innerRadius(0)
+    .innerRadius(0)
     .outerRadius(vis.radius);
 
   // draw pie paths
@@ -69,12 +69,39 @@ ArrestWheel.prototype.initVis = function() {
     .attr("class", "slice")
     .append("path")
     .attr("fill", function(d, i) {
-        // only 1 slice is good
+      // only 1 slice is good
       return i < vis.winningSlices ? "red" : "white";
     })
     .attr("d", vis.arc);
+
+
+    // click handler to spinner
+    vis.svg.on("click", function() {
+        vis.spin();
+    });
 };
 
 ArrestWheel.prototype.spin = function() {
+    var vis = this;
 
+    // start a timer to spin the spinner, and have it stop at a random spot
+    var startTime = Date.now();
+    //  have it spin a few times
+    var numRotations = 5 + Math.floor(Math.random() * 5);
+    // then
+    var endAngle = (numRotations * 360) + Math.random() * 360;
+
+
+    d3.timer(function(){
+        // delta is time, in ms, since the timer started
+        var delta = Date.now() - startTime;
+
+        // calcualte the raw angle
+        var rawAngle = delta;
+
+        // cap it at the end angle so the spinner eventually stops
+        var angle = Math.min(rawAngle, endAngle);
+
+        vis.wheelGroup.attr("transform", "rotate(" + angle + ")");
+    });
 };
