@@ -37,7 +37,10 @@ ArrestWheel.prototype.prepareData = function() {
   // make dummy data to get the right number of evenly-spaced slices
   vis.data = [];
   for (var i = 0; i < vis.slices; i++) {
-    vis.data.push(1);
+    vis.data.push({
+        index: i,
+        value: 1
+    });
   }
 
   vis.initVis();
@@ -64,7 +67,14 @@ ArrestWheel.prototype.initVis = function() {
   // prepare the pie layout
   vis.pie = d3.layout.pie()
     .value(function(d) {
-      return d;
+      return d.value;
+    })
+    .sort(function(a, b) {
+        // sort the slices so that the first drawn slice is index 0,
+        // then 1, etc.
+        // this way we can properly correlate the ending angle of the spinner
+        // with which slice was chosen.
+        return a.index - b.index;
     });
 
   // arc generator function
@@ -78,9 +88,11 @@ ArrestWheel.prototype.initVis = function() {
     .enter()
     .append("g")
     .append("path")
-    .attr("class", function(d, i) {
-      // only 1 slice is good
-      return i < vis.winningSlices ? "slice win" : "slice lose";
+    .attr("class", function(d) {
+      // only the first `winningSlices` slices are good
+      // we sorted slices by their indices, so we know that the slices are in
+      // order 0, 1, 2, 3, etc
+      return d.data.index < vis.winningSlices ? "slice win" : "slice lose";
     })
     .attr("d", vis.arc);
 
