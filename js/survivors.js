@@ -141,8 +141,6 @@ Survivors.prototype.updateVisualization = function() {
     })
     .attr("xlink:href", "images/woman-outline.png")
     .on("mouseover", function(d, i) {
-    //   console.log(d);
-
       if (d.active) {
         // show quote b/c survivor
         var quote = d.quote;
