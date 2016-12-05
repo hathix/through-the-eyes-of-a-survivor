@@ -16,6 +16,21 @@
   z-index: 10000;
 }
 
+.mega-header {
+    font-size: 63px !important;
+}
+
+#section-intro {
+    background-image: url(../images/harvard.jpg);
+    background-size: cover;
+    padding: 0;
+}
+
+#cover-container {
+    color: white;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
 
 /*
 body {
