@@ -1,7 +1,7 @@
 BarChart = function(_parentElement) {
     // SVG drawing area
     this.parentElement = _parentElement;
-    this.margin = {top: 40, right: 10, bottom: 60, left: 60};
+    this.margin = {top: 40, right: 10, bottom: 150, left: 60};
     this.width = 960 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.policeData;
@@ -38,17 +38,23 @@ BarChart.prototype.initVis = function() {
 
     // draw x axis
     vis.svg.append("g")
-        .attr("class", "xaxis")
+        .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + (vis.height) + ")")
         .call(vis.xaxis);
 
     // draw y axis
     vis.svg.append("g")
-        .attr("class", "yaxis")
+        .attr("class", "axis y-axis")
         .call(vis.yaxis)
         .append("text")
         .attr("dy", ".71em")
         .style("text-anchor", "end");
+
+    // add axis label
+    vis.svg.append("text")
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(-50," + (vis.height / 2)+")rotate(-90)")
+        .text("Average report rate from 2002 to 2013");
 
     this.loadData();
 };
@@ -88,6 +94,10 @@ BarChart.prototype.loadData = function() {
 BarChart.prototype.updateVisualization = function(){
     var vis = this;
 
+    vis.data.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+
     // get data
     var base = vis.svg.data(vis.data);
 
@@ -104,9 +114,12 @@ BarChart.prototype.updateVisualization = function(){
     ]);
 
     // axes
-    vis.svg.select(".xaxis")
-        .call(vis.xaxis);
-    vis.svg.select(".yaxis")
+    vis.svg.select(".axis.x-axis")
+        .call(vis.xaxis)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("transform", "translate(" + 0 + "," + (vis.margin.top / 3 - 20) + ") rotate(-30)");
+    vis.svg.select(".axis.y-axis")
         .call(vis.yaxis);
 
     // draw bars
@@ -143,6 +156,13 @@ BarChart.prototype.updateVisualization = function(){
         })
         .on("click", function(d) {
             $(MyEventHandler).trigger("selectionChanged", d[0]);
+        })
+        .on({"mouseover": function(d) {
+                d3.select(this).style("cursor", "pointer")
+            },
+            "mouseout": function(d) {
+                    d3.select(this).style("cursor", "default")
+            }
         });
 
     // exit
