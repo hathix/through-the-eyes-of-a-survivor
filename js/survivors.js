@@ -82,6 +82,7 @@ Survivors.prototype.updateVisualization = function(){
 		.attr("class", "rect");
 
 	var rectInnerPadding = vis.nodeSize / 10;
+
 	rect
 	    .attr("width", vis.grid.nodeSize()[0] - rectInnerPadding)
 	    .attr("height", vis.grid.nodeSize()[1] - rectInnerPadding)
@@ -90,7 +91,6 @@ Survivors.prototype.updateVisualization = function(){
 	        rectInnerPadding / 2)) + ")";
 	    })
 	    .attr("fill", "#bbb")
-	    .on("click", function(){console.log("hi")});;
 
 	// transition the fill
 	rect.transition()
@@ -101,11 +101,13 @@ Survivors.prototype.updateVisualization = function(){
 	    })
 	    .attr("fill", function(d,i) {
 	      var color = d.active ? "red" : "#bbb";
+
+	      if(vis.isNextVis)
+	      	color = "blue";
 	      vis.colors.push(color);
 	      return color;
 	    });
 
-	//console.log(vis.colors);
 	// exit
 	rect.exit().transition().remove();
 
@@ -126,11 +128,6 @@ Survivors.prototype.updateVisualization = function(){
 	      return "translate(" + (d.x) + "," + d.y + ")";
 	    })
 	    .attr("xlink:href", "images/woman-outline.png")
-	    .on("click", function(d, i){
-	    	if (vis.colors[i] == "red"){
-	    		console.log("red");
-	    	}
-	    });
 
 	// exit
 	image.exit()
