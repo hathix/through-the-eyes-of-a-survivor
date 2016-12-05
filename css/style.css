@@ -51,6 +51,25 @@
   opacity: 0;
 }
 
+#party-scene {
+    /* TODO: factor out to .scene */
+    position: relative;
+    margin: auto;
+}
+
+#party-bg {
+    width: 500px;
+}
+
+#party-woman {
+    position: absolute;
+    top: 50px;
+    /*left: 200px;*/
+    left: 0;
+    width: 150px;
+
+    opacity: 0;
+}
 
 /*************/
 

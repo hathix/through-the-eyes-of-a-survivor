@@ -50,6 +50,14 @@ $(function() {
         // start typewriting each story once you visit it
         if (index === 3) {
           typewrite(stories[0]);
+
+          // gradually show the woman
+          $('#party-woman').fadeTo(1000, 1, function complete(){
+              // slide her in from the left
+              $('#party-woman').animate({
+                  left: 200
+              }, 1000);
+          });
         }
         // if (index === 4) {
         //   typewrite(stories[1]);
