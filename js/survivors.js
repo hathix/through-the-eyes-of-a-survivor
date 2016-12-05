@@ -8,6 +8,8 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   this.nodePadding = 10;
   this.women_height = 32;
   this.women_width = 27;
+  this.isNextVis = false;
+
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
@@ -97,14 +99,13 @@ Survivors.prototype.updateVisualization = function(){
 	      // wait time in milliseconds
 	      return i * delay;
 	    })
-	    .attr("fill", function(d) {
+	    .attr("fill", function(d,i) {
 	      var color = d.active ? "red" : "#bbb";
 	      vis.colors.push(color);
 	      return color;
 	    });
 
 	//console.log(vis.colors);
-
 	// exit
 	rect.exit().transition().remove();
 
