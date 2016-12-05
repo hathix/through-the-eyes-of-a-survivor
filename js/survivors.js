@@ -71,7 +71,6 @@ Survivors.prototype.loadData = function() {
   });
 }
 
-<<<<<<< HEAD
 Survivors.prototype.updateVisualization = function(){
 	var vis = this;
 
@@ -149,7 +148,8 @@ Survivors.prototype.updateVisualization = function(){
 	image.exit()
 	    .transition()
 	    .remove();
-=======
+}
+
 Survivors.prototype.updateVisualization = function() {
   var vis = this;
 
@@ -239,7 +239,6 @@ Survivors.prototype.updateVisualization = function() {
   image.exit()
     .transition()
     .remove();
->>>>>>> master
 }
 
 function shuffle(array) {
