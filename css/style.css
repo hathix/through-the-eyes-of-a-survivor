@@ -92,7 +92,11 @@ h2 {
 /***************/
 
 .bar {
-  fill: #CCC;
+  fill: #c8c8c8;
+}
+
+.bar:hover {
+    fill: steelblue;
 }
 
 .bar.sexual-assault {
@@ -101,17 +105,17 @@ h2 {
 
 .axis {
   font: 10px sans-serif;
-  fill: #333;
+  fill: #c8c8c8;
 }
 
 .axis-title {
-  fill: #9C8B83;
+  fill: #c8c8c8;
   font-size: 11px;
 }
 
 .axis path, .axis line {
   fill: none;
-  stroke: #333;
+  stroke: #c8c8c8;
   shape-rendering: crispEdges;
 }
 
@@ -126,7 +130,7 @@ h2 {
 }*/
 
 path.line {
-  stroke: #CCC;
+  stroke: #c8c8c8;
   stroke-width: 3;
   fill: none;
 }
@@ -178,7 +182,16 @@ path.line.Rape {
 
 .wheel-button {
   fill: #401911;
+  cursor: pointer;
 }
+
+.wheel-holder {
+    cursor: pointer;
+}
+
+
+
+
 
 .fp-controlArrow.fp-prev {
   border-color: transparent #777 transparent transparent !important;
@@ -191,4 +204,9 @@ path.line.Rape {
 .row.padded {
   padding-left: 50px;
   padding-right: 50px;
+}
+
+/* FULLPAGE */
+#fp-nav ul li a span {
+    background: whitesmoke;
 }

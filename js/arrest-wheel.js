@@ -58,7 +58,8 @@ ArrestWheel.prototype.initVis = function() {
     .attr("height", vis.height);
 
   vis.wheelHolder = vis.svg.append("g")
-    .attr("transform", "translate(" + vis.radius + "," + vis.radius + ")");
+    .attr("transform", "translate(" + vis.radius + "," + vis.radius + ")")
+    .attr("class", "wheel-holder");
 
   // svg => wheelHolder => wheelGroup (where the wheel is actually drawn )
   vis.wheelGroup = vis.wheelHolder.append("g");

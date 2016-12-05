@@ -54,6 +54,7 @@ BarChart.prototype.initVis = function() {
     vis.svg.append("text")
         .style("text-anchor", "middle")
         .attr("transform", "translate(-50," + (vis.height / 2)+")rotate(-90)")
+        .attr("class", "axis-title")
         .text("Average report rate from 2002 to 2013");
 
     this.loadData();

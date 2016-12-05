@@ -92,6 +92,7 @@ LineChart.prototype.loadData = function() {
     vis.svg.append("text")
         .style("text-anchor", "middle")
         .attr("transform", "translate(-40," + (vis.height / 2)+")rotate(-90)")
+        .attr("class", "axis-title")
         .text("Crime report rates per year");
 
     vis.updateVisualization();
