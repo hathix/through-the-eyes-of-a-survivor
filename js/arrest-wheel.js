@@ -11,10 +11,10 @@ ArrestWheel = function(_parentElement) {
   this.winningSlices = 1;
 
   this.padding = {
-      left: 30,
-      top: 30,
-      right: 30,
-      bottom: 30
+    left: 30,
+    top: 30,
+    right: 30,
+    bottom: 30
   }
 
   this.innerWidth = 400;
@@ -47,8 +47,8 @@ ArrestWheel.prototype.prepareData = function() {
   vis.data = [];
   for (var i = 0; i < vis.slices; i++) {
     vis.data.push({
-        index: i,
-        value: 1
+      index: i,
+      value: 1
     });
   }
 
@@ -67,7 +67,8 @@ ArrestWheel.prototype.initVis = function() {
     .attr("height", vis.outerHeight);
 
   vis.wheelHolder = vis.svg.append("g")
-    .attr("transform", "translate(" + (vis.radius + vis.padding.top) + "," + (vis.radius + vis.padding.left) + ")")
+    .attr("transform", "translate(" + (vis.radius + vis.padding.top) + "," +
+      (vis.radius + vis.padding.left) + ")")
     .attr("class", "wheel-holder");
 
   // svg => wheelHolder => wheelGroup (where the wheel is actually drawn )
@@ -80,11 +81,11 @@ ArrestWheel.prototype.initVis = function() {
       return d.value;
     })
     .sort(function(a, b) {
-        // sort the slices so that the first drawn slice is index 0,
-        // then 1, etc.
-        // this way we can properly correlate the ending angle of the spinner
-        // with which slice was chosen.
-        return a.index - b.index;
+      // sort the slices so that the first drawn slice is index 0,
+      // then 1, etc.
+      // this way we can properly correlate the ending angle of the spinner
+      // with which slice was chosen.
+      return a.index - b.index;
     });
 
   // arc generator function
@@ -128,7 +129,7 @@ ArrestWheel.prototype.initVis = function() {
   // draw top left point, then top right, then bottom middle
   var points = {
     startX: (vis.innerWidth - pointerWidth) / 2 + vis.padding.left,
-    startY: vis.padding.top - pointerHeight/3,
+    startY: vis.padding.top - pointerHeight / 3,
     topRightRelX: pointerWidth,
     topRightRelY: 0,
     bottomRelX: -1 / 2 * pointerWidth,
@@ -154,6 +155,9 @@ ArrestWheel.prototype.initVis = function() {
 
   // click handler to spinner
   vis.svg.on("click", function() {
+    $('#wheel-start')
+      .hide();
+
     vis.spin();
   });
 };
