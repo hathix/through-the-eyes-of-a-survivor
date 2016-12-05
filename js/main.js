@@ -6,7 +6,7 @@ d3.json("data/stories.json", function(error, data) {
   // create a typewriter for each story
   stories.forEach(function(story) {
     story.typewriter = malarkey(document.querySelector("#" + story.id), {
-      typeSpeed: 30,
+      typeSpeed: 20,
       setter: function(elem, val) {
         // replace "\n" with line breaks
         val = val.replace(/\n/, "<br><br>");
