@@ -61,7 +61,7 @@ LineChart.prototype.loadData = function() {
         .domain([new Date('2002'), new Date('2014')])
         .range([0, vis.width]);
     vis.y = d3.scale.linear()
-        .domain([0, 85.6])
+        .domain([0, 100])
         .range([vis.height, 0]);
 
     // assign temp var to formatted var for first init

@@ -109,9 +109,10 @@ BarChart.prototype.updateVisualization = function(){
 
     vis.y.domain([
         0,
-        d3.max(vis.data.map(function(d) {
-            return d[1];
-        }))
+        // d3.max(vis.data.map(function(d) {
+        //     return d[1];
+        // }))
+        100
     ]);
 
     // axes
