@@ -10,9 +10,18 @@ ArrestWheel = function(_parentElement) {
   this.slices = 16;
   this.winningSlices = 1;
 
-  this.width = 400;
-  this.height = 400;
-  this.radius = this.height / 2;
+  this.padding = {
+      left: 30,
+      top: 30,
+      right: 30,
+      bottom: 30
+  }
+
+  this.innerWidth = 400;
+  this.innerHeight = 400;
+  this.outerWidth = this.innerWidth + this.padding.left + this.padding.right;
+  this.outerHeight = this.innerHeight + this.padding.top + this.padding.bottom;
+  this.radius = this.innerHeight / 2;
 
   // TODO add padding
 
@@ -54,11 +63,11 @@ ArrestWheel.prototype.initVis = function() {
 
   vis.svg = d3.select("#" + vis.parentElement)
     .append("svg")
-    .attr("width", vis.width)
-    .attr("height", vis.height);
+    .attr("width", vis.outerWidth)
+    .attr("height", vis.outerHeight);
 
   vis.wheelHolder = vis.svg.append("g")
-    .attr("transform", "translate(" + vis.radius + "," + vis.radius + ")")
+    .attr("transform", "translate(" + (vis.radius + vis.padding.top) + "," + (vis.radius + vis.padding.left) + ")")
     .attr("class", "wheel-holder");
 
   // svg => wheelHolder => wheelGroup (where the wheel is actually drawn )
@@ -101,25 +110,25 @@ ArrestWheel.prototype.initVis = function() {
 
   // draw circle around circumference
   vis.ring = vis.svg.append("circle")
-    .attr("cx", vis.width / 2)
-    .attr("cy", vis.height / 2)
+    .attr("cx", vis.outerWidth / 2)
+    .attr("cy", vis.outerHeight / 2)
     .attr("r", vis.radius)
     .attr("class", "ring");
 
   // draw button in middle
   vis.button = vis.svg.append("circle")
-    .attr("cx", vis.width / 2)
-    .attr("cy", vis.height / 2)
+    .attr("cx", vis.outerWidth / 2)
+    .attr("cy", vis.outerHeight / 2)
     .attr("r", vis.radius / 10)
     .attr("class", "wheel-button");
 
   // draw pointer: upside down isosceles triangle
   var pointerWidth = 30;
-  var pointerHeight = 30;
+  var pointerHeight = 45;
   // draw top left point, then top right, then bottom middle
   var points = {
-    startX: (vis.width - pointerWidth) / 2,
-    startY: 0,
+    startX: (vis.innerWidth - pointerWidth) / 2 + vis.padding.left,
+    startY: vis.padding.top - pointerHeight/3,
     topRightRelX: pointerWidth,
     topRightRelY: 0,
     bottomRelX: -1 / 2 * pointerWidth,
