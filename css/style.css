@@ -17,40 +17,39 @@
 }
 
 .mega-header {
-    font-size: 63px !important;
+  font-size: 63px !important;
 }
 
 #section-intro {
-    background-image: url(../images/harvard.jpg);
-    background-size: cover;
-    padding: 0;
+  background-image: url(../images/harvard.jpg);
+  background-size: cover;
+  padding: 0;
 }
 
 #cover-container {
-    color: white;
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 8px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
 
-/*
-body {
-  font-family: 'Lato', sans-serif;
-  background-color: #D0C6B2;
+#american-scene {
+  position: relative;
+  margin: auto;
 }
 
-h1 {
-  color: #865F3C;
-  margin-top: 40px;
-  font-weight: 300;
+#american-bg {
+  width: 500px;
 }
 
-h2 {
-  font-weight: 100;
-  font-size: 20px;
-  margin-bottom: 30px;
-  color: #906666;
+#american-woman {
+  position: absolute;
+  top: 180px;
+  /*left: 250px;*/
+  left: 0;
+  width: 75px;
+
+  opacity: 0;
 }
-*/
 
 
 /*************/
@@ -111,7 +110,7 @@ h2 {
 }
 
 .bar:hover {
-    fill: steelblue;
+  fill: steelblue;
 }
 
 .bar.sexual-assault {
@@ -170,7 +169,10 @@ path.line.Rape {
 
 
 /* ARREST WHEEL */
+
+
 /* Colors from http://codepen.io/zadvorsky/pen/xzhBw */
+
 .slice {
   stroke: #DB9E36;
   /*stroke-width: 2px;*/
@@ -201,12 +203,8 @@ path.line.Rape {
 }
 
 .wheel-holder {
-    cursor: pointer;
+  cursor: pointer;
 }
-
-
-
-
 
 .fp-controlArrow.fp-prev {
   border-color: transparent #777 transparent transparent !important;
@@ -221,7 +219,9 @@ path.line.Rape {
   padding-right: 50px;
 }
 
+
 /* FULLPAGE */
+
 #fp-nav ul li a span {
-    background: whitesmoke;
+  background: whitesmoke;
 }
