@@ -102,6 +102,7 @@ $(function() {
     });
 });
 
+var campusMap = new CampusMap("campus-map");
 var barChart = new BarChart("police-reports-bars", MyEventHandler);
 var lineChart = new LineChart("police-reports");
 $(MyEventHandler)
