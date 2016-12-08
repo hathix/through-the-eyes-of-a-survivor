@@ -46,7 +46,7 @@ CampusMap.prototype.initVis = function() {
                 .append("circle")
                 .attr("class", function(d) { return "map-college-dot " + d.School;})
                 .attr("r", function(d) {
-                    return d.Rate / 3;
+                    return d.Rate / 2;
                 })
                 .attr("cx", 0)
                 .attr("cy", 0)
