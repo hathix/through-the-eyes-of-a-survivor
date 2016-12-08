@@ -36,8 +36,7 @@ CampusMap.prototype.initVis = function() {
             .enter()
             .append("path")
             .attr("d", vis.path)
-            .style("stroke", "white")
-            .style("fill", "gray");
+            .attr("class", "map-state");
 
         // read in CSV of sexual assault rates
         d3.csv("data/cleaned/sexual-assault-rate-on-campuses.csv", function(csvData) {
@@ -45,18 +44,18 @@ CampusMap.prototype.initVis = function() {
                 .data(csvData)
                 .enter()
                 .append("circle")
-                .attr("class", function(d) { return d.School;})
+                .attr("class", function(d) { return "map-college-dot " + d.School;})
                 .attr("r", function(d) {
                     return d.Rate / 3;
                 })
-                .style("stroke", "black")
-                .style("opacity", .6)
-                .attr("fill", "red")
                 .attr("cx", 0)
                 .attr("cy", 0)
                 .attr("transform", function(d) {
                     return "translate(" + vis.projection([+d.Long, +d.Lat]) + ")";
-                });
+                })
+                .attr("title", function(d) {
+                    return d.School;
+                })
         })
     })
 }
