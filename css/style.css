@@ -16,27 +16,60 @@
   z-index: 10000;
 }
 
-
-/*
-body {
-  font-family: 'Lato', sans-serif;
-  background-color: #D0C6B2;
+.mega-header {
+  font-size: 63px !important;
 }
 
-h1 {
-  color: #865F3C;
-  margin-top: 40px;
-  font-weight: 300;
+#section-intro {
+  background-image: url(../images/harvard-night-2-dulled.jpg);
+  background-size: cover;
+  padding: 0;
 }
 
-h2 {
-  font-weight: 100;
-  font-size: 20px;
-  margin-bottom: 30px;
-  color: #906666;
+#cover-container {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
-*/
 
+#american-scene {
+  position: relative;
+  margin: auto;
+}
+
+#american-bg {
+  width: 500px;
+}
+
+#american-woman {
+  position: absolute;
+  top: 180px;
+  /*left: 250px;*/
+  left: 0;
+  width: 75px;
+
+  opacity: 0;
+}
+
+#party-scene {
+    /* TODO: factor out to .scene */
+    position: relative;
+    margin: auto;
+}
+
+#party-bg {
+    width: 500px;
+}
+
+#party-woman {
+    position: absolute;
+    top: 50px;
+    /*left: 200px;*/
+    left: 0;
+    width: 150px;
+
+    opacity: 0;
+}
 
 /*************/
 
@@ -92,7 +125,11 @@ h2 {
 /***************/
 
 .bar {
-  fill: #CCC;
+  fill: #c8c8c8;
+}
+
+.bar:hover {
+  fill: steelblue;
 }
 
 .bar.sexual-assault {
@@ -101,17 +138,17 @@ h2 {
 
 .axis {
   font: 10px sans-serif;
-  fill: #333;
+  fill: #c8c8c8;
 }
 
 .axis-title {
-  fill: #9C8B83;
+  fill: #c8c8c8;
   font-size: 11px;
 }
 
 .axis path, .axis line {
   fill: none;
-  stroke: #333;
+  stroke: #c8c8c8;
   shape-rendering: crispEdges;
 }
 
@@ -126,7 +163,7 @@ h2 {
 }*/
 
 path.line {
-  stroke: #CCC;
+  stroke: #c8c8c8;
   stroke-width: 3;
   fill: none;
 }
@@ -151,7 +188,10 @@ path.line.Rape {
 
 
 /* ARREST WHEEL */
+
+
 /* Colors from http://codepen.io/zadvorsky/pen/xzhBw */
+
 .slice {
   stroke: #DB9E36;
   /*stroke-width: 2px;*/
@@ -178,6 +218,24 @@ path.line.Rape {
 
 .wheel-button {
   fill: #401911;
+  cursor: pointer;
+}
+
+.wheel-holder {
+  cursor: pointer;
+}
+
+/* map */
+
+.map-state {
+    fill: #AAA;
+    stroke: white;
+}
+
+.map-college-dot {
+    stroke: black;
+    opacity: 0.6;
+    fill: red;
 }
 
 .fp-controlArrow.fp-prev {
@@ -191,4 +249,12 @@ path.line.Rape {
 .row.padded {
   padding-left: 50px;
   padding-right: 50px;
+}
+
+
+
+/* FULLPAGE */
+
+#fp-nav ul li a span {
+  background: whitesmoke;
 }

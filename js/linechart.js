@@ -61,7 +61,7 @@ LineChart.prototype.loadData = function() {
         .domain([new Date('2002'), new Date('2014')])
         .range([0, vis.width]);
     vis.y = d3.scale.linear()
-        .domain([0, 85.6])
+        .domain([0, 100])
         .range([vis.height, 0]);
 
     // assign temp var to formatted var for first init
@@ -92,6 +92,7 @@ LineChart.prototype.loadData = function() {
     vis.svg.append("text")
         .style("text-anchor", "middle")
         .attr("transform", "translate(-40," + (vis.height / 2)+")rotate(-90)")
+        .attr("class", "axis-title")
         .text("Crime report rates per year");
 
     vis.updateVisualization();

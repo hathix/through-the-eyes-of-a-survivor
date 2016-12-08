@@ -123,7 +123,7 @@ PeopleDisplay.prototype.render = function() {
     .attr("transform", function(d) {
       return "translate(" + (d.x) + "," + d.y + ")";
     })
-    .attr("xlink:href", "images/woman-outline.png");
+    .attr("xlink:href", "images/woman-outline.slate.png");
 
   // exit
   image.exit()

@@ -54,6 +54,7 @@ BarChart.prototype.initVis = function() {
     vis.svg.append("text")
         .style("text-anchor", "middle")
         .attr("transform", "translate(-50," + (vis.height / 2)+")rotate(-90)")
+        .attr("class", "axis-title")
         .text("Average report rate from 2002 to 2013");
 
     this.loadData();
@@ -108,9 +109,10 @@ BarChart.prototype.updateVisualization = function(){
 
     vis.y.domain([
         0,
-        d3.max(vis.data.map(function(d) {
-            return d[1];
-        }))
+        // d3.max(vis.data.map(function(d) {
+        //     return d[1];
+        // }))
+        100
     ]);
 
     // axes

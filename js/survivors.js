@@ -220,14 +220,14 @@ Survivors.prototype.updateVisualization = function() {
     .attr("transform", function(d) {
       return "translate(" + (d.x) + "," + d.y + ")";
     })
-    .attr("xlink:href", "images/woman-outline.png")
+    .attr("xlink:href", "images/woman-outline.slate.png")
     .on("mouseover", function(d, i) {
       if (d.active) {
         // show quote b/c survivor
         var quote = d.quote;
         $('#survivor-quote')
           .show();
-  
+
         $('#quote-text')
           .html(quote.Quote);
         $('#quote-source')

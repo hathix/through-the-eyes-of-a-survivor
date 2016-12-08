@@ -6,7 +6,7 @@ d3.json("data/stories.json", function(error, data) {
   // create a typewriter for each story
   stories.forEach(function(story) {
     story.typewriter = malarkey(document.querySelector("#" + story.id), {
-      typeSpeed: 30,
+      typeSpeed: 20,
       setter: function(elem, val) {
         // replace "\n" with line breaks
         val = val.replace(/\n/, "<br><br>");
@@ -37,9 +37,27 @@ $(function() {
       menu: '#main-menu',
 
       afterLoad: function(anchorLink, index) {
+          if (index === 2) {
+              // gradually show the american woman
+              $('#american-woman').fadeTo(1000, 1, function complete(){
+                  // slide her in from the left
+                  $('#american-woman').animate({
+                      left: 250
+                  }, 1000);
+              });
+          }
+
         // start typewriting each story once you visit it
         if (index === 3) {
           typewrite(stories[0]);
+
+          // gradually show the woman
+          $('#party-woman').fadeTo(1000, 1, function complete(){
+              // slide her in from the left
+              $('#party-woman').animate({
+                  left: 200
+              }, 1000);
+          });
         }
         // if (index === 4) {
         //   typewrite(stories[1]);
@@ -88,6 +106,7 @@ $(function() {
     });
 });
 
+var campusMap = new CampusMap("campus-map");
 var barChart = new BarChart("police-reports-bars", MyEventHandler);
 var lineChart = new LineChart("police-reports");
 
