@@ -175,7 +175,7 @@ $('#quiz-result').hide();
         var html = `
             <div class="row">
                 <div class="col-xs-9 quiz-reason">
-                    "${question.Reason}"
+                    "${question.Reason}."
                 </div>
                 <div class="col-xs-3">
                   <button class="btn btn-default btn-yes">Yes</button>
@@ -194,7 +194,8 @@ $('#quiz-result').hide();
 
             // show the outputs
             $('#quiz-result').show();
-            // show the story
+            // show more info
+            $('#quiz-reason').html(question.Reason);
             $('#quiz-story').html(question.Story);
             $element.find('.btn-yes').removeClass('btn-default').addClass('btn-warning');
         });
