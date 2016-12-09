@@ -144,4 +144,177 @@ var typewrite = function(story) {
     story.typewriter.type(toType)
       .pause(1500);
   });
-}
+};
+
+
+
+
+
+
+
+
+
+//if ($('.answer').is(":checked"))
+//{
+  //console.log("yeah");
+//}
+
+//if(document.getElementsByClassName('answer').checked) {
+  //console.log("checked");
+//} else {
+  //console.log("not checked");
+//}
+
+
+
+// Check if the checkbox is checked
+$(document).ready(function(){
+  // Hide information for quiz
+  $('#answer1')
+      .hide();
+  $('#answer2')
+      .hide();
+  $('#answer3')
+      .hide();
+  $('#answer4')
+      .hide();
+  $('#answer5')
+      .hide();
+  $('#answer6')
+      .hide();
+  $('#answer7')
+      .hide();
+  $('#answer8')
+      .hide();
+  $('#answer9')
+      .hide();
+  $('#answer10')
+      .hide();
+  $('#answer11')
+      .hide();
+  $('#answer12')
+      .hide();
+  $('#answer13')
+      .hide();
+  $('#answer14')
+      .hide();
+  $('#answer15')
+      .hide();
+  $('#answer16')
+      .hide();
+  $('#answer17')
+      .hide();
+  $('input[type="checkbox"]').click(function(){
+    if($(this).prop("checked") == true){
+      var idInfo = $(this).attr("id");
+      console.log($(this).attr("id"));
+      var classInfo = $(this).attr("class")
+      if (idInfo == "value1") {
+        $('#truth1')
+            .hide();
+        $("#answer1")
+            .show();
+      }
+      else if (idInfo == "value2") {
+        $('#truth2')
+            .hide();
+        $("#answer2")
+            .show();
+      }
+      else if (idInfo == "value3") {
+        $('#truth3')
+            .hide();
+        $("#answer3")
+            .show();
+      }
+      else if (idInfo == "value4") {
+        $('#truth4')
+            .hide();
+        $("#answer4")
+            .show();
+      }
+      else if (idInfo == "value5") {
+        $('#truth5')
+            .hide();
+        $("#answer5")
+            .show();
+      }
+      else if (idInfo == "value6") {
+        $('#truth6')
+            .hide();
+        $("#answer6")
+            .show();
+      }
+      else if (idInfo == "value7") {
+        $('#truth7')
+            .hide();
+        $("#answer7")
+            .show();
+      }
+      else if (idInfo == "value8") {
+        $('#truth8')
+            .hide();
+        $("#answer8")
+            .show();
+      }
+      else if (idInfo == "value9") {
+        $('#truth9')
+            .hide();
+        $("#answer9")
+            .show();
+      }
+      else if (idInfo == "value10") {
+        $('#truth10')
+            .hide();
+        $("#answer10")
+            .show();
+      }
+      else if (idInfo == "value11") {
+        $('#truth11')
+            .hide();
+        $("#answer11")
+            .show();
+      }
+      else if (idInfo == "value12") {
+        $('#truth12')
+            .hide();
+        $("#answer12")
+            .show();
+      }
+      else if (idInfo == "value13") {
+        $('#truth13')
+            .hide();
+        $("#answer13")
+            .show();
+      }
+      else if (idInfo == "value14") {
+        $('#truth14')
+            .hide();
+        $("#answer14")
+            .show();
+      }
+      else if (idInfo == "value15") {
+        $('#truth15')
+            .hide();
+        $("#answer15")
+            .show();
+      }
+      else if (idInfo == "value16") {
+        $('#truth16')
+            .hide();
+        $("#answer16")
+            .show();
+      }
+      else if (idInfo == "value17") {
+        $('#truth17')
+            .hide();
+        $("#answer17")
+            .show();
+      }
+    }
+    else if($(this).prop("checked") == false){
+      //alert("Checkbox is unchecked.");
+      console.log("unchecked");
+    }
+  });
+});
