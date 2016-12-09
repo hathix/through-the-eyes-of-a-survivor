@@ -274,6 +274,6 @@ path.line.Rape {
   font-weight: bold;
 }
 
-#quiz-reason {
-    font-weight: bold;
+.quiz-reason {
+    text-align: right;
 }

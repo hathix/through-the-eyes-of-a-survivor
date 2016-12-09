@@ -167,33 +167,62 @@ var typewrite = function(story) {
 
 
 d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
+
+$('#quiz-result').hide();
+
     // each question has a Reason and a Story
-    // questions.forEach(function(question) {
-    //     var html = `
-    //         <div class="col-xs-6 col-md-4">
-    //             <div class="checkbox">
-    //                 <label>
-    //                     <input type="checkbox">
-    //                     ${question.Reason}
-    //                 </label>
-    //             </div>
-    //         </div>
-    //     `;
-    //     var $element = $(html);
-    //     // $element.attr("title", question.Story);
-    //     $('#quiz-choices').append($element);
-    // });
+    questions.forEach(function(question) {
+        var html = `
+            <div class="row">
+                <div class="col-xs-9 quiz-reason">
+                    ${question.Reason}
+                </div>
+                <div class="col-xs-3">
+                  <button class="btn btn-success btn-yes">Yes</button>
+                  <button class="btn btn-danger btn-no">No</button>
+                </div>
+            </div>
+        `;
+        var $element = $(html);
+
+        // handle clicks
+        $element.find(".btn-yes, .btn-no").on('click', function(){
+            // stuff that happens either way
+
+            // remove the no button because all the answers are true
+            $element.find(".btn-no").remove();
+
+            // show the outputs
+            $('#quiz-result').show();
+            // show the story
+            $('#quiz-story').html(question.Story);
+            // $element.find('.btn-yes, .btn-no').prop('disabled', true);
+        });
+        $element.find(".btn-yes").on('click', function(){
+            // "yes" is always correct
+            $('#quiz-correct').show();
+            $('#quiz-incorrect').hide();
+        });
+        $element.find(".btn-no").on('click', function(){
+            // "no" is always incorrect
+            $('#quiz-incorrect').show();
+            $('#quiz-correct').hide();
+        });
+
+        // $element.attr("title", question.Story);
+        $('#quiz-choices').append($element);
+    });
+
+
+    // $('#quiz-story-holder').hide();
     //
-
-    $('#quiz-story-holder').hide();
-
-    var question = questions[0];
-    $('#quiz-reason').html(question.Reason);
-    $('#quiz-story').html(question.Story);
+    // var question = questions[0];
+    // $('#quiz-reason').html(question.Reason);
+    // $('#quiz-story').html(question.Story);
 });
 
-$('#quiz-btn-yes, #quiz-btn-no').on('click', function(){
-    // show answers
-    $('#quiz-buttons').hide();
-    $('#quiz-story-holder').show();
-});
+// $('#quiz-btn-yes, #quiz-btn-no').on('click', function(){
+//     // show answers
+//     $('#quiz-buttons').hide();
+//     $('#quiz-story-holder').show();
+// });
