@@ -168,117 +168,722 @@ $(document).ready(function(){
       .hide();
   $('#answer17')
       .hide();
-  $('input[type="checkbox"]').click(function(){
-    if($(this).prop("checked") == true){
-      var idInfo = $(this).attr("id");
-      console.log($(this).attr("id"));
-      var classInfo = $(this).attr("class")
-      if (idInfo == "value1") {
+
+    $('input[type=radio][name=q1]').change(function() {
+      if (this.value == 'value1') {
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth1')
             .hide();
         $("#answer1")
             .show();
       }
-      else if (idInfo == "value2") {
-        $('#truth2')
+      else if (this.value == 'value3') {
+        $('#answer1')
             .hide();
-        $("#answer2")
+        $('#truth1')
             .show();
-      }
-      else if (idInfo == "value3") {
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
+
         $('#truth3')
             .hide();
         $("#answer3")
             .show();
       }
-      else if (idInfo == "value4") {
+      else if (this.value == 'value4') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth4')
             .hide();
         $("#answer4")
             .show();
       }
-      else if (idInfo == "value5") {
+      else if (this.value == 'value5') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth5')
             .hide();
         $("#answer5")
             .show();
       }
-      else if (idInfo == "value6") {
-        $('#truth6')
+      else if (this.value == 'value7') {
+        $('#answer1')
             .hide();
-        $("#answer6")
+        $('#truth1')
             .show();
-      }
-      else if (idInfo == "value7") {
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth7')
             .hide();
         $("#answer7")
             .show();
       }
-      else if (idInfo == "value8") {
+      else if (this.value == 'value8') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth8')
             .hide();
         $("#answer8")
             .show();
       }
-      else if (idInfo == "value9") {
+      else if (this.value == 'value9') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth9')
             .hide();
         $("#answer9")
             .show();
       }
-      else if (idInfo == "value10") {
+      else if (this.value == 'value10') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth10')
             .hide();
         $("#answer10")
             .show();
       }
-      else if (idInfo == "value11") {
+      else if (this.value == 'value11') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth11')
             .hide();
         $("#answer11")
             .show();
       }
-      else if (idInfo == "value12") {
-        $('#truth12')
+      else if (this.value == 'value13') {
+        $('#answer1')
             .hide();
-        $("#answer12")
+        $('#truth1')
             .show();
-      }
-      else if (idInfo == "value13") {
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth13')
             .hide();
         $("#answer13")
             .show();
       }
-      else if (idInfo == "value14") {
+      else if (this.value == 'value14') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth14')
             .hide();
         $("#answer14")
             .show();
       }
-      else if (idInfo == "value15") {
+      else if (this.value == 'value15') {
+        $('#answer1')
+            .hide();
+        $('#truth1')
+            .show();
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer17')
+            .hide();
+        $('#truth17')
+            .show();
+
         $('#truth15')
             .hide();
         $("#answer15")
             .show();
       }
-      else if (idInfo == "value16") {
-        $('#truth16')
+      else if (this.value == 'value17') {
+        $('#answer1')
             .hide();
-        $("#answer16")
+        $('#truth1')
             .show();
-      }
-      else if (idInfo == "value17") {
+        $('#answer3')
+            .hide();
+        $('#truth3')
+            .show();
+        $('#answer4')
+            .hide();
+        $('#truth4')
+            .show();
+        $('#answer5')
+            .hide();
+        $('#truth5')
+            .show();
+        $('#answer7')
+            .hide();
+        $('#truth7')
+            .show();
+        $('#answer8')
+            .hide();
+        $('#truth8')
+            .show();
+        $('#answer9')
+            .hide();
+        $('#truth9')
+            .show();
+        $('#answer10')
+            .hide();
+        $('#truth10')
+            .show();
+        $('#answer11')
+            .hide();
+        $('#truth11')
+            .show();
+        $('#answer13')
+            .hide();
+        $('#truth13')
+            .show();
+        $('#answer14')
+            .hide();
+        $('#truth14')
+            .show();
+        $('#answer15')
+            .hide();
+        $('#truth15')
+            .show();
+
         $('#truth17')
             .hide();
         $("#answer17")
             .show();
       }
-    }
-    else if($(this).prop("checked") == false){
-      //alert("Checkbox is unchecked.");
-      console.log("unchecked");
-    }
-  });
+    });
+
+
+
 });
