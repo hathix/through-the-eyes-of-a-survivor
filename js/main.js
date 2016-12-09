@@ -68,10 +68,6 @@ $(function() {
         if (index === 4) {
             survivors.updateVisualization();
         }
-        if (index === 4){
-          var survivors = new Survivors("affected", 20, 100);
-          survivors.updateVisualization();
-        }
         if (index === 5) {
           // load first people display
           peopleDisplays[0].render();
