@@ -291,14 +291,14 @@
       </section> -->
 
 
-          <!--- here --->
-          <section class="section">
-            <div class="container">
-              <h2>Unfortunately, this isn't just Alexandra's problem.</h2>
-              <p class="lead">Women at top colleges across the country face alarmingly high rates of sexual assault.</p>
-              <div id="campus-map"></div>
-            </div>
-          </section>
+    <!--- here --->
+    <section class="section">
+      <div class="container">
+        <h2>Unfortunately, this isn't just Alexandra's problem.</h2>
+        <p class="lead">Women at top colleges across the country face alarmingly high rates of sexual assault.</p>
+        <div id="campus-map"></div>
+      </div>
+    </section>
 
 
     <section class="section">
@@ -411,37 +411,27 @@
 
 
     <section class="section">
-        <div class="container">
-            <h2>Having sex when you do not want to, but you still do it because...</h2>
+      <div class="container">
+        <h2>Quiz: which of the following situations constitutes sexual assault?</h2>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div id="quiz-choices"></div>
-                    <button id="quiz-submit" class="btn btn-info">
-                        Check
-                    </button>
-                </div>
-                <div class="col-md-6" id="quiz-stories">
-                </div>
-            </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-horizontal">
+                <p class="lead">You had sex even when you didn't want to because...</p>
+              <div class="row">
+                <span id="quiz-choices"></span>
+              </div>
+            </form>
+
+            <button id="quiz-submit" class="btn btn-info">
+                Check
+            </button>
+          </div>
         </div>
+      </div>
     </section>
 
   </div>
-
-
-  <!-- Where Underscore templates go -->
- <div id="templates" style="display: none;">
-     <script id="template-quiz">
-        <div title="<%- Story %>" class="quiz-choice">
-            <label>
-                <input type="checkbox">
-                <%- Reason %>
-            </label>
-        </div>
-     </script>
- </div>
-
 
   <!-- Load JS libraries: jQuery, bootstrap, D3 -->
   <script src="js/lib/jquery.min.js"></script>

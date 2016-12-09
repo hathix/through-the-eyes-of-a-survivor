@@ -169,10 +169,22 @@ var typewrite = function(story) {
 d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
     // each question has a Reason and a Story
     questions.forEach(function(question) {
-        var template = _.template($('#template-quiz').html());
-        var html = template(question);
+        var html = `
+            <div class="col-xs-6 col-md-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">
+                        ${question.Reason}
+                    </label>
+                </div>
+            </div>
+        `;
         var $element = $(html);
         // $element.attr("title", question.Story);
         $('#quiz-choices').append($element);
     });
+});
+
+$('#quiz-submit').on('click', function(){
+    // show answers
 });
