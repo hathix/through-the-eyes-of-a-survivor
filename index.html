@@ -126,6 +126,7 @@
 
     <!-- <h1>Across Campus</h1> -->
 
+
     <section class="section">
       <div class="container">
         <h2>Alexandra's story is far from unique.</h2>
@@ -163,10 +164,60 @@
 
     </section>
 
+
+
+
+
+    <section class="section">
+      <div class="container">
+        <h2>Sexual assault doesn't just happen in dark alleys.</h2>
+        <p class="lead">Here are some situations that Alexandra and women like her have been in. Are these examples of sexual assault?</p>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <!-- <form class="form-horizontal"> -->
+
+            <div class="row">
+              <div class="col-xs-6">
+                <p class="lead">"I didn't want to have sex, but I did anyway because...</p>
+                <div id="quiz-choices"></div>
+              </div>
+              <div class="col-xs-6">
+                <div id="quiz-result">
+                  <p>
+                    <!-- <em> -->
+                    "<span id="quiz-reason"></span>."
+                    <!-- </em> -->
+                  </p>
+
+                  <p class="text-warning lead" id="quiz-correct">
+                    Correct. This is sexual assault. One survivor's story:
+                  </p>
+                  <p class="text-danger lead" id="quiz-incorrect">
+                    Incorrect. This <em>is</em> sexual assault. One survivor's story:
+                  </p>
+
+                  <blockquote>
+                    "<span id="quiz-story"></span>"
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+
+            <!-- <button id="quiz-submit" class="btn btn-info">
+                        Check
+                    </button> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="slide">
-          <h2>TO REMOVE: What happens to women like Alexandra:</h2>
+          <h2>What happens to women like Alexandra:</h2>
 
           <div class="row padded">
             <div class="col-xs-6">
@@ -291,14 +342,14 @@
       </section> -->
 
 
-          <!--- here --->
-          <section class="section">
-            <div class="container">
-              <h2>Unfortunately, this isn't just Alexandra's problem.</h2>
-              <p class="lead">Women at top colleges across the country face alarmingly high rates of sexual assault.</p>
-              <div id="campus-map"></div>
-            </div>
-          </section>
+    <!--- here --->
+    <section class="section">
+      <div class="container">
+        <h2>Unfortunately, this isn't just Alexandra's problem.</h2>
+        <p class="lead">Women at top colleges across the country face alarmingly high rates of sexual assault.</p>
+        <div id="campus-map"></div>
+      </div>
+    </section>
 
 
     <section class="section">
@@ -410,43 +461,11 @@
     </section>
 
 
-    <section class="section">
-        <div class="container">
-            <h2>Having sex when you do not want to, but you still do it because...</h2>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div id="quiz-choices"></div>
-                    <button id="quiz-submit" class="btn btn-info">
-                        Check
-                    </button>
-                </div>
-                <div class="col-md-6" id="quiz-stories">
-                </div>
-            </div>
-        </div>
-    </section>
-
   </div>
-
-
-  <!-- Where Underscore templates go -->
- <div id="templates" style="display: none;">
-     <script id="template-quiz">
-        <div title="<%- Story %>" class="quiz-choice">
-            <label>
-                <input type="checkbox">
-                <%- Reason %>
-            </label>
-        </div>
-     </script>
- </div>
-
 
   <!-- Load JS libraries: jQuery, bootstrap, D3 -->
   <script src="js/lib/jquery.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
-  <script src="js/lib/underscore-min.js"></script>
   <script src="js/lib/d3.min.js"></script>
   <script src="js/lib/d3.grid.min.js"></script>
   <script src="js/lib/malarkey.min.js"></script>
