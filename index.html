@@ -363,6 +363,8 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <a href="http://rainn.org/">RAINN</a> is the country's largest anti-sexual violence organization. They run a hotline for victims, push public policy, and educate the public.
+
+                <!-- For less than a dollar a day, you can help educate 15,000 people about preventing sexual violence. -->
               </div>
               <div class="panel-footer">
                 <a href="https://donate.rainn.org/" target="_blank" class="btn btn-success btn-block">Donate to RAINN</a>
@@ -408,11 +410,43 @@
     </section>
 
 
+    <section class="section">
+        <div class="container">
+            <h2>Having sex when you do not want to, but you still do it because...</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="quiz-choices"></div>
+                    <button id="quiz-submit" class="btn btn-info">
+                        Check
+                    </button>
+                </div>
+                <div class="col-md-6" id="quiz-stories">
+                </div>
+            </div>
+        </div>
+    </section>
+
   </div>
+
+
+  <!-- Where Underscore templates go -->
+ <div id="templates" style="display: none;">
+     <script id="template-quiz">
+        <div title="<%- Story %>" class="quiz-choice">
+            <label>
+                <input type="checkbox">
+                <%- Reason %>
+            </label>
+        </div>
+     </script>
+ </div>
+
 
   <!-- Load JS libraries: jQuery, bootstrap, D3 -->
   <script src="js/lib/jquery.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/underscore-min.js"></script>
   <script src="js/lib/d3.min.js"></script>
   <script src="js/lib/d3.grid.min.js"></script>
   <script src="js/lib/malarkey.min.js"></script>

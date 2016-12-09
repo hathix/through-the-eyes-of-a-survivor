@@ -144,4 +144,35 @@ var typewrite = function(story) {
     story.typewriter.type(toType)
       .pause(1500);
   });
-}
+};
+
+
+
+
+
+
+
+
+
+//if ($('.answer').is(":checked"))
+//{
+  //console.log("yeah");
+//}
+
+//if(document.getElementsByClassName('answer').checked) {
+  //console.log("checked");
+//} else {
+  //console.log("not checked");
+//}
+
+
+d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
+    // each question has a Reason and a Story
+    questions.forEach(function(question) {
+        var template = _.template($('#template-quiz').html());
+        var html = template(question);
+        var $element = $(html);
+        // $element.attr("title", question.Story);
+        $('#quiz-choices').append($element);
+    });
+});
