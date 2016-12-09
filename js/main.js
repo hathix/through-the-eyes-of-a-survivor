@@ -175,11 +175,11 @@ $('#quiz-result').hide();
         var html = `
             <div class="row">
                 <div class="col-xs-9 quiz-reason">
-                    ${question.Reason}
+                    "${question.Reason}"
                 </div>
                 <div class="col-xs-3">
-                  <button class="btn btn-success btn-yes">Yes</button>
-                  <button class="btn btn-danger btn-no">No</button>
+                  <button class="btn btn-default btn-yes">Yes</button>
+                  <button class="btn btn-default btn-no">No</button>
                 </div>
             </div>
         `;
@@ -196,7 +196,7 @@ $('#quiz-result').hide();
             $('#quiz-result').show();
             // show the story
             $('#quiz-story').html(question.Story);
-            // $element.find('.btn-yes, .btn-no').prop('disabled', true);
+            $element.find('.btn-yes').removeClass('btn-default').addClass('btn-warning');
         });
         $element.find(".btn-yes").on('click', function(){
             // "yes" is always correct
