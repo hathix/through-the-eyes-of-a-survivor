@@ -412,12 +412,37 @@
 
     <section class="section">
       <div class="container">
-        <h2>Quiz: which of the following situations constitutes sexual assault?</h2>
+        <h2>Quiz: are these scenarios sexual assault?</h2>
 
         <div class="panel panel-default">
           <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-6">
+                <p class="lead">
+                  "I had sex even when I didn't want to because <span id="quiz-reason"></span>."
+                </p>
+
+              </div>
+              <div class="col-xs-6">
+
+                <div id="quiz-buttons">
+                  <button class="btn btn-success" id="quiz-btn-yes">Yes</button>
+                  <button class="btn btn-danger" id="quiz-btn-no">No</button>
+                </div>
+
+                <div id="quiz-story-holder">
+                    <p class="text-danger">This is sexual assault. One survivor's story:</p>
+                    <blockquote>
+                        "<span id="quiz-story"></span>"
+                    </blockquote>
+                </div>
+              </div>
+            </div>
+
+            <!--
+          <div class="panel-body">
             <form class="form-horizontal">
-                <p class="lead">You had sex even when you didn't want to because...</p>
+
               <div class="row">
                 <span id="quiz-choices"></span>
               </div>
@@ -426,6 +451,7 @@
             <button id="quiz-submit" class="btn btn-info">
                 Check
             </button>
+          </div> -->
           </div>
         </div>
       </div>
