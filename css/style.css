@@ -3,42 +3,13 @@
         background-size: cover;
         background-position: 0 0;
 }*/
-
-#fullpage {
-  padding-top: 80px;
-}
-
-#quotes {
-  font-size: 20px;
-}
-
-.navbar {
-  z-index: 10000;
-}
-
-.mega-header {
-  font-size: 80px !important;
-}
-
-#section-intro {
-  background-image: url(../images/harvard-night-2-dulled.jpg);
-  background-size: cover;
-  padding: 0;
-}
-
-#cover-container {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+#american-bg {
+  width: 500px;
 }
 
 #american-scene {
   position: relative;
   margin: auto;
-}
-
-#american-bg {
-  width: 500px;
 }
 
 #american-woman {
@@ -49,6 +20,38 @@
   width: 75px;
 
   opacity: 0;
+}
+
+#cover-container {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+#fact{
+  font-size: 20px;
+}
+
+#fullpage {
+  padding-top: 80px;
+}
+
+#quotes {
+  font-size: 20px;
+}
+
+#section-intro {
+  background-image: url(../images/harvard-night-2-dulled.jpg);
+  background-size: cover;
+  padding: 0;
+}
+
+.navbar {
+  z-index: 10000;
+}
+
+.mega-header {
+  font-size: 80px !important;
 }
 
 #party-scene {

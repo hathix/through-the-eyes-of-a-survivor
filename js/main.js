@@ -58,6 +58,9 @@ $(function() {
                   left: 200
               }, 1000);
           });
+
+          // Erase the 9/10 fact when the user leaves the section
+          $( "#fact" ).text( " ");
         }
         // if (index === 4) {
         //   typewrite(stories[1]);
@@ -71,6 +74,9 @@ $(function() {
         if (index === 5) {
           // load first people display
           peopleDisplays[0].render();
+
+          // Erase the 9/10 fact when the user leaves the section
+          $( "#fact" ).text( " " );
         }
       },
 
