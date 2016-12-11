@@ -28,12 +28,6 @@ CampusMap.prototype.initVis = function() {
     vis.path = d3.geo.path()
         .projection(vis.projection);
 
-
-
-
-
-
-
     // declare base for tooltip
     vis.div = d3.select(".campus-map")
         .append("div")
@@ -68,10 +62,47 @@ CampusMap.prototype.initVis = function() {
                 .attr("title", function(d) {
                     return d.School;
                 })
+                .on({"mouseover": function(d) {
+                    d3.select(this).style("cursor", "pointer")
+                },
+                    "mouseout": function(d) {
+                        d3.select(this).style("cursor", "default")
+                    }
+                })
+                .on("click", function(d) {
+                    displayInfo(d);
+                    return;
+                })
                 .append("svg:title")
                 .html(function(d) {
                     return (d.School + "<br/>" + d.Rate + "%");
                 });
+
+            function displayInfo(d) {
+                //var name = (d.School).replace(/ /i, '%20');
+                // var name = d.School;
+                var image = "images/" + d.School + d.Image;
+                $("#campus-info")
+                    .empty()
+                    .append(
+                        "<img src=" + "'" + image + "'"
+                                    + " height='128px' width='128px'>" + "<br/>"
+                        + "<br/><br/><br/>"
+                        + d.School + "<br/>"
+                        + d.Location + "<br/>"
+                        + "Sexual assault rate surveyed: ");
+                $("#progress-move").css({"width": (+d.Rate) + "%",
+                                        "background-image": "none"});
+                if (+d.Rate > 24) {
+                    $("#progress-move").css("background-color", "red");
+                } else if (+d.Rate < 22) {
+                    $("#progress-move").css("background-color", "green");
+                } else {
+                    $("#progress-move").css("background-color", "orange");
+                }
+
+                $("#progress-move").text(d.Rate + "%");
+            }
         })
     })
 }

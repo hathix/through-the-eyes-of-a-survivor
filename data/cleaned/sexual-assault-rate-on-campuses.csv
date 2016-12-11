@@ -1,28 +1,28 @@
-School,Rate,Lat,Long
-Brown University,25,41.8268,-71.4025
-Case Western Reserve University,20,41.5043,-81.6084
-Columbia University,23,40.8075,-73.9626
-Cornell University,23,42.4534,-76.4735
-Dartmouth College,28,43.7044,-72.2887
-Iowa State University,19,42.0266,-93.6465
-Michigan State University,25,42.7018,-84.4822
-Ohio State University,24,40.0142,-83.0309
-Purdue University,22,40.4237,-86.9212
-Texas A&M University,15,30.6187,-96.3365
-University of Arizona,22,32.2319,-110.9501
-University of Florida,20,29.6436,-82.3549
-University of Michigan,30,42.278,-83.7382
-"University of Minnesota, Twin Cities",24,44.974,-93.2277
-University of Missouri-Columbia,27,38.9404,-92.3277
-University of North Carolina at Chapel Hill,24,35.9049,-79.0469
-University of Oregon,24,44.0448,-123.0726
-University of Pennsylvania,27,39.9522,-75.1932
-University of Pittsburgh,21,40.4444,-79.9608
-University of Southern California,30,34.0224,-118.2851
-University of Texas at Austin,19,30.2849,-97.7341
-University of Virginia,24,38.0336,-78.508
-University of Wisconsin-Madison,28,43.0766,-89.4125
-Washington University in St. Louis,23,38.6488,-90.3108
-Yale University,28,41.3163,-72.9223
-Harvard University,26,42.377,-71.1167
-California Institute of Technology,13,34.13726,-118.128216
+School,Rate,Lat,Long,Location,Image
+Brown University,25,41.8268,-71.4025,"Providence, Rhode Island",.png
+Case Western Reserve University,20,41.5043,-81.6084,"Cleveland, Ohio",.jpg
+Columbia University,23,40.8075,-73.9626,"New York City, New York",.png
+Cornell University,23,42.4534,-76.4735,"Ithaca, New York",.png
+Dartmouth College,28,43.7044,-72.2887,"Hanover, New Hampshire",.jpg
+Iowa State University,19,42.0266,-93.6465,"Ames, Iowa",.png
+Michigan State University,25,42.7018,-84.4822,"East Lansing, Michigan",.jpg
+Ohio State University,24,40.0142,-83.0309,"Columbus, Ohio",.png
+Purdue University,22,40.4237,-86.9212,"West Lafayette, Indiana",.jpg
+Texas A&M University,15,30.6187,-96.3365,"College Station, Texas",.png
+University of Arizona,22,32.2319,-110.9501,"Tucson, Arizona",.png
+University of Florida,20,29.6436,-82.3549,"Gainesville, Florida",.png
+University of Michigan,30,42.278,-83.7382,"Ann Arbor, Michigan",.png
+"University of Minnesota, Twin Cities",24,44.974,-93.2277,"Minneapolis, Minnesota",.jpg
+University of Missouri-Columbia,27,38.9404,-92.3277,"Columbia, Missouri",.png
+University of North Carolina at Chapel Hill,24,35.9049,-79.0469,"Chapel Hill, North Carolina",.png
+University of Oregon,24,44.0448,-123.0726,"Eugene, Oregon",.jpg
+University of Pennsylvania,27,39.9522,-75.1932,"Philadelphia, Pennsylvania",.jpg
+University of Pittsburgh,21,40.4444,-79.9608,"Pittsburgh, Pennsylvania",.png
+University of Southern California,30,34.0224,-118.2851,"Los Angeles, California",.png
+University of Texas at Austin,19,30.2849,-97.7341,"Austin, Texas",.png
+University of Virginia,24,38.0336,-78.508,"Charlottesville, Virginia",.png
+University of Wisconsin-Madison,28,43.0766,-89.4125,"Madison, Wisconsin",.png
+Washington University in St. Louis,23,38.6488,-90.3108,"St. Louis, Missouri",.png
+Yale University,28,41.3163,-72.9223,"New Haven, Connecticut",.png
+Harvard University,26,42.377,-71.1167,"Cambridge, Massachusetts",.png
+California Institute of Technology,13,34.13726,-118.128216,"Pasadena, California",.jpg
