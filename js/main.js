@@ -60,7 +60,10 @@ $(function() {
               $('#party-woman')
                 .animate({
                   left: 200
-                }, 1000);
+              }, 1000, function complete(){
+                  $('#party-woman').prop('src', 'images/woman-red.png');
+
+              });
             });
         }
         if (index === 4) {
