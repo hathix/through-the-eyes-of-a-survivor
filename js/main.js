@@ -66,7 +66,8 @@ $(function() {
         if (index === 4) {
           survivors.updateVisualization();
 
-          $('#survivor-button').show();
+          $('#survivor-button')
+            .show();
         }
         if (index !== 4) {
           // Erase the facts when the user leaves the section
@@ -166,7 +167,8 @@ var typewrite = function(story) {
 //console.log("not checked");
 //}
 
-$('#survivor-button').hide();
+$('#survivor-button')
+  .hide();
 
 
 d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
@@ -178,15 +180,15 @@ d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
   questions.forEach(function(question) {
     var html =
       `
-            <div class="row">
-                <div class="col-xs-9 quiz-reason">
+            <tr>
+                <td class="quiz-reason">
                     "${question.Reason}."
-                </div>
-                <div class="col-xs-3">
+                </td>
+                <td>
                   <button class="btn btn-default btn-yes">Yes</button>
                   <button class="btn btn-default btn-no">No</button>
-                </div>
-            </div>
+                </td>
+            </tr>
         `;
     var $element = $(html);
 
@@ -198,6 +200,13 @@ d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
         // remove the no button because all the answers are true
         $element.find(".btn-no")
           .remove();
+
+        // de-highlight other rows
+        $('#quiz-choices')
+          .find('tr')
+          .removeClass("active");
+        // highlight this row
+        $element.addClass("active");
 
         // show the outputs
         $('#quiz-result')
