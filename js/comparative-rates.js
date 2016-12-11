@@ -7,7 +7,7 @@ ComparativeRates = function(_parentElement, _data) {
     bottom: 60,
     left: 60
   };
-  this.width = 460 - this.margin.left - this.margin.right;
+  this.width = 500 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
   this.formatDate = d3.time.format("%Y");
@@ -100,48 +100,6 @@ ComparativeRates.prototype.wrangleData = function() {
   });
 
 
-  // preprocess everything
-  // vis.data.forEach(function(d) {
-  //   d.year_int = +d.year;
-  //   d.year = vis.formatDate.parse(d.year);
-  //
-  //   // parse out each of the important metrics
-  //   vis.metrics.map(function(metric) {
-  //     d[metric] = +(d[metric]);
-  //   });
-  // });
-  //
-  // d.total_violent_crime = +d.total_violent_crime;
-  // d.rape_sexual_assault = +d.rape_sexual_assault;
-  // d.robbery = +d.robbery;
-  // d.aggravated_assault = +d.aggravated_assault;
-  // d.simple_assault = +d.simple_assault;
-  // });
-  //
-  // // compute rates relative to 1996
-  // var relativeYear = 1996;
-  // var relativeYearArray = vis.data.filter(function(d) {
-  //   return d.year_int === relativeYear;
-  // });
-  // // should only be one year that matches
-  // var relativeYearData = relativeYearArray[0];
-  //
-  // // calculate relative rates
-  // vis.data.forEach(function(d) {
-  //   d.relative = {};
-  //   vis.metrics.forEach(function(metric) {
-  //     d.relative[metric] = d[metric] / relativeYearData[metric];
-  //   });
-  // });
-  //
-  // // only choose stuff after the chosen year
-  // vis.displayData = vis.data.filter(function(d) {
-  //   return d.year_int >= relativeYear;
-  // });
-
-  // vis.displayData = vis.data;
-  // console.log(vis.displayData);
-
   vis.updateVis();
 };
 
@@ -178,28 +136,3 @@ ComparativeRates.prototype.updateVis = function() {
     .attr("class", "line")
     .attr("d", vis.line);
 };
-
-// Draws a line for the relevant metric, e.g. `rape_sexual_assault`,
-// using vis.displayData.
-// ComparativeRates.prototype.drawLine = function(metric) {
-//   var vis = this;
-//
-//   // prepare the line function
-//   var line = d3.svg.line()
-//     .x(function(d) {
-//       return vis.x(d.year_int);
-//     })
-//     .y(function(d) {
-//       return vis.y(d.metric);
-//     });
-//
-//   // prepare path to draw line in
-//   var lineGroup = vis.svg.append('path')
-//     .attr('class', 'line ' + metric)
-//     .on('mouseover', function() {
-//       vis.seriesLabel.text(metric);
-//     });
-//
-//   // do the drawing
-//   lineGroup.attr('d', line(vis.displayData));
-// };
