@@ -76,6 +76,9 @@ $(function() {
           // Erase the facts when the user leaves the section
           $("#fact")
             .text(" ");
+
+          // Reset the vis to the first one
+          survivors.isNextVis = 0;
         }
       },
 

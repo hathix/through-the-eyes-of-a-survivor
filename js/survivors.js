@@ -13,7 +13,7 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   this.nodePadding = 10;
   this.women_height = 32;
   this.women_width = 27;
-  this.isNextVis = false;
+  this.isNextVis = 0;
 
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
@@ -112,11 +112,8 @@ Survivors.prototype.updateVisualization = function() {
     })
     .attr("fill", function(d) {
       var color = d.active ? "red" : "#bbb";
-
-      if(vis.isNextVis)
-          color = "#00CCCC";
-
       vis.colors.push(color);
+
       return color;
     });
 
@@ -165,10 +162,12 @@ Survivors.prototype.updateVisualization = function() {
 Survivors.prototype.nextVis = function() {
   vis = this;
 
+  var bluePeople = 18;
+  var yellowPeople = 19;
+  var greenPeople = 16;
+
   var rectangles = vis.svg.selectAll("rect");
 
-  // Keeps track of how many "red" people to make #00CCCC
-  var numPeople = 18;
   rectangles
     .transition()
     .delay(function(d, i) {
@@ -178,9 +177,28 @@ Survivors.prototype.nextVis = function() {
         return 1000 + i * vis.delay;
       })
     .attr("fill", function(d,i){
-      if(vis.colors[i] == "red" && numPeople != 0){
-        numPeople -= 1;
-        return "#00CCCC";
+
+      // Activates blue people vis
+      if(vis.isNextVis == 0){
+        if(vis.colors[i] == "red" && bluePeople != 0){
+          bluePeople -= 1;
+          return "#00CCCC";
+        }
+      }
+
+      // Activates green people vis
+      if(vis.isNextVis == 1){
+        if((vis.colors[i] == "red" || vis.colors[i] == "#00CCCC")  && yellowPeople != 0){
+          yellowPeople -= 1;
+          return "yellow";
+        }
+      }
+
+      if(vis.isNextVis == 2){
+        if((vis.colors[i] == "red" || vis.colors[i] == "#00FF80")  && greenPeople != 0){
+          greenPeople -= 1;
+          return "#00FF80";
+        }
       }
 
       // Have to check whether they're red so that we keep them red on the next iteration
@@ -189,9 +207,21 @@ Survivors.prototype.nextVis = function() {
       else
         return "#bbb";
     });
+    
+    // Making the text appear on click
+    if(vis.isNextVis == 0)
+      $( "#fact" ).text( "9 in 10 survivors know their assailant");
 
-        // Making the text appear on click
-    $( "#fact" ).text( "9 in 10 survivors know their assailant.");
+    if(vis.isNextVis == 1)
+      $( "#fact" ).text( "19 in 20 of survivors don't report their sexual assault");
+
+    if(vis.isNextVis == 2)
+      $( "#fact" ).text( "4 in 5 of survivors suffer cronic physical or psychological problems ");
+
+    // Updating which vis to use next
+    vis.isNextVis += 1;
+    $('#survivor-quote')
+          .hide();
 
 }
 
