@@ -68,6 +68,51 @@ ComparativeRates.prototype.initVis = function() {
   // for lines
   vis.lineGroup = vis.svg.append("g");
 
+
+  // brushing
+  vis.brush = d3.svg.brush()
+    .x(vis.x)
+    .on("brush", function() {
+
+        // if (d3.event.sourceEvent.type === "brush") return;
+        // var d0 = d3.event.selection.map(vis.x.invert);
+        // console.log(d0);
+            // d1 = d0.map(d3.timeDay.round);
+        //
+        // // If empty when rounded, use floor instead.
+        // if (d1[0] >= d1[1]) {
+        //   d1[0] = d3.timeDay.floor(d0[0]);
+        //   d1[1] = d3.timeDay.offset(d1[0]);
+        // }
+
+        // d3.select(this).call(d3.event.target.move, d1.map(x));
+
+
+      if (vis.brush.empty()) {
+        // No region selected (brush inactive)
+        // $(vis.eventHandler)
+        //   .trigger("selectionChanged", vis.x.domain());
+      } else {
+        // User selected specific region
+
+        // snap to nearest year
+        var extent = vis.brush.extent();
+        console.log(extent);
+        var rounded = extent.map(Math.round);
+        vis.brush.extent(rounded);
+        // redraw
+        vis.svg.select(".brush")
+          .call(vis.brush);
+
+        // $(vis.eventHandler)
+        //   .trigger("selectionChanged", vis.brush.extent());
+      }
+    });
+
+  // Append brush component here
+  vis.brushGroup = vis.svg.append("g")
+    .attr("class", "brush");
+
   vis.wrangleData();
 };
 
@@ -106,6 +151,14 @@ ComparativeRates.prototype.wrangleData = function() {
 ComparativeRates.prototype.updateVis = function() {
   var vis = this;
 
+
+  // Call brush component here
+  vis.svg.select(".brush")
+    .call(vis.brush)
+    .selectAll('rect')
+    .attr("height", vis.height)
+    .attr("clip-path", "url(#clip)");
+
   // draw the line chart
 
   // update axes
@@ -117,9 +170,6 @@ ComparativeRates.prototype.updateVis = function() {
   vis.yGroup.call(vis.yAxis);
 
   // draw line for each metric
-  // vis.metrics.forEach(function(metric) {
-  //   vis.drawLine(metric);
-  // });
   vis.line = d3.svg.line()
     .x(function(d) {
       return vis.x(d.year);

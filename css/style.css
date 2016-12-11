@@ -279,3 +279,12 @@ path.line.Rape {
 .quiz-reason {
     text-align: right;
 }
+
+
+
+/* brush */
+.brush {
+	fill: #eee;
+	fill-opacity: .5;
+	pointer-events: none;
+}
