@@ -199,7 +199,7 @@ d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
 
         // remove the no button because all the answers are true
         $element.find(".btn-no")
-          .remove();
+          .css("visibility", "hidden");
 
         // de-highlight other rows
         $('#quiz-choices')
