@@ -207,16 +207,16 @@ Survivors.prototype.nextVis = function() {
       else
         return "#bbb";
     });
-    
+
     // Making the text appear on click
     if(vis.isNextVis == 0)
-      $( "#fact" ).text( "9 in 10 survivors know their assailant");
+      $( "#fact" ).text( "9 in 10 survivors know their assailant.");
 
     if(vis.isNextVis == 1)
-      $( "#fact" ).text( "19 in 20 of survivors don't report their sexual assault");
+      $( "#fact" ).text( "19 in 20 of survivors don't report their sexual assault.");
 
     if(vis.isNextVis == 2)
-      $( "#fact" ).text( "4 in 5 of survivors suffer cronic physical or psychological problems ");
+      $( "#fact" ).text( "4 in 5 of survivors suffer chronic physical or psychological problems.");
 
     // Updating which vis to use next
     vis.isNextVis += 1;
