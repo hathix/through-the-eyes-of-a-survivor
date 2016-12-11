@@ -117,14 +117,17 @@ BarChart.prototype.updateVisualization = function() {
 
   // update domains
   vis.x.domain(vis.data.map(function(d, i) {
+    var title = d[0].split("_");
+    var new_title = "";
+    for(var i = 0; i < title.length; i++){
+      new_title += title[i] + " ";
+    }
+    d[0] = new_title;
     return d[0];
   }));
 
   vis.y.domain([
     0,
-    // d3.max(vis.data.map(function(d) {
-    //     return d[1];
-    // }))
     100
   ]);
 
@@ -135,16 +138,10 @@ BarChart.prototype.updateVisualization = function() {
     .style("text-anchor", "end")
     .attr("transform", "translate(" + 0 + "," + (vis.margin.top / 3 - 20) +
       ") rotate(-30)");
+
   vis.svg.select(".axis.y-axis")
     .call(vis.yaxis);
 
-  // draw bars
-  // var displayData = vis.data;
-  // displayData.sort(function(a, b) {
-  //   return b[choice] - a[choice];
-  // });
-
-  // enter
   var bars = vis.svg.selectAll("rect")
     .data(vis.data);
   // enter
@@ -152,7 +149,6 @@ BarChart.prototype.updateVisualization = function() {
     .enter()
     .append("rect")
     .attr("class", function(d) {
-      console.log(d);
       // css class-friendly name of category
       // "Sexual assault" => "sexual-assault"
       var slug = d[0].replace(/ /, "-")
@@ -179,11 +175,55 @@ BarChart.prototype.updateVisualization = function() {
     .on({
       "mouseover": function(d) {
         d3.select(this)
-          .style("cursor", "pointer")
+          .style("cursor", "pointer");
+
+        var name = $(this).attr("class");
+        name = name.split(' ');
+
+        // Grabbing the wanted name
+        if(name.length == 4)
+          name = name[2];
+        else
+          name = name[name.length - 1];
+
+        // Stripping an unnecessary "-" chars at the end
+        if (name[name.length - 1] == "-")
+          name = name.replace('-',' ');
+
+        name = name[0].toUpperCase() + name.slice(1);
+        name = name.replace('-','_');
+        
+        console.log(name);
+        $("." + name).css("stroke", "steelblue");
       },
       "mouseout": function(d) {
         d3.select(this)
-          .style("cursor", "default")
+          .style("cursor", "default");
+
+
+        var name = $(this).attr("class");
+        name = name.split(' ');
+
+        // Grabbing the wanted name
+        if(name.length == 4)
+          name = name[2];
+        else
+          name = name[name.length - 1];
+
+        // Stripping an unnecessary "-" chars at the end
+        if (name[name.length - 1] == "-")
+          name = name.replace('-',' ');
+
+        name = name[0].toUpperCase() + name.slice(1);
+        name = name.replace('-','_');
+        
+        console.log(name);
+        $("." + name).css("stroke", function(){
+          if(name == "Sexual_assault")
+            return "red";
+          else
+            return "white";
+        });
       }
     });
 
