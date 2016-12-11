@@ -141,9 +141,7 @@
 
         <!-- Drawing Area -->
 
-        <button onclick="survivors.nextVis()" class="btn btn-primary">
-          Next Figure
-        </button>
+
         <div class="row">
 
           <div class="col-xs-5">
@@ -152,7 +150,13 @@
 
           <div class="col-xs-7">
 
-            <div id="fact" class="lead"></div>
+            <div class="lead">
+              <p id="fact"></p>
+
+              <button onclick="survivors.nextVis()" class="btn btn-primary">
+                  Next
+                </button>
+            </div>
 
             <blockquote class="lead" id="survivor-quote" style="display:none;">
               <span id="quote-text"></span>

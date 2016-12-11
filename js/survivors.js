@@ -48,7 +48,7 @@ Survivors.prototype.loadData = function() {
   d3.csv("/data/cleaned/quick-stories.csv", function(data) {
 
     vis.quotes = data;
-    
+
     // Loading people array
     for (var i = 0; i < vis.sampleSize; i++) {
       var person = {
@@ -73,6 +73,9 @@ Survivors.prototype.loadData = function() {
 
 Survivors.prototype.updateVisualization = function() {
   var vis = this;
+
+  // show fact
+  $( "#fact" ).text( "1 in 5 women will be sexually assaulted in college.")
 
   // Will keep track of which images are red
   vis.colors = [];
@@ -179,7 +182,7 @@ Survivors.prototype.nextVis = function() {
         numPeople -= 1;
         return "#00CCCC";
       }
-  
+
       // Have to check whether they're red so that we keep them red on the next iteration
       if(vis.colors[i] == "red")
         return "red"
@@ -188,7 +191,7 @@ Survivors.prototype.nextVis = function() {
     });
 
         // Making the text appear on click
-    $( "#fact" ).text( "9 in 10 survivors know their assailant");
+    $( "#fact" ).text( "9 in 10 survivors know their assailant.");
 
 }
 
