@@ -13,6 +13,8 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   this.nodePadding = 10;
   this.women_height = 32;
   this.women_width = 27;
+  this.isNextVis = false;
+
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
@@ -46,7 +48,7 @@ Survivors.prototype.loadData = function() {
   d3.csv("/data/cleaned/quick-stories.csv", function(data) {
 
     vis.quotes = data;
-    console.log(vis.quotes);
+
     // Loading people array
     for (var i = 0; i < vis.sampleSize; i++) {
       var person = {
@@ -72,18 +74,14 @@ Survivors.prototype.loadData = function() {
 Survivors.prototype.updateVisualization = function() {
   var vis = this;
 
-  // ensures we only render once
-  if (vis.rendered) {
-    return false;
-  } else {
-    vis.rendered = true;
-  }
+  // show fact
+  $( "#fact" ).text( "1 in 5 women will be sexually assaulted in college.")
 
   // Will keep track of which images are red
   vis.colors = [];
 
   // Delay time for the animation in milliseconds
-  var delay = 50;
+  vis.delay = 20;
 
   // draw rects in the background
   var rect = vis.svg.selectAll(".rect")
@@ -110,10 +108,14 @@ Survivors.prototype.updateVisualization = function() {
       // fill in one at a time
       // wait time in milliseconds
       // have a constant wait time at the start so that people can read the viz before it starts
-      return 1000 + i * delay;
+      return 1000 + i * vis.delay;
     })
     .attr("fill", function(d) {
       var color = d.active ? "red" : "#bbb";
+
+      if(vis.isNextVis)
+          color = "#00CCCC";
+
       vis.colors.push(color);
       return color;
     });
@@ -158,6 +160,39 @@ Survivors.prototype.updateVisualization = function() {
   image.exit()
     .transition()
     .remove();
+}
+
+Survivors.prototype.nextVis = function() {
+  vis = this;
+
+  var rectangles = vis.svg.selectAll("rect");
+
+  // Keeps track of how many "red" people to make #00CCCC
+  var numPeople = 18;
+  rectangles
+    .transition()
+    .delay(function(d, i) {
+        // fill in one at a time
+        // wait time in milliseconds
+        // have a constant wait time at the start so that people can read the viz before it starts
+        return 1000 + i * vis.delay;
+      })
+    .attr("fill", function(d,i){
+      if(vis.colors[i] == "red" && numPeople != 0){
+        numPeople -= 1;
+        return "#00CCCC";
+      }
+
+      // Have to check whether they're red so that we keep them red on the next iteration
+      if(vis.colors[i] == "red")
+        return "red"
+      else
+        return "#bbb";
+    });
+
+        // Making the text appear on click
+    $( "#fact" ).text( "9 in 10 survivors know their assailant.");
+
 }
 
 function shuffle(array) {
