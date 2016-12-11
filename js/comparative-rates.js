@@ -139,8 +139,7 @@ ComparativeRates.prototype.drawLine = function(metric) {
     })
     .y(function(d) {
       return vis.y(d.relative[metric]);
-    })
-    .interpolate("monotone");
+  });
 
   // prepare path to draw line in
   var lineGroup = vis.svg.append('path')
