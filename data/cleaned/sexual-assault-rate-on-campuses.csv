@@ -1,6 +1,5 @@
 School,Rate,Lat,Long
 Brown University,25,41.8268,-71.4025
-California Institute of Technology,13,34.13726,-118.128216
 Case Western Reserve University,20,41.5043,-81.6084
 Columbia University,23,40.8075,-73.9626
 Cornell University,23,42.4534,-76.4735
@@ -26,3 +25,4 @@ University of Wisconsin-Madison,28,43.0766,-89.4125
 Washington University in St. Louis,23,38.6488,-90.3108
 Yale University,28,41.3163,-72.9223
 Harvard University,26,42.377,-71.1167
+California Institute of Technology,13,34.13726,-118.128216

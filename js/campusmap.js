@@ -28,6 +28,18 @@ CampusMap.prototype.initVis = function() {
     vis.path = d3.geo.path()
         .projection(vis.projection);
 
+
+
+
+
+
+
+    // declare base for tooltip
+    vis.div = d3.select(".campus-map")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
     // read in geoJSON of USA
     d3.json("data/cleaned/geomap.js", function(mapData) {
         vis.features = mapData.features;
@@ -56,6 +68,10 @@ CampusMap.prototype.initVis = function() {
                 .attr("title", function(d) {
                     return d.School;
                 })
+                .append("svg:title")
+                .html(function(d) {
+                    return (d.School + "<br/>" + d.Rate + "%");
+                });
         })
     })
 }
