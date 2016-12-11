@@ -3,6 +3,10 @@
         background-size: cover;
         background-position: 0 0;
 }*/
+.well {
+  background-color: white;
+  color: black;
+}
 #american-bg {
   width: 500px;
 }
@@ -166,7 +170,7 @@
 
 path.line {
   stroke: #c8c8c8;
-  stroke-width: 3;
+  stroke-width: 4;
   fill: none;
 }
 
