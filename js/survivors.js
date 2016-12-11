@@ -45,7 +45,7 @@ Survivors.prototype.loadData = function() {
   // This will be an array of booleans
   vis.people = [];
 
-  d3.csv("/data/cleaned/quick-stories.csv", function(data) {
+  d3.csv("data/cleaned/quick-stories.csv", function(data) {
 
     vis.quotes = data;
 
