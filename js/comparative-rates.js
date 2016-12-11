@@ -13,7 +13,7 @@ ComparativeRates = function(_parentElement, _data) {
   this.formatDate = d3.time.format("%Y");
 
   this.metrics = [
-    "total_violent_crime",
+    // "total_violent_crime",
     "rape_sexual_assault",
     "robbery",
     "aggravated_assault",
@@ -75,33 +75,38 @@ ComparativeRates.prototype.wrangleData = function() {
     d.year_int = +d.year;
     d.year = vis.formatDate.parse(d.year);
 
-    d.total_violent_crime = +d.total_violent_crime;
-    d.rape_sexual_assault = +d.rape_sexual_assault;
-    d.robbery = +d.robbery;
-    d.aggravated_assault = +d.aggravated_assault;
-    d.simple_assault = +d.simple_assault;
-  });
-
-  // compute rates relative to 1996
-  var relativeYear = 1996;
-  var relativeYearArray = vis.data.filter(function(d) {
-    return d.year_int === relativeYear;
-  });
-  // should only be one year that matches
-  var relativeYearData = relativeYearArray[0];
-
-  // calculate relative rates
-  vis.data.forEach(function(d) {
-    d.relative = {};
-    vis.metrics.forEach(function(metric) {
-      d.relative[metric] = d[metric] / relativeYearData[metric];
+    // parse out each of the important metrics
+    this.metrics.map(function(metric){
+        d[metric] = +(d[metric]);
     });
-  });
 
-  // only choose stuff after the chosen year
-  vis.displayData = vis.data.filter(function(d) {
-    return d.year_int >= relativeYear;
-  });
+    // d.total_violent_crime = +d.total_violent_crime;
+    // d.rape_sexual_assault = +d.rape_sexual_assault;
+    // d.robbery = +d.robbery;
+    // d.aggravated_assault = +d.aggravated_assault;
+    // d.simple_assault = +d.simple_assault;
+  // });
+  //
+  // // compute rates relative to 1996
+  // var relativeYear = 1996;
+  // var relativeYearArray = vis.data.filter(function(d) {
+  //   return d.year_int === relativeYear;
+  // });
+  // // should only be one year that matches
+  // var relativeYearData = relativeYearArray[0];
+  //
+  // // calculate relative rates
+  // vis.data.forEach(function(d) {
+  //   d.relative = {};
+  //   vis.metrics.forEach(function(metric) {
+  //     d.relative[metric] = d[metric] / relativeYearData[metric];
+  //   });
+  // });
+  //
+  // // only choose stuff after the chosen year
+  // vis.displayData = vis.data.filter(function(d) {
+  //   return d.year_int >= relativeYear;
+  // });
 
   vis.updateVis();
 };
@@ -115,7 +120,7 @@ ComparativeRates.prototype.updateVis = function() {
   vis.x.domain(d3.extent(vis.displayData, function(d) {
     return d.year_int;
   }));
-  vis.y.domain([0, 1.5]);
+  vis.y.domain([0, 100]);
 
   // redraw axes
   vis.xGroup.call(vis.xAxis);
@@ -138,7 +143,7 @@ ComparativeRates.prototype.drawLine = function(metric) {
       return vis.x(d.year_int);
     })
     .y(function(d) {
-      return vis.y(d.relative[metric]);
+      return vis.y(d.metric);
   });
 
   // prepare path to draw line in
