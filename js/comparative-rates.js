@@ -15,11 +15,9 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.formatDate = d3.time.format("%Y");
 
   this.metrics = [
-    // "total_violent_crime",
-    "rape_sexual_assault",
-    "robbery",
-    "aggravated_assault",
-    // "simple_assault"
+      "Rape/Sexual Assault",
+      "Robbery",
+      "Aggravated Assault"
   ];
 
   this.initVis();
@@ -76,24 +74,14 @@ ComparativeRates.prototype.initVis = function() {
     .x(vis.x)
     .on("brush", function() {
 
-      // if (d3.event.sourceEvent.type === "brush") return;
-      // var d0 = d3.event.selection.map(vis.x.invert);
-      // console.log(d0);
-      // d1 = d0.map(d3.timeDay.round);
-      //
-      // // If empty when rounded, use floor instead.
-      // if (d1[0] >= d1[1]) {
-      //   d1[0] = d3.timeDay.floor(d0[0]);
-      //   d1[1] = d3.timeDay.offset(d1[0]);
-      // }
-
-      // d3.select(this).call(d3.event.target.move, d1.map(x));
-
-
       if (vis.brush.empty()) {
         // No region selected (brush inactive)
         $(vis.eventHandler)
-          .trigger("selectionChanged", vis.x.domain());
+          .trigger("selectionChanged", [
+            vis.x.domain()[0],
+            vis.x.domain()[1],
+            vis.filteredData
+          ]);
       } else {
         // User selected specific region
 
@@ -107,7 +95,11 @@ ComparativeRates.prototype.initVis = function() {
 
         // trigger change
         $(vis.eventHandler)
-          .trigger("selectionChanged", rounded);
+          .trigger("selectionChanged", [
+            rounded[0],
+            rounded[1],
+            vis.filteredData
+          ]);
       }
     });
 
@@ -121,12 +113,12 @@ ComparativeRates.prototype.initVis = function() {
 ComparativeRates.prototype.wrangleData = function() {
   var vis = this;
 
-  console.log(window.xx = vis.data);
+  console.log(vis.data);
 
   // we currently have an array of metrics
   // only consider certain metrics though
   vis.filteredData = vis.data.filter(function(row) {
-    return vis.metrics.indexOf(row.type) > -1;
+    return vis.metrics.indexOf(row.Type) > -1;
   });
 
   // clean out values for each year

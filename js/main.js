@@ -116,6 +116,9 @@ $(function() {
 var campusMap = new CampusMap("campus-map");
 var barChart = new BarChart("police-reports-bars", MyEventHandler);
 var lineChart = new LineChart("police-reports");
+
+var rateReport = new RateReport("rate-report");
+
 $(MyEventHandler)
   .bind("selectionChanged", function(event, category) {
     lineChart.onSelectionChange(category);
@@ -130,17 +133,22 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
   new ComparativeRates("comparative-rates", csv, eventHandler);
 
   $(eventHandler)
-    .bind("selectionChanged", function(event, startYear, endYear) {
-        // figure out the overall change based on the years
-        // TODO send this to another vis
-        vis.filteredData.forEach(function(row) {
-            // contains metric and years
-            var startValue = row[startYear];
-            var endValue = row[endYear];
-            // -0.5 => down 50%, +1.0 => up 100%
-            var changeRatio = endValue / startValue - 1;
-            console.log(row.type, changeRatio);
-        });
+    .bind("selectionChanged", function(event, startYear, endYear, rateData) {
+      // figure out the overall change based on the years
+      // TODO send this to another vis
+      var changes = rateData.map(function(row) {
+        // contains metric and years
+        var startValue = row[startYear];
+        var endValue = row[endYear];
+        // -0.5 => down 50%, +1.0 => up 100%
+        var changeRatio = endValue / startValue - 1;
+
+        return {
+          type: row.Type,
+          change: changeRatio
+        };
+      });
+      rateReport.updateVis(changes);
     });
 });
 
