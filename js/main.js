@@ -17,15 +17,15 @@ d3.json("data/stories.json", function(error, data) {
     });
   });
 });
-
-var peopleDisplays = [
-  new PeopleDisplay("disturbing-fact-1",
-    9, 10),
-  new PeopleDisplay("disturbing-fact-2",
-    19, 20),
-  new PeopleDisplay("disturbing-fact-3",
-    4, 5)
-];
+//
+// var peopleDisplays = [
+//   new PeopleDisplay("disturbing-fact-1",
+//     9, 10),
+//   new PeopleDisplay("disturbing-fact-2",
+//     19, 20),
+//   new PeopleDisplay("disturbing-fact-3",
+//     4, 5)
+// ];
 
 $(function() {
   $('#fullpage')
@@ -37,46 +37,41 @@ $(function() {
       menu: '#main-menu',
 
       afterLoad: function(anchorLink, index) {
-          if (index === 2) {
-              // gradually show the american woman
-              $('#american-woman').fadeTo(1000, 1, function complete(){
-                  // slide her in from the left
-                  $('#american-woman').animate({
-                      left: 250
-                  }, 1000);
-              });
-          }
+        if (index === 2) {
+          // gradually show the american woman
+          $('#american-woman')
+            .fadeTo(1000, 1, function complete() {
+              // slide her in from the left
+              $('#american-woman')
+                .animate({
+                  left: 250
+                }, 1000);
+            });
+        }
 
         // start typewriting each story once you visit it
         if (index === 3) {
           typewrite(stories[0]);
 
           // gradually show the woman
-          $('#party-woman').fadeTo(1000, 1, function complete(){
+          $('#party-woman')
+            .fadeTo(1000, 1, function complete() {
               // slide her in from the left
-              $('#party-woman').animate({
+              $('#party-woman')
+                .animate({
                   left: 200
-              }, 1000);
-          });
-
-          // Erase the 9/10 fact when the user leaves the section
-          $( "#fact" ).text( " ");
+                }, 1000);
+            });
         }
-        // if (index === 4) {
-        //   typewrite(stories[1]);
-        // }
-        // if (index === 5) {
-        //   typewrite(stories[2]);
-        // }
         if (index === 4) {
-            survivors.updateVisualization();
-        }
-        if (index === 5) {
-          // load first people display
-          peopleDisplays[0].render();
+          survivors.updateVisualization();
 
-          // Erase the 9/10 fact when the user leaves the section
-          $( "#fact" ).text( " " );
+          $('#survivor-button').show();
+        }
+        if (index !== 4) {
+          // Erase the facts when the user leaves the section
+          $("#fact")
+            .text(" ");
         }
       },
 
@@ -162,23 +157,27 @@ var typewrite = function(story) {
 
 //if ($('.answer').is(":checked"))
 //{
-  //console.log("yeah");
+//console.log("yeah");
 //}
 
 //if(document.getElementsByClassName('answer').checked) {
-  //console.log("checked");
+//console.log("checked");
 //} else {
-  //console.log("not checked");
+//console.log("not checked");
 //}
+
+$('#survivor-button').hide();
 
 
 d3.csv("data/cleaned/sexual-assault-quiz.csv", function(questions) {
 
-$('#quiz-result').hide();
+  $('#quiz-result')
+    .hide();
 
-    // each question has a Reason and a Story
-    questions.forEach(function(question) {
-        var html = `
+  // each question has a Reason and a Story
+  questions.forEach(function(question) {
+    var html =
+      `
             <div class="row">
                 <div class="col-xs-9 quiz-reason">
                     "${question.Reason}."
@@ -189,43 +188,57 @@ $('#quiz-result').hide();
                 </div>
             </div>
         `;
-        var $element = $(html);
+    var $element = $(html);
 
-        // handle clicks
-        $element.find(".btn-yes, .btn-no").on('click', function(){
-            // stuff that happens either way
+    // handle clicks
+    $element.find(".btn-yes, .btn-no")
+      .on('click', function() {
+        // stuff that happens either way
 
-            // remove the no button because all the answers are true
-            $element.find(".btn-no").remove();
+        // remove the no button because all the answers are true
+        $element.find(".btn-no")
+          .remove();
 
-            // show the outputs
-            $('#quiz-result').show();
-            // show more info
-            $('#quiz-reason').html(question.Reason);
-            $('#quiz-story').html(question.Story);
-            $element.find('.btn-yes').removeClass('btn-default').addClass('btn-warning');
-        });
-        $element.find(".btn-yes").on('click', function(){
-            // "yes" is always correct
-            $('#quiz-correct').show();
-            $('#quiz-incorrect').hide();
-        });
-        $element.find(".btn-no").on('click', function(){
-            // "no" is always incorrect
-            $('#quiz-incorrect').show();
-            $('#quiz-correct').hide();
-        });
+        // show the outputs
+        $('#quiz-result')
+          .show();
+        // show more info
+        $('#quiz-reason')
+          .html(question.Reason);
+        $('#quiz-story')
+          .html(question.Story);
+        $element.find('.btn-yes')
+          .removeClass('btn-default')
+          .addClass('btn-warning');
+      });
+    $element.find(".btn-yes")
+      .on('click', function() {
+        // "yes" is always correct
+        $('#quiz-correct')
+          .show();
+        $('#quiz-incorrect')
+          .hide();
+      });
+    $element.find(".btn-no")
+      .on('click', function() {
+        // "no" is always incorrect
+        $('#quiz-incorrect')
+          .show();
+        $('#quiz-correct')
+          .hide();
+      });
 
-        // $element.attr("title", question.Story);
-        $('#quiz-choices').append($element);
-    });
+    // $element.attr("title", question.Story);
+    $('#quiz-choices')
+      .append($element);
+  });
 
 
-    // $('#quiz-story-holder').hide();
-    //
-    // var question = questions[0];
-    // $('#quiz-reason').html(question.Reason);
-    // $('#quiz-story').html(question.Story);
+  // $('#quiz-story-holder').hide();
+  //
+  // var question = questions[0];
+  // $('#quiz-reason').html(question.Reason);
+  // $('#quiz-story').html(question.Story);
 });
 
 // $('#quiz-btn-yes, #quiz-btn-no').on('click', function(){
