@@ -38,7 +38,7 @@ LineChart.prototype.initVis = function() {
 LineChart.prototype.loadData = function() {
   var vis = this;
 
-  d3.csv("data/cleaned/new-report-to-police-percents.csv", function(error, csv) {
+  d3.csv("data/cleaned/report-to-police-percents.csv", function(error, csv) {
 
     // Store csv data in global variable
     vis.policeData = csv;
@@ -58,7 +58,7 @@ LineChart.prototype.loadData = function() {
 
     // Making the scales
     vis.x = d3.time.scale()
-        .domain([new Date('2002'), new Date('2014')])
+        .domain([new Date('2004'), new Date('2013')])
         .range([0, vis.width]);
     vis.y = d3.scale.linear()
         .domain([0, 100])
