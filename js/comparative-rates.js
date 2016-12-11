@@ -7,7 +7,7 @@ ComparativeRates = function(_parentElement, _data) {
     bottom: 60,
     left: 60
   };
-  this.width = 960 - this.margin.left - this.margin.right;
+  this.width = 460 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
   this.formatDate = d3.time.format("%Y");
@@ -17,7 +17,7 @@ ComparativeRates = function(_parentElement, _data) {
     "rape_sexual_assault",
     "robbery",
     "aggravated_assault",
-    "simple_assault"
+    // "simple_assault"
   ];
 
   this.initVis();
@@ -64,22 +64,53 @@ ComparativeRates.prototype.initVis = function() {
     .attr('y', vis.height / 5)
     .attr('text-anchor', 'end');
 
+
+  // for lines
+  vis.lineGroup = vis.svg.append("g");
+
   vis.wrangleData();
 };
 
 ComparativeRates.prototype.wrangleData = function() {
   var vis = this;
 
-  // preprocess everything
-  vis.data.forEach(function(d) {
-    d.year_int = +d.year;
-    d.year = vis.formatDate.parse(d.year);
+  console.log(window.xx = vis.data);
 
-    // parse out each of the important metrics
-    vis.metrics.map(function(metric) {
-      d[metric] = +(d[metric]);
-    });
+  // we currently have an array of metrics
+  // each one has `type` and several years
+  // convert it to several arrays, each of which looks like
+  // [{year: #, value: #}, ...]
+  // only consider certain metrics though
+  vis.filteredData = vis.data.filter(function(row) {
+    return vis.metrics.indexOf(row.type) > -1;
   });
+  vis.displayData = vis.filteredData.map(function(metricRow) {
+    var result = [];
+    // TODO don't hardcode
+    var startYear = 1993;
+    var endYear = 2012;
+    for (var i = 0; i <= endYear - startYear; i++) {
+      var year = startYear + i;
+      result[i] = {
+        year: year,
+        value: +metricRow[year + ""]
+      };
+    }
+    return result;
+  });
+
+
+  // preprocess everything
+  // vis.data.forEach(function(d) {
+  //   d.year_int = +d.year;
+  //   d.year = vis.formatDate.parse(d.year);
+  //
+  //   // parse out each of the important metrics
+  //   vis.metrics.map(function(metric) {
+  //     d[metric] = +(d[metric]);
+  //   });
+  // });
+  //
   // d.total_violent_crime = +d.total_violent_crime;
   // d.rape_sexual_assault = +d.rape_sexual_assault;
   // d.robbery = +d.robbery;
@@ -108,6 +139,9 @@ ComparativeRates.prototype.wrangleData = function() {
   //   return d.year_int >= relativeYear;
   // });
 
+  // vis.displayData = vis.data;
+  // console.log(vis.displayData);
+
   vis.updateVis();
 };
 
@@ -117,42 +151,55 @@ ComparativeRates.prototype.updateVis = function() {
   // draw the line chart
 
   // update axes
-  vis.x.domain(d3.extent(vis.displayData, function(d) {
-    return d.year_int;
-  }));
-  vis.y.domain([0, 100]);
+  vis.x.domain([1993, 2012]);
+  vis.y.domain([0, 20]);
 
   // redraw axes
   vis.xGroup.call(vis.xAxis);
   vis.yGroup.call(vis.yAxis);
 
   // draw line for each metric
-  vis.metrics.forEach(function(metric) {
-    vis.drawLine(metric);
-  });
+  // vis.metrics.forEach(function(metric) {
+  //   vis.drawLine(metric);
+  // });
+  vis.line = d3.svg.line()
+    .x(function(d) {
+      return vis.x(d.year);
+    })
+    .y(function(d) {
+      return vis.y(d.value);
+    });
+
+
+  vis.lineGroup.selectAll(".line")
+    .data(vis.displayData)
+    .enter()
+    .append("path")
+    .attr("class", "line")
+    .attr("d", vis.line);
 };
 
 // Draws a line for the relevant metric, e.g. `rape_sexual_assault`,
 // using vis.displayData.
-ComparativeRates.prototype.drawLine = function(metric) {
-  var vis = this;
-
-  // prepare the line function
-  var line = d3.svg.line()
-    .x(function(d) {
-      return vis.x(d.year_int);
-    })
-    .y(function(d) {
-      return vis.y(d.metric);
-    });
-
-  // prepare path to draw line in
-  var lineGroup = vis.svg.append('path')
-    .attr('class', 'line ' + metric)
-    .on('mouseover', function() {
-      vis.seriesLabel.text(metric);
-    });
-
-  // do the drawing
-  lineGroup.attr('d', line(vis.displayData));
-};
+// ComparativeRates.prototype.drawLine = function(metric) {
+//   var vis = this;
+//
+//   // prepare the line function
+//   var line = d3.svg.line()
+//     .x(function(d) {
+//       return vis.x(d.year_int);
+//     })
+//     .y(function(d) {
+//       return vis.y(d.metric);
+//     });
+//
+//   // prepare path to draw line in
+//   var lineGroup = vis.svg.append('path')
+//     .attr('class', 'line ' + metric)
+//     .on('mouseover', function() {
+//       vis.seriesLabel.text(metric);
+//     });
+//
+//   // do the drawing
+//   lineGroup.attr('d', line(vis.displayData));
+// };
