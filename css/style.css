@@ -3,6 +3,10 @@
         background-size: cover;
         background-position: 0 0;
 }*/
+.well {
+  background-color: white;
+  color: black;
+}
 #american-bg {
   width: 500px;
 }
