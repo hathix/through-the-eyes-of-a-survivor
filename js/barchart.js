@@ -152,7 +152,6 @@ BarChart.prototype.updateVisualization = function() {
     .enter()
     .append("rect")
     .attr("class", function(d) {
-      console.log(d);
       // css class-friendly name of category
       // "Sexual assault" => "sexual-assault"
       var slug = d[0].replace(/ /, "-")

@@ -76,15 +76,15 @@ ComparativeRates.prototype.wrangleData = function() {
     d.year = vis.formatDate.parse(d.year);
 
     // parse out each of the important metrics
-    this.metrics.map(function(metric){
-        d[metric] = +(d[metric]);
+    vis.metrics.map(function(metric) {
+      d[metric] = +(d[metric]);
     });
-
-    // d.total_violent_crime = +d.total_violent_crime;
-    // d.rape_sexual_assault = +d.rape_sexual_assault;
-    // d.robbery = +d.robbery;
-    // d.aggravated_assault = +d.aggravated_assault;
-    // d.simple_assault = +d.simple_assault;
+  });
+  // d.total_violent_crime = +d.total_violent_crime;
+  // d.rape_sexual_assault = +d.rape_sexual_assault;
+  // d.robbery = +d.robbery;
+  // d.aggravated_assault = +d.aggravated_assault;
+  // d.simple_assault = +d.simple_assault;
   // });
   //
   // // compute rates relative to 1996
@@ -144,7 +144,7 @@ ComparativeRates.prototype.drawLine = function(metric) {
     })
     .y(function(d) {
       return vis.y(d.metric);
-  });
+    });
 
   // prepare path to draw line in
   var lineGroup = vis.svg.append('path')
