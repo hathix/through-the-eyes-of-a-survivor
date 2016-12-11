@@ -1,6 +1,8 @@
-ComparativeRates = function(_parentElement, _data) {
+ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.parentElement = _parentElement;
   this.data = _data;
+  this.eventHandler = _eventHandler;
+
   this.margin = {
     top: 40,
     right: 30,
@@ -74,24 +76,24 @@ ComparativeRates.prototype.initVis = function() {
     .x(vis.x)
     .on("brush", function() {
 
-        // if (d3.event.sourceEvent.type === "brush") return;
-        // var d0 = d3.event.selection.map(vis.x.invert);
-        // console.log(d0);
-            // d1 = d0.map(d3.timeDay.round);
-        //
-        // // If empty when rounded, use floor instead.
-        // if (d1[0] >= d1[1]) {
-        //   d1[0] = d3.timeDay.floor(d0[0]);
-        //   d1[1] = d3.timeDay.offset(d1[0]);
-        // }
+      // if (d3.event.sourceEvent.type === "brush") return;
+      // var d0 = d3.event.selection.map(vis.x.invert);
+      // console.log(d0);
+      // d1 = d0.map(d3.timeDay.round);
+      //
+      // // If empty when rounded, use floor instead.
+      // if (d1[0] >= d1[1]) {
+      //   d1[0] = d3.timeDay.floor(d0[0]);
+      //   d1[1] = d3.timeDay.offset(d1[0]);
+      // }
 
-        // d3.select(this).call(d3.event.target.move, d1.map(x));
+      // d3.select(this).call(d3.event.target.move, d1.map(x));
 
 
       if (vis.brush.empty()) {
         // No region selected (brush inactive)
-        // $(vis.eventHandler)
-        //   .trigger("selectionChanged", vis.x.domain());
+        $(vis.eventHandler)
+          .trigger("selectionChanged", vis.x.domain());
       } else {
         // User selected specific region
 
@@ -103,13 +105,9 @@ ComparativeRates.prototype.initVis = function() {
         vis.svg.select(".brush")
           .call(vis.brush);
 
-
-          // figure out the overall change based on the years
-          var startYear = rounded[0];
-          var endYear = rounded[1];
-
-        // $(vis.eventHandler)
-        //   .trigger("selectionChanged", vis.brush.extent());
+        // trigger change
+        $(vis.eventHandler)
+          .trigger("selectionChanged", rounded);
       }
     });
 
@@ -133,7 +131,13 @@ ComparativeRates.prototype.wrangleData = function() {
 
   // clean out values for each year
   vis.filteredData.forEach(function(metricRow) {
-     console.log(metricRow);
+    // TODO don't hardcode
+    var startYear = 1993;
+    var endYear = 2012;
+    for (var i = 0; i <= endYear - startYear; i++) {
+      var year = startYear + i;
+      metricRow[year] = +metricRow[year];
+    }
   });
 
   // each one has `type` and several years
@@ -148,7 +152,7 @@ ComparativeRates.prototype.wrangleData = function() {
       var year = startYear + i;
       result[i] = {
         year: year,
-        value: +metricRow[year + ""]
+        value: metricRow[year]
       };
     }
     return result;
