@@ -97,12 +97,16 @@ ComparativeRates.prototype.initVis = function() {
 
         // snap to nearest year
         var extent = vis.brush.extent();
-        console.log(extent);
         var rounded = extent.map(Math.round);
         vis.brush.extent(rounded);
         // redraw
         vis.svg.select(".brush")
           .call(vis.brush);
+
+
+          // figure out the overall change based on the years
+          var startYear = rounded[0];
+          var endYear = rounded[1];
 
         // $(vis.eventHandler)
         //   .trigger("selectionChanged", vis.brush.extent());
@@ -122,13 +126,19 @@ ComparativeRates.prototype.wrangleData = function() {
   console.log(window.xx = vis.data);
 
   // we currently have an array of metrics
-  // each one has `type` and several years
-  // convert it to several arrays, each of which looks like
-  // [{year: #, value: #}, ...]
   // only consider certain metrics though
   vis.filteredData = vis.data.filter(function(row) {
     return vis.metrics.indexOf(row.type) > -1;
   });
+
+  // clean out values for each year
+  vis.filteredData.forEach(function(metricRow) {
+     console.log(metricRow);
+  });
+
+  // each one has `type` and several years
+  // convert it to several arrays, each of which looks like
+  // [{year: #, value: #}, ...]
   vis.displayData = vis.filteredData.map(function(metricRow) {
     var result = [];
     // TODO don't hardcode
