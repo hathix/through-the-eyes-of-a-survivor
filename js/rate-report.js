@@ -21,6 +21,11 @@ RateReport = function(_parentElement) {
   vis.width = vis.outerWidth - vis.margin.left - vis.margin.right;
   vis.height = vis.outerHeight - vis.margin.top - vis.margin.bottom;
 
+
+  vis.labelPadding = {
+    horizontal: 8
+  };
+
   this.initVis();
 }
 
@@ -51,7 +56,7 @@ RateReport.prototype.initVis = function() {
 
   vis.xAxis = d3.svg.axis()
     .scale(vis.x)
-    .orient("bottom")
+    .orient("top")
     .tickFormat(d3.format(".0%"));
   vis.xAxisGroup = vis.svg.append("g")
     .attr("class", "x-axis axis");
@@ -61,10 +66,6 @@ RateReport.prototype.initVis = function() {
 
   // label group
   vis.labelGroup = vis.svg.append("g");
-  vis.labelPadding = {
-    top: 20,
-    left: 5
-};
 };
 
 /**
@@ -132,4 +133,45 @@ RateReport.prototype.updateVis = function(_data) {
     .transition()
     .duration(1000)
     .call(vis.yAxis);
+
+
+  // labels
+  // (3) Draw labels
+  var labels = vis.labelGroup.selectAll('text')
+    .data(vis.data, function(d) {
+      return d.type;
+    });
+
+  // add new
+  labels.enter()
+    .append('text')
+    .attr('class', 'bar-label');
+
+  // update
+  labels.transition().duration(1000)
+    .attr("x", function(d) {
+        if (d.change < 0) {
+            // text on left of bar (which goes left)
+            return vis.x(d.change) - vis.labelPadding.horizontal;
+        }
+        else {
+            // text on right side of bar (which goes right)
+            return vis.x(d.change) + vis.labelPadding.horizontal;
+        }
+    })
+    .attr("y", function(d) {
+      return vis.y(d.type) + vis.y.rangeBand() / 2;
+    })
+    .attr("text-anchor", function(d){
+        // anchor to the end (right-align) if bar goes to left
+        // left-align if bar goes right
+        return d.change < 0 ? "end" : "start";
+    })
+    .text(function(d) {
+      return d3.format(".0%")(d.change);
+    });
+
+  // exit
+  labels.exit()
+    .remove();
 };

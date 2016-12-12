@@ -288,3 +288,14 @@ path.line.Rape {
 	fill-opacity: .5;
 	pointer-events: none;
 }
+
+#rate-report-chart .y-axis path, #rate-report-chart .y-axis line {
+  fill: none;
+  stroke: none;
+  shape-rendering: crispEdges;
+}
+
+.bar-label {
+    stroke: white;
+    fill: white;
+}
