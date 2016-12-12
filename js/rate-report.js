@@ -11,7 +11,7 @@ RateReport = function(_parentElement) {
   var vis = this;
   vis.margin = {
     top: 80,
-    right: 100,
+    right: 110,
     bottom: 20,
     left: 60
   };
