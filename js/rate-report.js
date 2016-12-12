@@ -6,36 +6,26 @@ RateReport = function(_parentElement) {
   this.parentElement = _parentElement;
   this.data = null;
 
-  this.margin = {
+  // Create drawing components
+  // variables
+  var vis = this;
+  vis.margin = {
     top: 40,
-    right: 30,
-    bottom: 60,
-    left: 60
+    right: 80,
+    bottom: 40,
+    left: 80
   };
-  this.width = 500 - this.margin.left - this.margin.right;
-  this.height = 500 - this.margin.top - this.margin.bottom;
+
+  vis.outerWidth = 500;
+  vis.outerHeight = 500;
+  vis.width = vis.outerWidth - vis.margin.left - vis.margin.right;
+  vis.height = vis.outerHeight - vis.margin.top - vis.margin.bottom;
 
   this.initVis();
 }
 
 RateReport.prototype.initVis = function() {
   var vis = this;
-
-
-  // Create drawing components
-  // variables
-  vis.margin = {
-    top: 40,
-    right: 40,
-    bottom: 40,
-    left: 40
-  };
-  vis.outerWidth = 200;
-  //$(vis.parentElement).width();
-  vis.outerHeight = 200;
-  vis.width = vis.outerWidth - vis.margin.left - vis.margin.right;
-  vis.height = vis.outerHeight - vis.margin.top - vis.margin.bottom;
-
 
   // Draw SVG
   vis.svg = d3.select('#' + vis.parentElement)
@@ -59,6 +49,12 @@ RateReport.prototype.initVis = function() {
   vis.yAxisGroup = vis.svg.append("g")
     .attr("class", "y-axis axis");
 
+  vis.xAxis = d3.svg.axis()
+    .scale(vis.x)
+    .orient("bottom");
+  vis.xAxisGroup = vis.svg.append("g")
+    .attr("class", "x-axis axis");
+
   // bar group
   vis.barGroup = vis.svg.append("g");
 
@@ -67,7 +63,7 @@ RateReport.prototype.initVis = function() {
   vis.labelPadding = {
     top: 20,
     left: 5
-  };
+};
 };
 
 /**
@@ -106,8 +102,8 @@ RateReport.prototype.updateVis = function(_data) {
   bars
     .transition()
     .duration(1000)
-    .attr("x", function(d){
-        return vis.x(Math.min(0, d.change));
+    .attr("x", function(d) {
+      return vis.x(Math.min(0, d.change));
     })
     .attr("y", function(d) {
       return vis.y(d.type);
@@ -116,8 +112,8 @@ RateReport.prototype.updateVis = function(_data) {
       return Math.abs(vis.x(d.change) - vis.x(0));
     })
     .attr("height", vis.y.rangeBand())
-    .attr("fill", function(d){
-        return d.change > 0 ? "#ec4844" : "#62c462";
+    .attr("fill", function(d) {
+      return d.change > 0 ? "#ec4844" : "#62c462";
     });
 
   // remove old
@@ -125,4 +121,14 @@ RateReport.prototype.updateVis = function(_data) {
     .transition()
     .duration(1000)
     .remove();
+
+  // Update the axes
+  vis.svg.select(".x-axis")
+    .transition()
+    .duration(1000)
+    .call(vis.xAxis);
+  vis.svg.select(".y-axis")
+    .transition()
+    .duration(1000)
+    .call(vis.yAxis);
 };

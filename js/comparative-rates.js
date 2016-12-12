@@ -15,9 +15,9 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.formatDate = d3.time.format("%Y");
 
   this.metrics = [
-      "Rape/Sexual Assault",
-      "Robbery",
-      "Aggravated Assault"
+    "Rape/Sexual Assault",
+    "Robbery",
+    "Aggravated Assault"
   ];
 
   this.initVis();
@@ -150,7 +150,6 @@ ComparativeRates.prototype.wrangleData = function() {
     return result;
   });
 
-
   vis.updateVis();
 };
 
@@ -191,4 +190,15 @@ ComparativeRates.prototype.updateVis = function() {
     .append("path")
     .attr("class", "line")
     .attr("d", vis.line);
+
+
+  // fire a starter event to start off companion visualizations
+  // TODO you still need to click on this to start it... how can we get the
+  // companion viz to auto load?
+  $(vis.eventHandler)
+    .trigger("selectionChanged", [
+      1993,
+      2012,
+      vis.filteredData
+    ]);
 };
