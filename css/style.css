@@ -341,3 +341,7 @@ text.centered {
     fill: #c8c8c8;
     stroke: #c8c8c8;
 }
+
+.top-padding {
+    padding-top: 20px;
+}
