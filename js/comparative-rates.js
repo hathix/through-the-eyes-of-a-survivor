@@ -271,6 +271,9 @@ ComparativeRates.prototype.redrawBrush = function() {
 ComparativeRates.prototype.play = function() {
   var vis = this;
 
+  // if a "play" is already happening, stop it
+  clearInterval(vis.interval);
+
   // start at `startYear`, keep going until you hit `endYear`
   var stopYear = vis.startYear + 1;
 
