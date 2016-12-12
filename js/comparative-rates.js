@@ -6,7 +6,7 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.margin = {
     top: 50,
     right: 30,
-    bottom: 30,
+    bottom: 60,
     left: 90
   };
   this.width = 500 - this.margin.left - this.margin.right;
@@ -63,6 +63,25 @@ ComparativeRates.prototype.initVis = function() {
   //   .attr('x', vis.width)
   //   .attr('y', vis.height / 5)
   //   .attr('text-anchor', 'end');
+
+
+  // add chart title
+  vis.svg.append("text")
+    .attr("transform","translate(" + (vis.width / 2) + ",-20)")
+    .attr("class","chart-title")
+    .text("Crime rates are dropping sharply");
+
+  // add x-axis label
+  vis.svg.append("text")
+    .attr("transform", "translate(" + (vis.width / 2) + "," + (vis.height + 40) + ")")
+    .attr("class", "axis-title")
+    .text("Year");
+
+  // add y-axis label
+  vis.svg.append("text")
+    .attr("transform", "translate(-40," + (vis.height / 2) + ")rotate(-90)")
+    .attr("class", "axis-title")
+    .text("Crime rate per 1,000 people");
 
 
   // for lines

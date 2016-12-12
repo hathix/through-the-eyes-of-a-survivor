@@ -71,7 +71,7 @@ RateReport.prototype.initVis = function() {
   // x axis label
   vis.xAxisLabel = vis.svg.append("g")
     .append("text")
-    .attr("class", "label axis-title centered")
+    .attr("class", "axis-title")
     .attr("x", vis.width / 2)
     .attr("y", -30);
 
@@ -146,8 +146,10 @@ RateReport.prototype.updateVis = function(_data, startYear, endYear) {
   vis.svg.select(".y-axis")
     // .transition()
     // .duration(1000)
+    // rotate all axis labels
     .call(vis.yAxis)
         .selectAll("text")
+        // .attr("class","label")
         .style("text-anchor", "middle")
         // .attr("dx", "-1em")
         .attr("dy", "-2em")

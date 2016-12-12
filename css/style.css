@@ -149,7 +149,16 @@
 
 .axis-title {
   fill: #c8c8c8;
-  font-size: 11px;
+  font-size: 16px;
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+.chart-title {
+    fill: #c8c8c8;
+    font-size: 18px;
+    text-anchor: middle;
+    font-weight: bold;
 }
 
 .axis path, .axis line {
@@ -302,10 +311,6 @@ path.line.Rape {
 .bar-label {
     stroke: #c8c8c8;
     fill: #c8c8c8;
-}
-
-#rate-report-chart .axis-title {
-    font-size: 16px;
 }
 
 text.centered {
