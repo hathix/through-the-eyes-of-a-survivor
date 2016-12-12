@@ -208,7 +208,10 @@ path.line.Rape {
 .map-college-dot {
     stroke: black;
     opacity: 0.6;
-    fill: red;
+}
+
+.map-college-dot:hover {
+    fill: steelblue;
 }
 
 .fp-controlArrow.fp-prev {
@@ -304,4 +307,18 @@ sup.citation {
 .block-center {
     display: block;
     margin: auto;
+}
+
+
+#campus-info {
+    text-align: center;
+}
+
+#campus-info h4, #campus-info h5 {
+    text-shadow: none;
+}
+
+#college-image {
+    width: 128px;
+    height: 128px;
 }
