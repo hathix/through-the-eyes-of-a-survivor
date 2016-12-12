@@ -128,6 +128,8 @@ var survivors = new Survivors("affected", 20, 100);
 
 var arrestWheel = new ArrestWheel("arrest-wheel");
 
+var comparativeRates;
+
 d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) {
   var eventHandler = {};
   $(eventHandler)
@@ -149,7 +151,7 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
       rateReport.updateVis(changes, startYear, endYear);
     });
 
-  new ComparativeRates("comparative-rates", csv, eventHandler);
+  comparativeRates = new ComparativeRates("comparative-rates", csv, eventHandler);
 });
 
 // var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
@@ -228,3 +230,8 @@ $('sup.citation')
   .on('click', function() {
     $.fn.fullpage.moveTo(12);
   });
+
+
+$('#comparative-rates-play').on('click', function(){
+    comparativeRates.play();
+});

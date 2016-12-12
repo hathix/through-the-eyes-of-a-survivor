@@ -350,3 +350,8 @@ text.centered {
 sup.citation {
     cursor: pointer;
 }
+
+.block-center {
+    display: block;
+    margin: auto;
+}

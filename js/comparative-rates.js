@@ -20,6 +20,9 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
     "Sexual Assault"
   ];
 
+  this.startYear = 1993;
+  this.endYear = 2012;
+
   this.initVis();
 }
 
@@ -69,7 +72,7 @@ ComparativeRates.prototype.initVis = function() {
   vis.svg.append("text")
     .attr("transform", "translate(" + (vis.width / 2) + ",-20)")
     .attr("class", "chart-title")
-    .text("Crime rates are dropping sharply");
+    .text("Crime rates have been dropping sharply");
 
   // add x-axis label
   vis.svg.append("text")
@@ -109,9 +112,7 @@ ComparativeRates.prototype.initVis = function() {
         var extent = vis.brush.extent();
         var rounded = extent.map(Math.round);
         vis.brush.extent(rounded);
-        // redraw
-        vis.svg.select(".brush")
-          .call(vis.brush);
+        vis.redrawBrush();
 
         // trigger change
         $(vis.eventHandler)
@@ -150,8 +151,8 @@ ComparativeRates.prototype.wrangleData = function() {
   // clean out values for each year
   vis.filteredData.forEach(function(metricRow) {
     // TODO don't hardcode
-    var startYear = 1993;
-    var endYear = 2012;
+    var startYear = vis.startYear;
+    var endYear = vis.endYear;
     for (var i = 0; i <= endYear - startYear; i++) {
       var year = startYear + i;
       metricRow[year] = +metricRow[year];
@@ -165,8 +166,8 @@ ComparativeRates.prototype.wrangleData = function() {
   vis.displayData = vis.filteredData.map(function(metricRow) {
     var array = [];
     // TODO don't hardcode
-    var startYear = 1993;
-    var endYear = 2012;
+    var startYear = vis.startYear;
+    var endYear = vis.endYear;
     for (var i = 0; i <= endYear - startYear; i++) {
       var year = startYear + i;
       array[i] = {
@@ -200,7 +201,7 @@ ComparativeRates.prototype.updateVis = function() {
   // draw the line chart
 
   // update axes
-  vis.x.domain([1993, 2012]);
+  vis.x.domain([vis.startYear, vis.endYear]);
   vis.y.domain([0, 20]);
 
   // redraw axes
@@ -225,14 +226,14 @@ ComparativeRates.prototype.updateVis = function() {
       return "line " + d.slug;
     })
     .attr("stroke", function(d) {
-        switch (d.type) {
-            case "Sexual Assault":
-                return "crimson";
-            case "Robbery":
-                return "#B39EB5";
-            case "Aggravated Assault":
-                return "#AEC6CF";
-        }
+      switch (d.type) {
+        case "Sexual Assault":
+          return "crimson";
+        case "Robbery":
+          return "#B39EB5";
+        case "Aggravated Assault":
+          return "#AEC6CF";
+      }
     })
     .attr("data-legend", function(d) {
       return d.type;
@@ -247,11 +248,46 @@ ComparativeRates.prototype.updateVis = function() {
   // fire a starter event to start off companion visualizations
   $(vis.eventHandler)
     .trigger("selectionChanged", [
-      1993,
-      2012,
+      vis.startYear,
+      vis.endYear,
       vis.filteredData
     ]);
 
 
   vis.legend.call(d3.legend);
+};
+
+ComparativeRates.prototype.redrawBrush = function() {
+  var vis = this;
+
+  // redraw
+  vis.svg.select(".brush")
+    .call(vis.brush);
+};
+
+/**
+ * Visualizes the vis evolving over time.
+ */
+ComparativeRates.prototype.play = function() {
+  var vis = this;
+
+  // start at `startYear`, keep going until you hit `endYear`
+  var stopYear = vis.startYear + 1;
+
+  vis.interval = setInterval(function(){
+      if (stopYear >= vis.endYear) {
+          // stop timer if we've hit the end
+          clearInterval(vis.interval);
+      }
+
+      // draw brush
+      vis.brush.extent([vis.startYear, stopYear]);
+      // programmatically update it
+      vis.svg.select(".brush").call(vis.brush.event);
+
+      // increase counter
+      stopYear++;
+  }, 500);
+
+
 };
