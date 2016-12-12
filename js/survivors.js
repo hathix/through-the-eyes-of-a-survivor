@@ -18,6 +18,8 @@ Survivors = function(_parentElement, _affected, _sampleSize) {
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
+  this.womanGrayFill = "#777";
+
   this.initVis();
 }
 
@@ -100,7 +102,7 @@ Survivors.prototype.updateVisualization = function() {
       return "translate(" + (d.x + (rectInnerPadding / 2)) + "," + (d.y + (
         rectInnerPadding / 2)) + ")";
     })
-    .attr("fill", "#bbb");
+    .attr("fill", vis.womanGrayFill);
 
   // transition the fill
   rect.transition()
@@ -111,7 +113,7 @@ Survivors.prototype.updateVisualization = function() {
       return 1000 + i * vis.delay;
     })
     .attr("fill", function(d) {
-      var color = d.active ? "red" : "#bbb";
+      var color = d.active ? "red" : vis.womanGrayFill;
       vis.colors.push(color);
 
       return color;
@@ -205,7 +207,7 @@ Survivors.prototype.nextVis = function() {
       if(vis.colors[i] == "red")
         return "red"
       else
-        return "#bbb";
+        return vis.womanGrayFill;
     });
 
     // Making the text appear on click
