@@ -13,7 +13,7 @@ RateReport = function(_parentElement) {
     top: 80,
     right: 100,
     bottom: 20,
-    left: 100
+    left: 60
   };
 
   vis.outerWidth = 500;
@@ -53,7 +53,7 @@ RateReport.prototype.initVis = function() {
     .scale(vis.y)
     .orient("left");
   vis.yAxisGroup = vis.svg.append("g")
-    .attr("class", "y-axis axis");
+    .attr("class", "y-axis axis crime-type")
 
   vis.xAxis = d3.svg.axis()
     .scale(vis.x)
@@ -140,13 +140,19 @@ RateReport.prototype.updateVis = function(_data, startYear, endYear) {
 
   // Update the axes
   vis.svg.select(".x-axis")
-    .transition()
-    .duration(1000)
+    // .transition()
+    // .duration(1000)
     .call(vis.xAxis);
   vis.svg.select(".y-axis")
-    .transition()
-    .duration(1000)
-    .call(vis.yAxis);
+    // .transition()
+    // .duration(1000)
+    .call(vis.yAxis)
+        .selectAll("text")
+        .style("text-anchor", "middle")
+        // .attr("dx", "-1em")
+        .attr("dy", "-2em")
+        .attr("transform", "rotate(-90)");
+
 
 
   // labels

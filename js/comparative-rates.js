@@ -15,9 +15,9 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.formatDate = d3.time.format("%Y");
 
   this.metrics = [
-    "Rape/Sexual Assault",
+    "Aggravated Assault",
     "Robbery",
-    "Aggravated Assault"
+    "Sexual Assault"
   ];
 
   this.initVis();

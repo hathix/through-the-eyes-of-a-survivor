@@ -143,7 +143,7 @@
 }
 
 .axis {
-  font: 10px sans-serif;
+  font: 10px;
   fill: #c8c8c8;
 }
 
@@ -300,8 +300,8 @@ path.line.Rape {
 }
 
 .bar-label {
-    stroke: white;
-    fill: white;
+    stroke: #c8c8c8;
+    fill: #c8c8c8;
 }
 
 #rate-report-chart .axis-title {
@@ -315,4 +315,9 @@ text.centered {
 .center-line {
     stroke: white;
     shape-rendering: crispEdges;
+}
+
+.axis.crime-type {
+    font-size: 14px;
+    font-weight: bold;
 }
