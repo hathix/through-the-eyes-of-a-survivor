@@ -10,10 +10,10 @@ RateReport = function(_parentElement) {
   // variables
   var vis = this;
   vis.margin = {
-    top: 40,
-    right: 80,
-    bottom: 40,
-    left: 80
+    top: 80,
+    right: 100,
+    bottom: 20,
+    left: 100
   };
 
   vis.outerWidth = 500;
@@ -66,6 +66,15 @@ RateReport.prototype.initVis = function() {
 
   // label group
   vis.labelGroup = vis.svg.append("g");
+
+
+
+  // x axis label
+  vis.xAxisLabel = vis.svg.append("g")
+    .append("text")
+    .attr("class", "label axis-title centered")
+    .attr("x", vis.width / 2)
+    .attr("y", -30);
 };
 
 /**
@@ -73,7 +82,7 @@ RateReport.prototype.initVis = function() {
  *  type {String}
  *  change {Float}
  */
-RateReport.prototype.updateVis = function(_data) {
+RateReport.prototype.updateVis = function(_data, startYear, endYear) {
   var vis = this;
   vis.data = _data;
 
@@ -148,24 +157,24 @@ RateReport.prototype.updateVis = function(_data) {
     .attr('class', 'bar-label');
 
   // update
-  labels.transition().duration(1000)
+  labels.transition()
+    .duration(1000)
     .attr("x", function(d) {
-        if (d.change < 0) {
-            // text on left of bar (which goes left)
-            return vis.x(d.change) - vis.labelPadding.horizontal;
-        }
-        else {
-            // text on right side of bar (which goes right)
-            return vis.x(d.change) + vis.labelPadding.horizontal;
-        }
+      if (d.change < 0) {
+        // text on left of bar (which goes left)
+        return vis.x(d.change) - vis.labelPadding.horizontal;
+      } else {
+        // text on right side of bar (which goes right)
+        return vis.x(d.change) + vis.labelPadding.horizontal;
+      }
     })
     .attr("y", function(d) {
       return vis.y(d.type) + vis.y.rangeBand() / 2;
     })
-    .attr("text-anchor", function(d){
-        // anchor to the end (right-align) if bar goes to left
-        // left-align if bar goes right
-        return d.change < 0 ? "end" : "start";
+    .attr("text-anchor", function(d) {
+      // anchor to the end (right-align) if bar goes to left
+      // left-align if bar goes right
+      return d.change < 0 ? "end" : "start";
     })
     .text(function(d) {
       return d3.format(".0%")(d.change);
@@ -174,4 +183,7 @@ RateReport.prototype.updateVis = function(_data) {
   // exit
   labels.exit()
     .remove();
+
+  // update x axis label
+  vis.xAxisLabel.text(`Change in crime rate between ${startYear} and ${endYear}`);
 };

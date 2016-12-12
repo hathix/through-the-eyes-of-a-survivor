@@ -299,3 +299,11 @@ path.line.Rape {
     stroke: white;
     fill: white;
 }
+
+#rate-report-chart .axis-title {
+    font-size: 16px;
+}
+
+text.centered {
+    text-anchor: middle;
+}

@@ -148,7 +148,7 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
         };
       });
 
-      rateReport.updateVis(changes);
+      rateReport.updateVis(changes, startYear, endYear);
     });
 
   new ComparativeRates("comparative-rates", csv, eventHandler);
