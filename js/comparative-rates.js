@@ -82,7 +82,7 @@ ComparativeRates.prototype.initVis = function() {
   vis.svg.append("text")
     .attr("transform", "translate(-40," + (vis.height / 2) + ")rotate(-90)")
     .attr("class", "axis-title")
-    .text("Crime rate per 1,000 people");
+    .text("Crime rate (crimes per 1,000 people)");
 
 
   // for lines
