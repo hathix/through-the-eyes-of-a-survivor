@@ -67,13 +67,14 @@ ComparativeRates.prototype.initVis = function() {
 
   // add chart title
   vis.svg.append("text")
-    .attr("transform","translate(" + (vis.width / 2) + ",-20)")
-    .attr("class","chart-title")
+    .attr("transform", "translate(" + (vis.width / 2) + ",-20)")
+    .attr("class", "chart-title")
     .text("Crime rates are dropping sharply");
 
   // add x-axis label
   vis.svg.append("text")
-    .attr("transform", "translate(" + (vis.width / 2) + "," + (vis.height + 40) + ")")
+    .attr("transform", "translate(" + (vis.width / 2) + "," + (vis.height +
+      40) + ")")
     .attr("class", "axis-title")
     .text("Year");
 
@@ -132,7 +133,7 @@ ComparativeRates.prototype.initVis = function() {
 ComparativeRates.prototype.wrangleData = function() {
   var vis = this;
 
-  console.log(vis.data);
+  // console.log(vis.data);
 
   // we currently have an array of metrics
   // only consider certain metrics though
@@ -154,20 +155,27 @@ ComparativeRates.prototype.wrangleData = function() {
   // each one has `type` and several years
   // convert it to several arrays, each of which looks like
   // [{year: #, value: #}, ...]
+  // and wrap it in an object
   vis.displayData = vis.filteredData.map(function(metricRow) {
-    var result = [];
+    var array = [];
     // TODO don't hardcode
     var startYear = 1993;
     var endYear = 2012;
     for (var i = 0; i <= endYear - startYear; i++) {
       var year = startYear + i;
-      result[i] = {
+      array[i] = {
         year: year,
         value: metricRow[year]
       };
     }
-    return result;
+
+    return {
+      type: metricRow["Type"],
+      slug: metricRow["Slug"],
+      yearData: array
+    };
   });
+
 
   vis.updateVis();
 };
@@ -207,13 +215,16 @@ ComparativeRates.prototype.updateVis = function() {
     .data(vis.displayData)
     .enter()
     .append("path")
-    .attr("class", "line")
-    .attr("d", vis.line);
+    .attr("class", function(d) {
+      return "line " + d.slug;
+    })
+    .attr("d", function(d){
+        // select only the raw data array for this
+        return vis.line(d.yearData);
+    });
 
 
   // fire a starter event to start off companion visualizations
-  // TODO you still need to click on this to start it... how can we get the
-  // companion viz to auto load?
   $(vis.eventHandler)
     .trigger("selectionChanged", [
       1993,
