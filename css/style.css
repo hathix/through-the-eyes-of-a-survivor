@@ -143,13 +143,22 @@
 }
 
 .axis {
-  font: 10px sans-serif;
+  font: 10px;
   fill: #c8c8c8;
 }
 
 .axis-title {
   fill: #c8c8c8;
-  font-size: 11px;
+  font-size: 16px;
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+.chart-title {
+    fill: #c8c8c8;
+    font-size: 18px;
+    text-anchor: middle;
+    font-weight: bold;
 }
 
 .axis path, .axis line {
@@ -169,9 +178,13 @@
 }*/
 
 path.line {
-  stroke: #c8c8c8;
+  /*stroke: #c8c8c8;*/
   stroke-width: 4;
   fill: none;
+}
+
+path.line.gray {
+    stroke: #c8c8c8;
 }
 
 path.line.Sexual_assault, path.line.rape_sexual_assault {
@@ -183,8 +196,9 @@ path.line:hover {
 }
 
 path.line.Rape {
-  stroke: red;
+  stroke: firebrick;
 }
+
 
 #text {
   font-size: 20px;
@@ -300,12 +314,8 @@ path.line.Rape {
 }
 
 .bar-label {
-    stroke: white;
-    fill: white;
-}
-
-#rate-report-chart .axis-title {
-    font-size: 16px;
+    stroke: #c8c8c8;
+    fill: #c8c8c8;
 }
 
 text.centered {
@@ -315,4 +325,19 @@ text.centered {
 .center-line {
     stroke: white;
     shape-rendering: crispEdges;
+}
+
+.axis.crime-type {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* legend */
+.legend-box {
+    fill: transparent;
+}
+
+.legend-items text {
+    fill: #c8c8c8;
+    stroke: #c8c8c8;
 }

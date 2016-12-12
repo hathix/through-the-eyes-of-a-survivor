@@ -132,9 +132,7 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
   var eventHandler = {};
   $(eventHandler)
     .bind("selectionChanged", function(event, startYear, endYear, rateData) {
-      console.log(rateData);
       // figure out the overall change based on the years
-      // TODO send this to another vis
       var changes = rateData.map(function(row) {
         // contains metric and years
         var startValue = row[startYear];

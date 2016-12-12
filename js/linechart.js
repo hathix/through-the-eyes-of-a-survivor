@@ -121,7 +121,7 @@ LineChart.prototype.updateVisualization = function(){
 
     vis.svg.append("path") // Add the valueline path.
         .attr("id", "barline")
-        .attr("class", "line " + property)
+        .attr("class", "line gray " + property)
         .attr("d", line(vis.boo));
   }
 }

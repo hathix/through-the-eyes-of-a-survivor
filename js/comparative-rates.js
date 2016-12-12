@@ -6,7 +6,7 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.margin = {
     top: 50,
     right: 30,
-    bottom: 30,
+    bottom: 60,
     left: 90
   };
   this.width = 500 - this.margin.left - this.margin.right;
@@ -15,9 +15,9 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.formatDate = d3.time.format("%Y");
 
   this.metrics = [
-    "Rape/Sexual Assault",
+    "Aggravated Assault",
     "Robbery",
-    "Aggravated Assault"
+    "Sexual Assault"
   ];
 
   this.initVis();
@@ -65,6 +65,26 @@ ComparativeRates.prototype.initVis = function() {
   //   .attr('text-anchor', 'end');
 
 
+  // add chart title
+  vis.svg.append("text")
+    .attr("transform", "translate(" + (vis.width / 2) + ",-20)")
+    .attr("class", "chart-title")
+    .text("Crime rates are dropping sharply");
+
+  // add x-axis label
+  vis.svg.append("text")
+    .attr("transform", "translate(" + (vis.width / 2) + "," + (vis.height +
+      40) + ")")
+    .attr("class", "axis-title")
+    .text("Year");
+
+  // add y-axis label
+  vis.svg.append("text")
+    .attr("transform", "translate(-40," + (vis.height / 2) + ")rotate(-90)")
+    .attr("class", "axis-title")
+    .text("Crime rate per 1,000 people");
+
+
   // for lines
   vis.lineGroup = vis.svg.append("g");
 
@@ -107,13 +127,19 @@ ComparativeRates.prototype.initVis = function() {
   vis.brushGroup = vis.svg.append("g")
     .attr("class", "brush");
 
+  // legend
+  vis.legend = vis.svg.append("g")
+    .attr("class", "legend")
+    .attr("transform", "translate(" + (vis.width * 0.55) + ",40)")
+    .style("font-size", "14px");
+
   vis.wrangleData();
 };
 
 ComparativeRates.prototype.wrangleData = function() {
   var vis = this;
 
-  console.log(vis.data);
+  // console.log(vis.data);
 
   // we currently have an array of metrics
   // only consider certain metrics though
@@ -135,20 +161,27 @@ ComparativeRates.prototype.wrangleData = function() {
   // each one has `type` and several years
   // convert it to several arrays, each of which looks like
   // [{year: #, value: #}, ...]
+  // and wrap it in an object
   vis.displayData = vis.filteredData.map(function(metricRow) {
-    var result = [];
+    var array = [];
     // TODO don't hardcode
     var startYear = 1993;
     var endYear = 2012;
     for (var i = 0; i <= endYear - startYear; i++) {
       var year = startYear + i;
-      result[i] = {
+      array[i] = {
         year: year,
         value: metricRow[year]
       };
     }
-    return result;
+
+    return {
+      type: metricRow["Type"],
+      slug: metricRow["Slug"],
+      yearData: array
+    };
   });
+
 
   vis.updateVis();
 };
@@ -188,17 +221,37 @@ ComparativeRates.prototype.updateVis = function() {
     .data(vis.displayData)
     .enter()
     .append("path")
-    .attr("class", "line")
-    .attr("d", vis.line);
+    .attr("class", function(d) {
+      return "line " + d.slug;
+    })
+    .attr("stroke", function(d) {
+        switch (d.type) {
+            case "Sexual Assault":
+                return "crimson";
+            case "Robbery":
+                return "#B39EB5";
+            case "Aggravated Assault":
+                return "#AEC6CF";
+        }
+    })
+    .attr("data-legend", function(d) {
+      return d.type;
+    })
+    .attr("data-legend-icon", "line")
+    .attr("d", function(d) {
+      // select only the raw data array for this
+      return vis.line(d.yearData);
+    });
 
 
   // fire a starter event to start off companion visualizations
-  // TODO you still need to click on this to start it... how can we get the
-  // companion viz to auto load?
   $(vis.eventHandler)
     .trigger("selectionChanged", [
       1993,
       2012,
       vis.filteredData
     ]);
+
+
+  vis.legend.call(d3.legend);
 };
