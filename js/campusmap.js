@@ -5,6 +5,9 @@ CampusMap = function(_parentElement) {
     this.width = 960 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
 
+    // hide at start
+    $('#campus-info-holder').hide();
+
     this.initVis();
 }
 
@@ -69,7 +72,9 @@ CampusMap.prototype.initVis = function() {
                         d3.select(this).style("cursor", "default")
                     }
                 })
-                .on("click", function(d) {
+                .on("mouseover", function(d) {
+                    // show info
+                    $('#campus-info-holder').show();
                     displayInfo(d);
                     return;
                 })
