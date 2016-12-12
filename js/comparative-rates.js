@@ -1,23 +1,23 @@
-ComparativeRates = function(_parentElement, _data) {
+ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.parentElement = _parentElement;
   this.data = _data;
+  this.eventHandler = _eventHandler;
+
   this.margin = {
-    top: 40,
+    top: 50,
     right: 30,
-    bottom: 60,
-    left: 60
+    bottom: 30,
+    left: 90
   };
-  this.width = 960 - this.margin.left - this.margin.right;
+  this.width = 500 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
 
   this.formatDate = d3.time.format("%Y");
 
   this.metrics = [
-    "total_violent_crime",
-    "rape_sexual_assault",
-    "robbery",
-    "aggravated_assault",
-    "simple_assault"
+    "Rape/Sexual Assault",
+    "Robbery",
+    "Aggravated Assault"
   ];
 
   this.initVis();
@@ -59,10 +59,53 @@ ComparativeRates.prototype.initVis = function() {
 
 
   // draw a text field for the series name
-  vis.seriesLabel = vis.svg.append('text')
-    .attr('x', vis.width)
-    .attr('y', vis.height / 5)
-    .attr('text-anchor', 'end');
+  // vis.seriesLabel = vis.svg.append('text')
+  //   .attr('x', vis.width)
+  //   .attr('y', vis.height / 5)
+  //   .attr('text-anchor', 'end');
+
+
+  // for lines
+  vis.lineGroup = vis.svg.append("g");
+
+
+  // brushing
+  vis.brush = d3.svg.brush()
+    .x(vis.x)
+    .on("brush", function() {
+
+      if (vis.brush.empty()) {
+        // No region selected (brush inactive)
+        $(vis.eventHandler)
+          .trigger("selectionChanged", [
+            vis.x.domain()[0],
+            vis.x.domain()[1],
+            vis.filteredData
+          ]);
+      } else {
+        // User selected specific region
+
+        // snap to nearest year
+        var extent = vis.brush.extent();
+        var rounded = extent.map(Math.round);
+        vis.brush.extent(rounded);
+        // redraw
+        vis.svg.select(".brush")
+          .call(vis.brush);
+
+        // trigger change
+        $(vis.eventHandler)
+          .trigger("selectionChanged", [
+            rounded[0],
+            rounded[1],
+            vis.filteredData
+          ]);
+      }
+    });
+
+  // Append brush component here
+  vis.brushGroup = vis.svg.append("g")
+    .attr("class", "brush");
 
   vis.wrangleData();
 };
@@ -70,37 +113,41 @@ ComparativeRates.prototype.initVis = function() {
 ComparativeRates.prototype.wrangleData = function() {
   var vis = this;
 
-  // preprocess everything
-  vis.data.forEach(function(d) {
-    d.year_int = +d.year;
-    d.year = vis.formatDate.parse(d.year);
+  console.log(vis.data);
 
-    d.total_violent_crime = +d.total_violent_crime;
-    d.rape_sexual_assault = +d.rape_sexual_assault;
-    d.robbery = +d.robbery;
-    d.aggravated_assault = +d.aggravated_assault;
-    d.simple_assault = +d.simple_assault;
+  // we currently have an array of metrics
+  // only consider certain metrics though
+  vis.filteredData = vis.data.filter(function(row) {
+    return vis.metrics.indexOf(row.Type) > -1;
   });
 
-  // compute rates relative to 1996
-  var relativeYear = 1996;
-  var relativeYearArray = vis.data.filter(function(d) {
-    return d.year_int === relativeYear;
-  });
-  // should only be one year that matches
-  var relativeYearData = relativeYearArray[0];
-
-  // calculate relative rates
-  vis.data.forEach(function(d) {
-    d.relative = {};
-    vis.metrics.forEach(function(metric) {
-      d.relative[metric] = d[metric] / relativeYearData[metric];
-    });
+  // clean out values for each year
+  vis.filteredData.forEach(function(metricRow) {
+    // TODO don't hardcode
+    var startYear = 1993;
+    var endYear = 2012;
+    for (var i = 0; i <= endYear - startYear; i++) {
+      var year = startYear + i;
+      metricRow[year] = +metricRow[year];
+    }
   });
 
-  // only choose stuff after the chosen year
-  vis.displayData = vis.data.filter(function(d) {
-    return d.year_int >= relativeYear;
+  // each one has `type` and several years
+  // convert it to several arrays, each of which looks like
+  // [{year: #, value: #}, ...]
+  vis.displayData = vis.filteredData.map(function(metricRow) {
+    var result = [];
+    // TODO don't hardcode
+    var startYear = 1993;
+    var endYear = 2012;
+    for (var i = 0; i <= endYear - startYear; i++) {
+      var year = startYear + i;
+      result[i] = {
+        year: year,
+        value: metricRow[year]
+      };
+    }
+    return result;
   });
 
   vis.updateVis();
@@ -109,46 +156,49 @@ ComparativeRates.prototype.wrangleData = function() {
 ComparativeRates.prototype.updateVis = function() {
   var vis = this;
 
+
+  // Call brush component here
+  vis.svg.select(".brush")
+    .call(vis.brush)
+    .selectAll('rect')
+    .attr("height", vis.height)
+    .attr("clip-path", "url(#clip)");
+
   // draw the line chart
 
   // update axes
-  vis.x.domain(d3.extent(vis.displayData, function(d) {
-    return d.year_int;
-  }));
-  vis.y.domain([0, 1.5]);
+  vis.x.domain([1993, 2012]);
+  vis.y.domain([0, 20]);
 
   // redraw axes
   vis.xGroup.call(vis.xAxis);
   vis.yGroup.call(vis.yAxis);
 
   // draw line for each metric
-  vis.metrics.forEach(function(metric) {
-    vis.drawLine(metric);
-  });
-};
-
-// Draws a line for the relevant metric, e.g. `rape_sexual_assault`,
-// using vis.displayData.
-ComparativeRates.prototype.drawLine = function(metric) {
-  var vis = this;
-
-  // prepare the line function
-  var line = d3.svg.line()
+  vis.line = d3.svg.line()
     .x(function(d) {
-      return vis.x(d.year_int);
+      return vis.x(d.year);
     })
     .y(function(d) {
-      return vis.y(d.relative[metric]);
-    })
-    .interpolate("monotone");
-
-  // prepare path to draw line in
-  var lineGroup = vis.svg.append('path')
-    .attr('class', 'line ' + metric)
-    .on('mouseover', function() {
-      vis.seriesLabel.text(metric);
+      return vis.y(d.value);
     });
 
-  // do the drawing
-  lineGroup.attr('d', line(vis.displayData));
+
+  vis.lineGroup.selectAll(".line")
+    .data(vis.displayData)
+    .enter()
+    .append("path")
+    .attr("class", "line")
+    .attr("d", vis.line);
+
+
+  // fire a starter event to start off companion visualizations
+  // TODO you still need to click on this to start it... how can we get the
+  // companion viz to auto load?
+  $(vis.eventHandler)
+    .trigger("selectionChanged", [
+      1993,
+      2012,
+      vis.filteredData
+    ]);
 };

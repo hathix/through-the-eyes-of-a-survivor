@@ -53,17 +53,18 @@ $(function() {
         if (index === 3) {
           typewrite(stories[0]);
           //
-        //   // gradually show the woman
+          //   // gradually show the woman
           $('#party-woman')
             .fadeTo(1000, 1, function complete() {
               // slide her in from the left
               $('#party-woman')
                 .animate({
                   left: 200
-              }, 1000, function complete(){
-                  $('#party-woman').prop('src', 'images/woman-red.png');
+                }, 1000, function complete() {
+                  $('#party-woman')
+                    .prop('src', 'images/woman-red.png');
 
-              });
+                });
             });
         }
         if (index === 4) {
@@ -110,9 +111,14 @@ $(function() {
     });
 });
 
+
+
 var campusMap = new CampusMap("campus-map");
 var barChart = new BarChart("police-reports-bars", MyEventHandler);
 var lineChart = new LineChart("police-reports");
+
+var rateReport = new RateReport("rate-report");
+
 $(MyEventHandler)
   .bind("selectionChanged", function(event, category) {
     lineChart.onSelectionChange(category);
@@ -122,8 +128,30 @@ var survivors = new Survivors("affected", 20, 100);
 
 var arrestWheel = new ArrestWheel("arrest-wheel");
 
-d3.csv("data/cleaned/comparative-rates-over-time.csv", function(csv) {
-  new ComparativeRates("comparative-rates", csv);
+d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) {
+  var eventHandler = {};
+  $(eventHandler)
+    .bind("selectionChanged", function(event, startYear, endYear, rateData) {
+      console.log(rateData);
+      // figure out the overall change based on the years
+      // TODO send this to another vis
+      var changes = rateData.map(function(row) {
+        // contains metric and years
+        var startValue = row[startYear];
+        var endValue = row[endYear];
+        // -0.5 => down 50%, +1.0 => up 100%
+        var changeRatio = endValue / startValue - 1;
+
+        return {
+          type: row.Type,
+          change: changeRatio
+        };
+      });
+
+      rateReport.updateVis(changes, startYear, endYear);
+    });
+
+  new ComparativeRates("comparative-rates", csv, eventHandler);
 });
 
 // var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
