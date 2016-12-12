@@ -148,6 +148,7 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
           change: changeRatio
         };
       });
+
       rateReport.updateVis(changes);
     });
 });
