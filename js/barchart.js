@@ -5,7 +5,7 @@ BarChart = function(_parentElement) {
     top: 40,
     right: 10,
     bottom: 150,
-    left: 70
+    left: 80
   };
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
@@ -41,7 +41,11 @@ BarChart.prototype.initVis = function() {
     .orient("bottom");
   vis.yaxis = d3.svg.axis()
     .scale(vis.y)
-    .orient("left");
+    .orient("left")
+    .tickFormat(function(d){
+        // add percentages
+        return d + "%";
+    });
 
   // draw x axis
   vis.svg.append("g")
@@ -60,7 +64,7 @@ BarChart.prototype.initVis = function() {
   // add axis label
   vis.svg.append("text")
     .style("text-anchor", "middle")
-    .attr("transform", "translate(-50," + (vis.height / 2) + ")rotate(-90)")
+    .attr("transform", "translate(-60," + (vis.height / 2) + ")rotate(-90)")
     .attr("class", "axis-title")
     .text("Avg. % of crimes reported to police, 2004—2013");
 
