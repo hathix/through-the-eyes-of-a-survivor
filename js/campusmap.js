@@ -65,6 +65,15 @@ CampusMap.prototype.initVis = function() {
                 .attr("title", function(d) {
                     return d.School;
                 })
+                .attr("fill", function(d) {
+                    if (+d.Rate > 24) {
+                        return "red";
+                    } else if (+d.Rate < 22) {
+                        return "green";
+                    } else {
+                        return "orange";
+                    }
+                })
                 .on({"mouseover": function(d) {
                     d3.select(this).style("cursor", "pointer")
                 },
