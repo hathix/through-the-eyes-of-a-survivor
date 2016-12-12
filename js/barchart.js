@@ -197,7 +197,6 @@ BarChart.prototype.updateVisualization = function() {
         name = name[0].toUpperCase() + name.slice(1);
         name = name.replace('-','_');
 
-        console.log(name);
         $("." + name).css("stroke", "steelblue");
       },
       "mouseout": function(d) {
@@ -221,7 +220,6 @@ BarChart.prototype.updateVisualization = function() {
         name = name[0].toUpperCase() + name.slice(1);
         name = name.replace('-','_');
 
-        console.log(name);
         $("." + name).css("stroke", function(){
           if(name == "Sexual_assault")
             return "firebrick";
