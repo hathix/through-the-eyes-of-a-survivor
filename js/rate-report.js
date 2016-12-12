@@ -44,6 +44,7 @@ RateReport.prototype.initVis = function() {
 
   // Scales and axes
   vis.x = d3.scale.linear()
+    .domain([-1, 1])
     .range([0, vis.width]);
   vis.y = d3.scale.ordinal()
     .rangeRoundBands([0, vis.height], .2);
@@ -67,14 +68,19 @@ RateReport.prototype.initVis = function() {
   // label group
   vis.labelGroup = vis.svg.append("g");
 
-
-
   // x axis label
   vis.xAxisLabel = vis.svg.append("g")
     .append("text")
     .attr("class", "label axis-title centered")
     .attr("x", vis.width / 2)
     .attr("y", -30);
+
+  // draw line down the middle at 0
+  var centerLineX = vis.x(0);
+  var path = `M ${centerLineX} 0 v ${vis.height}`;
+  vis.centerLine = vis.svg.append("path")
+    .attr("d", path)
+    .attr("class", "center-line");
 };
 
 /**
@@ -89,7 +95,6 @@ RateReport.prototype.updateVis = function(_data, startYear, endYear) {
   // draw stuff
 
   // (1) Update domains
-  vis.x.domain([-1, 1]);
   vis.y.domain(vis.data.map(function(d) {
     return d.type;
   }));
@@ -185,5 +190,6 @@ RateReport.prototype.updateVis = function(_data, startYear, endYear) {
     .remove();
 
   // update x axis label
-  vis.xAxisLabel.text(`Change in crime rate between ${startYear} and ${endYear}`);
+  vis.xAxisLabel.text(
+    `Change in crime rate between ${startYear} and ${endYear}`);
 };

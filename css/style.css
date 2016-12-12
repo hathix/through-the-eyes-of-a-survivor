@@ -307,3 +307,8 @@ path.line.Rape {
 text.centered {
     text-anchor: middle;
 }
+
+.center-line {
+    stroke: white;
+    shape-rendering: crispEdges;
+}
