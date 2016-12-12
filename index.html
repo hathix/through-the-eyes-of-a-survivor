@@ -15,32 +15,9 @@
 
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700' rel='stylesheet' type='text/css'> -->
 </head>
 
 <body>
-
-  <!-- <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        <a class="navbar-brand" href="#">Sexual Assault</a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav" id="main-menu">
-          <li data-menuanchor="anchor-section-intro">
-            <a href="#section-intro">Intro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav> -->
 
   <div id="fullpage">
 
@@ -48,14 +25,6 @@
       <div class="container" id="cover-container">
         <h1 class="mega-header">Devastated.</h1>
         <h2>Understanding the epidemic of sexual assault on American college campuses</h2>
-
-        <!-- <br> -->
-        <!--
-        <blockquote class="lead">
-          Sexual assault is a general term for any type of <strong>sexual activity that occurs without consent</strong>. This could include behavior like unwanted touching or kissing, sexual contact with someone who is under the influence of drugs or
-          alcohol and unable to give an informed "yes" or "no", or rape or attempted rape.
-          <footer><a href="http://pact5.org/what-is-sexual-assault/">PACT5</a></footer>
-        </blockquote> -->
       </div>
     </section>
 
@@ -66,7 +35,7 @@
           <div class="col-sm-6">
             <p class="lead">She's a student at American University in Washington, D.C. She's a real person. She's just like any of us.</p>
             <p class="lead">Alexandra might be your friend from class, your floormate, someone you see around campus.</p>
-            <p class="lead"><strong>And she was sexually assaulted.</strong></p>
+            <p class="lead"><strong>And she was sexually assaulted.<sup class="citation">1</sup></strong></p>
           </div>
           <div class="col-sm-6">
             <div id="american-scene">
@@ -87,10 +56,6 @@
 
         <div class="row">
           <div class="col-sm-6">
-            <!-- <blockquote class="lead">
-              “I had zero intentions of having sex that night. It’s not what I wanted to happen.”
-              <footer><a href="https://www.washingtonpost.com/graphics/local/sexual-assault/">Alexandra Le Blanc, American University (D.C.)</a></footer>
-            </blockquote> -->
             <div id="party-scene">
               <img src="images/woman-white.png" id="party-woman">
             </div>
@@ -102,30 +67,6 @@
       </div>
     </section>
 
-    <!-- Stories -->
-    <!-- <section class="section">
-
-        <blockquote class="lead">
-          “There was no question about consent. I said ‘no’ and he didn’t care.”
-          <footer><a href="https://www.washingtonpost.com/graphics/local/sexual-assault/">Female student, Northern Arizona State University</a></footer>
-        </blockquote>
-
-        <samp id="story-arizona"></samp>
-      </section>
-
-      <section class="section">
-        <blockquote class="lead">
-          “I was like, ‘No, please stop.’ He was like, ‘No, you’ll like it.' ”
-          <footer><a href="https://www.washingtonpost.com/graphics/local/sexual-assault/">Female student, Queens University of Charlotte</a></footer>
-        </blockquote>
-
-        <samp id="story-queens"></samp>
-      </section> -->
-
-
-    <!-- <h1>Across Campus</h1> -->
-
-
 
     <section class="section">
       <div class="container">
@@ -135,7 +76,7 @@
         </p>
 
         <p class="lead">
-          <strong>But 1 in 5 of them will be sexually assaulted in college.</strong>
+          <strong>But 1 in 5 of them will be sexually assaulted in college.<sup class="citation">2</sup></strong>
         </p>
 
         <!-- Drawing Area -->
@@ -150,11 +91,13 @@
           <div class="col-xs-7">
 
             <div class="lead">
-              <button onclick="survivors.nextVis()" class="btn btn-primary" id="survivor-button">
-                Next
-              </button><br><br>
 
-              <p id="fact"></p>
+              <p>
+                <span id="fact"></span>
+                <button onclick="survivors.nextVis()" class="btn btn-primary" id="survivor-button">
+                    Next
+                </button>
+              </p>
             </div>
 
             <hr></hr>
@@ -180,7 +123,9 @@
     <section class="section">
       <div class="container">
         <h2>Sexual assault is a huge problem on your campus, too.</h2>
-        <p class="lead">This isn't just at Alexandra's campus. Women at top colleges across the country face alarmingly high rates of sexual assault.</p>
+        <p class="lead">
+          This isn't just at Alexandra's school. Women at top colleges across the country face alarmingly high rates of sexual assault.<sup class="citation">3</sup>
+        </p>
         <div class="container">
           <div class="row row-eq-height">
 
@@ -212,7 +157,7 @@
     <section class="section">
       <div class="container">
         <h2>Sexual assault doesn't just happen in dark alleys.</h2>
-        <p class="lead">Here are some situations that Alexandra and women like her have been in. Are these examples of sexual assault?</p>
+        <p class="lead">Here are some situations that Alexandra and women like her have been in. Are these examples of sexual assault?<sup class="citation">4</sup></p>
 
         <div class="panel panel-default">
           <div class="panel-body">
@@ -332,7 +277,6 @@
                     </div> -->
       </div>
     </section>
-
 
     <section class="section">
       <div class="container">
@@ -588,13 +532,21 @@
 
         <p>With special thanks to our advisor, <a href="http://hendrik.strobelt.com">Hendrik Strobelt</a>; our professor, <a href="https://www.seas.harvard.edu/directory/pfister">Dr. Hanspeter Pfister</a>; and the rest of the CS 171 staff.</p>
 
-        <p>Sources:
-          <ul>
-            <li>
-                Survivors
-            </li>
-          </ul>
-        </p>
+
+        <ol>
+          <li>
+            Alexandra's story comes from <a href="https://www.washingtonpost.com/graphics/local/sexual-assault/">the Washington Post</a>.
+          </li>
+          <li>
+            The facts in this visualization come from <a href="http://pact5.org/what-is-sexual-assault/">PACT5</a>.
+          </li>
+          <li>
+            College sexual assault rates come from <a href="https://www.washingtonpost.com/news/grade-point/wp/2015/09/21/what-a-massive-sexual-assault-survey-showed-about-27-top-u-s-universities/">the AAU's survey of 27 American universities</a>.
+          </li>
+          <li>
+              Quiz questions from <a href="http://confi.co/">Confi</a>.
+          </li>
+        </ol>
 
 
         <p><a href="https://github.com/hathix/cs171-final-project">View this project on GitHub.</a></p>

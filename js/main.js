@@ -221,3 +221,10 @@ $('#help-tabs')
     $(this)
       .height(maxHeight);
   });
+
+
+// when you click on a citation, go to the citations slide
+$('sup.citation')
+  .on('click', function() {
+    $.fn.fullpage.moveTo(12);
+  });

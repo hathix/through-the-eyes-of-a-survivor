@@ -345,3 +345,8 @@ text.centered {
 .top-padding {
     padding-top: 20px;
 }
+
+
+sup.citation {
+    cursor: pointer;
+}
