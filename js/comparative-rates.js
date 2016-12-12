@@ -4,7 +4,7 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.eventHandler = _eventHandler;
 
   this.margin = {
-    top: 60,
+    top: 50,
     right: 30,
     bottom: 30,
     left: 90
