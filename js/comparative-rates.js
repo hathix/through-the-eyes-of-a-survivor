@@ -127,6 +127,12 @@ ComparativeRates.prototype.initVis = function() {
   vis.brushGroup = vis.svg.append("g")
     .attr("class", "brush");
 
+  // legend
+  vis.legend = vis.svg.append("g")
+    .attr("class", "legend")
+    .attr("transform", "translate(" + (vis.width * 0.55) + ",40)")
+    .style("font-size", "14px");
+
   vis.wrangleData();
 };
 
@@ -218,9 +224,23 @@ ComparativeRates.prototype.updateVis = function() {
     .attr("class", function(d) {
       return "line " + d.slug;
     })
-    .attr("d", function(d){
-        // select only the raw data array for this
-        return vis.line(d.yearData);
+    .attr("stroke", function(d) {
+        switch (d.type) {
+            case "Sexual Assault":
+                return "crimson";
+            case "Robbery":
+                return "#B39EB5";
+            case "Aggravated Assault":
+                return "#AEC6CF";
+        }
+    })
+    .attr("data-legend", function(d) {
+      return d.type;
+    })
+    .attr("data-legend-icon", "line")
+    .attr("d", function(d) {
+      // select only the raw data array for this
+      return vis.line(d.yearData);
     });
 
 
@@ -231,4 +251,7 @@ ComparativeRates.prototype.updateVis = function() {
       2012,
       vis.filteredData
     ]);
+
+
+  vis.legend.call(d3.legend);
 };
