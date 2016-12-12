@@ -81,7 +81,7 @@ CampusMap.prototype.initVis = function() {
             function displayInfo(d) {
                 //var name = (d.School).replace(/ /i, '%20');
                 // var name = d.School;
-                var image = "images/" + d.School + d.Image;
+                var image = "images/universities/" + d.School + d.Image;
                 $("#campus-info")
                     .empty()
                     .append(
