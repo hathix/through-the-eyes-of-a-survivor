@@ -172,14 +172,8 @@ BarChart.prototype.updateVisualization = function() {
     .attr("height", function(d) {
       return vis.height - vis.y(d[1]);
     })
-    .on("click", function(d) {
-    //   $(MyEventHandler)
-    //     .trigger("selectionChanged", d[0]);
-    })
     .on({
       "mouseover": function(d) {
-        d3.select(this)
-          .style("cursor", "pointer");
 
         var name = $(this).attr("class");
         name = name.split(' ');

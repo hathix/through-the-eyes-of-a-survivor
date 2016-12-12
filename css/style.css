@@ -1,8 +1,4 @@
-/*#header-jumbotron {
-        background-image: url("../images/sexual-assault-awareness.jpg");
-        background-size: cover;
-        background-position: 0 0;
-}*/
+
 .well-white {
   background-color: white;
   color: black;
@@ -71,56 +67,10 @@
 #party-woman {
     position: absolute;
     top: 50px;
-    /*left: 200px;*/
     left: 0;
     width: 150px;
     opacity: 0;
 }
-
-/*************/
-
-
-/*    FORM   */
-
-
-/*************/
-
-
-/*
-.form-inline {
-  margin-bottom: 30px;
-}
-
-.form-control {
-  background: #E2DDD1;
-  border: 1px solid #D49999;
-  width: 250px;
-}
-
-.form-group label {
-  font-weight: 400;
-  margin-right: 10px;
-}
-
-.form-inline button, .btn-link:active {
-  border-left: 1px solid #888;
-  margin-left: 15px;
-  padding-left: 15px;
-  color: #333;
-  cursor: pointer;
-  outline: none;
-}
-.form-inline button:hover, .btn-link:active, .btn-link:focus  {
-  border-left: 1px solid #888;
-  color: #8E7060;
-  text-decoration: none;
-  outline: none;
-}
-.form-inline button .glyphicon {
-  margin-right: 5px;
-}
-*/
-
 
 /***************/
 
@@ -171,14 +121,7 @@
   font-size: 12px;
 }
 
-
-/*
-.x-axis path {
-  display: none;
-}*/
-
 path.line {
-  /*stroke: #c8c8c8;*/
   stroke-width: 4;
   fill: none;
 }
@@ -199,6 +142,17 @@ path.line.Rape {
   stroke: firebrick;
 }
 
+#crime-type{
+  position:relative;
+  text-align: center;
+  bottom:85px;
+}
+
+#police-year{
+  text-align: center;
+  position:relative;
+  bottom:40px;
+}
 
 #text {
   font-size: 20px;
@@ -214,7 +168,6 @@ path.line.Rape {
 
 .slice {
   stroke: #DB9E36;
-  /*stroke-width: 2px;*/
 }
 
 .pointer {
@@ -278,9 +231,6 @@ path.line.Rape {
 #fp-nav ul li a span {
   background: whitesmoke;
 }
-
-
-
 
 #prevention {
   font-size: 25px;

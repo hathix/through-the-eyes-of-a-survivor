@@ -225,6 +225,13 @@ Survivors.prototype.nextVis = function() {
     $('#survivor-quote')
           .hide();
 
+
+    // hide button if we're on the last stage
+    if (vis.isNextVis === 2) {
+        $('#survivor-button').hide();
+    } else {
+        $('#survivor-button').show();
+    }
 }
 
 function shuffle(array) {
