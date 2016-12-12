@@ -5,7 +5,7 @@ BarChart = function(_parentElement) {
     top: 40,
     right: 10,
     bottom: 150,
-    left: 60
+    left: 70
   };
   this.width = 960 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
@@ -62,7 +62,7 @@ BarChart.prototype.initVis = function() {
     .style("text-anchor", "middle")
     .attr("transform", "translate(-50," + (vis.height / 2) + ")rotate(-90)")
     .attr("class", "axis-title")
-    .text("Average report rate from 2002 to 2013");
+    .text("Avg. % of crimes reported to police, 2004—2013");
 
   this.loadData();
 };
@@ -220,9 +220,9 @@ BarChart.prototype.updateVisualization = function() {
         console.log(name);
         $("." + name).css("stroke", function(){
           if(name == "Sexual_assault")
-            return "red";
+            return "firebrick";
           else
-            return "white";
+            return "#c8c8c8";
         });
       }
     });

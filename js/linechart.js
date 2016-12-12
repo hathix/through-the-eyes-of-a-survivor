@@ -93,7 +93,7 @@ LineChart.prototype.loadData = function() {
         .style("text-anchor", "middle")
         .attr("transform", "translate(-40," + (vis.height / 2)+")rotate(-90)")
         .attr("class", "axis-title")
-        .text("Crime report rates per year");
+        .text("% of crimes reported to police");
 
     vis.updateVisualization();
 
