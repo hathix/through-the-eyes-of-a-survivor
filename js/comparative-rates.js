@@ -4,10 +4,10 @@ ComparativeRates = function(_parentElement, _data, _eventHandler) {
   this.eventHandler = _eventHandler;
 
   this.margin = {
-    top: 40,
+    top: 60,
     right: 30,
-    bottom: 60,
-    left: 60
+    bottom: 30,
+    left: 90
   };
   this.width = 500 - this.margin.left - this.margin.right;
   this.height = 500 - this.margin.top - this.margin.bottom;
@@ -59,10 +59,10 @@ ComparativeRates.prototype.initVis = function() {
 
 
   // draw a text field for the series name
-  vis.seriesLabel = vis.svg.append('text')
-    .attr('x', vis.width)
-    .attr('y', vis.height / 5)
-    .attr('text-anchor', 'end');
+  // vis.seriesLabel = vis.svg.append('text')
+  //   .attr('x', vis.width)
+  //   .attr('y', vis.height / 5)
+  //   .attr('text-anchor', 'end');
 
 
   // for lines

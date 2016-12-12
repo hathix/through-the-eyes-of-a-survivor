@@ -51,7 +51,8 @@ RateReport.prototype.initVis = function() {
 
   vis.xAxis = d3.svg.axis()
     .scale(vis.x)
-    .orient("bottom");
+    .orient("bottom")
+    .tickFormat(d3.format(".0%"));
   vis.xAxisGroup = vis.svg.append("g")
     .attr("class", "x-axis axis");
 

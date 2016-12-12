@@ -130,11 +130,9 @@ var arrestWheel = new ArrestWheel("arrest-wheel");
 
 d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) {
   var eventHandler = {};
-  new ComparativeRates("comparative-rates", csv, eventHandler);
-
   $(eventHandler)
     .bind("selectionChanged", function(event, startYear, endYear, rateData) {
-        console.log(rateData);
+      console.log(rateData);
       // figure out the overall change based on the years
       // TODO send this to another vis
       var changes = rateData.map(function(row) {
@@ -152,6 +150,8 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
 
       rateReport.updateVis(changes);
     });
+
+  new ComparativeRates("comparative-rates", csv, eventHandler);
 });
 
 // var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
