@@ -359,3 +359,17 @@ sup.citation {
     display: block;
     margin: auto;
 }
+
+
+#campus-info {
+    text-align: center;
+}
+
+#campus-info h3, #campus-info h4 {
+    text-shadow: none;
+}
+
+#college-image {
+    width: 128px;
+    height: 128px;
+}

@@ -80,22 +80,20 @@ CampusMap.prototype.initVis = function() {
                 })
                 .append("svg:title")
                 .html(function(d) {
-                    return (d.School + "<br/>" + d.Rate + "%");
+                    return (d.School + ": " + d.Rate + "%");
                 });
 
             function displayInfo(d) {
                 //var name = (d.School).replace(/ /i, '%20');
                 // var name = d.School;
                 var image = "images/universities/" + d.School + d.Image;
-                $("#campus-info")
-                    .empty()
-                    .append(
-                        "<img src=" + "'" + image + "'"
-                                    + " height='128px' width='128px'>" + "<br/>"
-                        + "<br/><br/><br/>"
-                        + d.School + "<br/>"
-                        + d.Location + "<br/>"
-                        + "Sexual assault rate surveyed: ");
+
+
+                $('#college-image').prop('src', image);
+                $('#college-name').html(d.School);
+                $('#college-location').html(d.Location);
+
+
                 $("#progress-move").css({"width": (+d.Rate) + "%",
                                         "background-image": "none"});
                 if (+d.Rate > 24) {
