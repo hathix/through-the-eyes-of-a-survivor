@@ -83,7 +83,7 @@ Survivors.prototype.updateVisualization = function() {
   vis.colors = [];
 
   // Delay time for the animation in milliseconds
-  vis.delay = 20;
+  vis.delay = 25;
 
   // draw rects in the background
   var rect = vis.svg.selectAll(".rect")
