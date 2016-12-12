@@ -201,3 +201,23 @@ var typewrite = function(story) {
 
 $('#survivor-button')
   .hide();
+
+
+// equalize height of help tab pane
+// get heights of all tabs
+var tabHeights = $('#help-tabs')
+  .find('.tab-pane')
+  .map(function() {
+    return $(this)
+      .height()
+  })
+  .get();
+// find max height
+var maxHeight = d3.max(tabHeights);
+// apply it to all tabs
+$('#help-tabs')
+  .find('.tab-pane')
+  .each(function() {
+    $(this)
+      .height(maxHeight);
+  });
