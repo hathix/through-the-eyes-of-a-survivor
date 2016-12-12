@@ -134,7 +134,7 @@
   fill: #c8c8c8;
 }
 
-.bar:hover {
+.bar:hover, .bar.sexual-assault:hover {
   fill: steelblue;
 }
 
