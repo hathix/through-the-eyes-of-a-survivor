@@ -10,7 +10,7 @@ This was a project for Harvard's [Data Visualization course, CS 171](http://cs17
 
 - [The live website](https://hathix.github.io/through-the-eyes-of-a-survivor/)
 - [Process doc](https://github.com/hathix/through-the-eyes-of-a-survivor/blob/master/Process%20Doc.pdf)
-- [Video - TODO](#)
+- [Video](https://youtu.be/prOCyoFYOUo)
 
 ## Thank you
 
