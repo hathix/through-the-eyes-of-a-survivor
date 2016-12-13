@@ -172,7 +172,13 @@ ArrestWheel.prototype.spin = function() {
   var numRotations = 3 + Math.floor(Math.random() * 3);
   // then randomly generate an angle for it to stop at
   var endRemainderAngle = Math.random() * 360;
+
+  // uncomment this if you want to hack the wheel to win
+  // endRemainderAngle = 0.5 * 360 / vis.slices;
+
   var endAngle = (numRotations * 360) + endRemainderAngle;
+
+
   // determine which slice you stopped on
   var endSlice = Math.floor(endRemainderAngle / 360 * vis.slices);
 
