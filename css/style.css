@@ -142,6 +142,14 @@ path.line.Rape {
   stroke: firebrick;
 }
 
+#bar-title{
+  text-align: center;
+  position:relative;
+  left: 30px;
+  top:70px;
+
+}
+
 #crime-type{
   position:relative;
   text-align: center;
