@@ -3,7 +3,7 @@ LineChart = function(_parentElement) {
   this.parentElement = _parentElement;
   this.margin = {
     top: 40,
-    right: 10,
+    right: 40,
     bottom: 60,
     left: 70
   };
