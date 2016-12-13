@@ -41,7 +41,7 @@ $(function() {
         // start typewriting each story once you visit it
         if (index === 3) {
           typewrite(stories[0]);
-        
+
           $('#party-woman')
             .fadeTo(1000, 1, function complete() {
               // slide her in from the left
@@ -63,8 +63,8 @@ $(function() {
         }
         if (index !== 4) {
           // Erase the facts when the user leaves the section
-          $("#fact")
-            .text(" ");
+        //   $("#fact")
+        //     .text(" ");
 
           // Reset the vis to the first one
           survivors.isNextVis = 0;
