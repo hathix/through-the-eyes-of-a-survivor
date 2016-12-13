@@ -10,8 +10,8 @@
 
 ## About the project
 
-This was a project for Harvard's [http://cs171.org](Data Visualization course, CS 171). By [https://github.com/hathix](Neel Mehta), [https://github.com/jcuanm](Javier Cuan-Martinez), [https://github.com/pyoun](Peter Youn), and [https://github.com/enriquecasasjr](Enrique Casas).
+This was a project for Harvard's [Data Visualization course, CS 171](http://cs171.org). By [Neel Mehta](https://github.com/hathix), [Javier Cuan-Martinez](https://github.com/jcuanm), [Peter Youn](https://github.com/pyoun), and [Enrique Casas](https://github.com/enriquecasasjr).
 
 ### Thank you
 
-With special thanks to our advisor, [http://hendrik.strobelt.com](Hendrik Strobelt); our professor, [https://www.seas.harvard.edu/directory/pfister](Dr. Hanspeter Pfister); and the rest of the CS 171 staff.
+With special thanks to our advisor, [Hendrik Strobelt](http://hendrik.strobelt.com); our professor, [Dr. Hanspeter Pfister](https://www.seas.harvard.edu/directory/pfister); and the rest of the CS 171 staff.
