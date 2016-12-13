@@ -77,7 +77,8 @@ Survivors.prototype.updateVisualization = function() {
   var vis = this;
 
   // show fact
-  $( "#fact" ).text( "1 in 5 women will be sexually assaulted in college.")
+  $("#fact")
+    .text("1 in 5 women will be sexually assaulted in college.")
 
   // Will keep track of which images are red
   vis.colors = [];
@@ -173,65 +174,80 @@ Survivors.prototype.nextVis = function() {
   rectangles
     .transition()
     .delay(function(d, i) {
-        // fill in one at a time
-        // wait time in milliseconds
-        // have a constant wait time at the start so that people can read the viz before it starts
-        return 1000 + i * vis.delay;
-      })
-    .attr("fill", function(d,i){
+      // fill in one at a time
+      // wait time in milliseconds
+      // have a constant wait time at the start so that people can read the viz before it starts
+      return 1000 + i * vis.delay;
+    })
+    .attr("fill", function(d, i) {
 
       // Activates blue people vis
-      if(vis.isNextVis == 0){
-        if(vis.colors[i] == "red" && bluePeople != 0){
+      if (vis.isNextVis == 0) {
+        if (vis.colors[i] == "red" && bluePeople != 0) {
           bluePeople -= 1;
           return "#00CCCC";
         }
       }
 
       // Activates green people vis
-      if(vis.isNextVis == 1){
-        if((vis.colors[i] == "red" || vis.colors[i] == "#00CCCC")  && yellowPeople != 0){
+      if (vis.isNextVis == 1) {
+        if ((vis.colors[i] == "red" || vis.colors[i] == "#00CCCC") &&
+          yellowPeople != 0) {
           yellowPeople -= 1;
           return "yellow";
         }
       }
 
-      if(vis.isNextVis == 2){
-        if((vis.colors[i] == "red" || vis.colors[i] == "#00FF80")  && greenPeople != 0){
+      if (vis.isNextVis == 2) {
+        if ((vis.colors[i] == "red" || vis.colors[i] == "#00FF80") &&
+          greenPeople != 0) {
           greenPeople -= 1;
           return "#00FF80";
         }
       }
 
       // Have to check whether they're red so that we keep them red on the next iteration
-      if(vis.colors[i] == "red")
+      if (vis.colors[i] == "red")
         return "red"
       else
         return vis.womanGrayFill;
     });
 
-    // Making the text appear on click
-    if(vis.isNextVis == 0)
-      $( "#fact" ).text( "9 in 10 survivors know their assailant.");
+  // Making the text appear on click
+  if (vis.isNextVis == 0) {
+    $("#fact")
+      .text("9 in 10 survivors know their assailant.");
+  }
 
-    if(vis.isNextVis == 1)
-      $( "#fact" ).text( "19 in 20 of survivors don't report their sexual assault.");
+  if (vis.isNextVis == 1) {
+    $("#fact")
+      .text("19 in 20 of survivors don't report their sexual assault.");
+  }
 
-    if(vis.isNextVis == 2)
-      $( "#fact" ).text( "4 in 5 of survivors suffer chronic physical or psychological problems.");
+  if (vis.isNextVis == 2) {
+    $("#fact")
+      .text(
+        "4 in 5 of survivors suffer chronic physical or psychological problems."
+      );
+  }
 
-    // Updating which vis to use next
-    vis.isNextVis += 1;
-    $('#survivor-quote')
-          .hide();
 
 
-    // hide button if we're on the last stage
-    if (vis.isNextVis === 2) {
-        $('#survivor-button').hide();
-    } else {
-        $('#survivor-button').show();
-    }
+  // hide button if we're on the last stage
+  if (vis.isNextVis === 2) {
+    $('#survivor-button')
+      .hide();
+  } else {
+    $('#survivor-button')
+      .show();
+  }
+
+  // Updating which vis to use next
+  vis.isNextVis += 1;
+  $('#survivor-quote')
+    .hide();
+
+
 }
 
 function shuffle(array) {
