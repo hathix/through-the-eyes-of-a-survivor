@@ -254,6 +254,7 @@ path.line.Rape {
 
 .map-college-dot {
     stroke: black;
+    /*fill: crimson;*/
     opacity: 0.6;
 }
 
@@ -366,6 +367,10 @@ sup.citation {
 
 #campus-info h4, #campus-info h5 {
     text-shadow: none;
+}
+
+#college-quick-info {
+    height: 5.5em;
 }
 
 #college-image {
