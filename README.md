@@ -10,7 +10,15 @@ This was a project for Harvard's [Data Visualization course, CS 171](http://cs17
 
 - [The live website](https://hathix.github.io/through-the-eyes-of-a-survivor/)
 - [Process doc](https://github.com/hathix/through-the-eyes-of-a-survivor/blob/master/Process%20Doc.pdf)
-- [Video](https://youtu.be/prOCyoFYOUo)
+- [Screencast video](https://youtu.be/prOCyoFYOUo)
+
+[![Screencast video](http://img.youtube.com/vi/prOCyoFYOUo/0.jpg)](https://www.youtube.com/watch?v=prOCyoFYOUo)
+
+## In this repository
+
+- Website code
+- [Libraries](https://github.com/hathix/through-the-eyes-of-a-survivor/tree/master/js/lib)
+- [Data](https://github.com/hathix/through-the-eyes-of-a-survivor/tree/master/data)
 
 ## Thank you
 
