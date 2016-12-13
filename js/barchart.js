@@ -172,14 +172,8 @@ BarChart.prototype.updateVisualization = function() {
     .attr("height", function(d) {
       return vis.height - vis.y(d[1]);
     })
-    .on("click", function(d) {
-    //   $(MyEventHandler)
-    //     .trigger("selectionChanged", d[0]);
-    })
     .on({
       "mouseover": function(d) {
-        d3.select(this)
-          .style("cursor", "pointer");
 
         var name = $(this).attr("class");
         name = name.split(' ');
@@ -197,7 +191,6 @@ BarChart.prototype.updateVisualization = function() {
         name = name[0].toUpperCase() + name.slice(1);
         name = name.replace('-','_');
 
-        console.log(name);
         $("." + name).css("stroke", "steelblue");
       },
       "mouseout": function(d) {
@@ -221,7 +214,6 @@ BarChart.prototype.updateVisualization = function() {
         name = name[0].toUpperCase() + name.slice(1);
         name = name.replace('-','_');
 
-        console.log(name);
         $("." + name).css("stroke", function(){
           if(name == "Sexual_assault")
             return "firebrick";

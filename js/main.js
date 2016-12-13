@@ -17,23 +17,12 @@ d3.json("data/stories.json", function(error, data) {
     });
   });
 });
-//
-// var peopleDisplays = [
-//   new PeopleDisplay("disturbing-fact-1",
-//     9, 10),
-//   new PeopleDisplay("disturbing-fact-2",
-//     19, 20),
-//   new PeopleDisplay("disturbing-fact-3",
-//     4, 5)
-// ];
 
 $(function() {
   $('#fullpage')
     .fullpage({
-      //   scrollingSpeed: 500,
-      //   scrollBar: true,
+
       navigation: true,
-      //   anchors: ['anchor-section-intro'],
       menu: '#main-menu',
 
       afterLoad: function(anchorLink, index) {
@@ -52,8 +41,7 @@ $(function() {
         // start typewriting each story once you visit it
         if (index === 3) {
           typewrite(stories[0]);
-          //
-          //   // gradually show the woman
+        
           $('#party-woman')
             .fadeTo(1000, 1, function complete() {
               // slide her in from the left
@@ -98,16 +86,7 @@ $(function() {
         }
       },
 
-      onLeave: function(index, nextIndex) {
-        // pause typewriting once you leave
-        // DOESNT WORK RN b/c the typewriters just keep ticking once you start them - hard to stop
-        // if (index === 2) {
-        //   stories[0].typewriter.pause();
-        // }
-        // if (index === 3) {
-        //   stories[1].typewriter.pause();
-        // }
-      }
+      onLeave: function(index, nextIndex) {}
     });
 });
 
@@ -154,9 +133,6 @@ d3.csv("data/cleaned/comparative-rates-over-time-transposed.csv", function(csv) 
   comparativeRates = new ComparativeRates("comparative-rates", csv, eventHandler);
 });
 
-// var peopleDisplay = new PeopleDisplay("disturbing-fact-1", 9, 10);
-
-
 $('#survivors-button')
   .on('click', function() {
     survivors.updateVisualization();
@@ -181,25 +157,6 @@ var typewrite = function(story) {
       .pause(1500);
   });
 };
-
-
-
-
-
-
-
-
-
-//if ($('.answer').is(":checked"))
-//{
-//console.log("yeah");
-//}
-
-//if(document.getElementsByClassName('answer').checked) {
-//console.log("checked");
-//} else {
-//console.log("not checked");
-//}
 
 $('#survivor-button')
   .hide();
