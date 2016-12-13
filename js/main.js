@@ -55,34 +55,19 @@ $(function() {
                 });
             });
         }
-        if (index === 4) {
+        if (index === 5) {
           survivors.updateVisualization();
 
           $('#survivor-button')
             .show();
         }
-        if (index !== 4) {
+        if (index !== 5) {
           // Erase the facts when the user leaves the section
         //   $("#fact")
         //     .text(" ");
 
           // Reset the vis to the first one
           survivors.isNextVis = 0;
-        }
-      },
-
-      afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex) {
-
-        if (index === 5) {
-          // run people display
-          // note that the first slide counts as a section, not a slide,
-          // so the second slide is actually index 1
-          if (slideIndex === 1) {
-            peopleDisplays[1].render();
-          }
-          if (slideIndex === 2) {
-            peopleDisplays[2].render();
-          }
         }
       },
 
