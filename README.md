@@ -6,6 +6,8 @@
 
 This was a project for Harvard's [Data Visualization course, CS 171](http://cs171.org). By [Neel Mehta](https://github.com/hathix), [Javier Cuan-Martinez](https://github.com/jcuanm), [Peter Youn](https://github.com/pyoun), and [Enrique Casas](https://github.com/enriquecasasjr).
 
+**The instructors awarded this project 1st place out of over 20 projects.**
+
 ## Project deliverables
 
 - [The live website](https://hathix.github.io/through-the-eyes-of-a-survivor/)
